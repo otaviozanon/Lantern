@@ -51,7 +51,7 @@ export function useLantern() {
     }));
   }, []);
 
-  const assignSetupDie = useCallback((slot: string, value: number) => {
+  const assignSetupDie = useCallback((slot: keyof GameState['assignedSetup'], value: number) => {
     setState(prev => ({
       ...prev,
       assignedSetup: { ...prev.assignedSetup, [slot]: value },
