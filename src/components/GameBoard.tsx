@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 import { Icon } from '@iconify/react';
 import { useGame } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useLanguage';
+import { ZONE_REQUIREMENTS } from '../constants/game';
 
 const ZONE_ICONS: Record<number, string> = {
   1: 'pixelarticons:dog', 2: 'pixelarticons:alien', 3: 'pixelarticons:building-community', 4: 'pixelarticons:skull',
@@ -11,11 +12,68 @@ const ZONE_ICONS: Record<number, string> = {
 };
 
 const ZONE_POSITIONS: Record<number, { x: string; y: string }> = {
-  1: { x: '15%', y: '88%' }, 2: { x: '35%', y: '75%' },
-  3: { x: '55%', y: '65%' }, 4: { x: '72%', y: '52%' },
-  5: { x: '55%', y: '40%' }, 6: { x: '35%', y: '28%' },
-  7: { x: '50%', y: '15%' }, 8: { x: '50%', y: '5%' },
+  1: { x: '12%', y: '88%' }, 2: { x: '28%', y: '72%' },
+  3: { x: '50%', y: '62%' }, 4: { x: '78%', y: '48%' },
+  5: { x: '58%', y: '36%' }, 6: { x: '32%', y: '24%' },
+  7: { x: '48%', y: '12%' }, 8: { x: '48%', y: '4%' },
 };
+
+function RequirementDice({ zone }: { zone: number }) {
+  const req = ZONE_REQUIREMENTS[zone];
+  if (!req) return null;
+
+  if (req.rule === 'bonfire') return null;
+
+  if (req.rule === 'fixed') {
+    const total = 6;
+    const faces: (number | '?')[] = [...req.fixed];
+    while (faces.length < total) faces.push('?');
+
+    return (
+      <div className="flex gap-[1px] mt-0.5">
+        {faces.map((face, i) => (
+          <div key={i} className={clsx(
+            'w-[14px] h-[16px] rounded-[1px] flex items-center justify-center text-[7px] font-mono font-bold',
+            face === '?' ? 'bg-white/5 text-lantern-parchment/15 border border-white/5' : 'bg-[#f5eedc]/30 text-lantern-parchment'
+          )}>
+            {face}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (req.rule === 'fullHouse') {
+    return (
+      <div className="flex gap-[1px] mt-0.5">
+        {[0, 1, 2].map(i => (
+          <div key={`a${i}`} className="w-[14px] h-[16px] rounded-[1px] flex items-center justify-center text-[6px] font-mono font-bold bg-lantern-gold/30 text-lantern-gold border border-lantern-gold/20">
+            ?
+          </div>
+        ))}
+        {[0, 1, 2].map(i => (
+          <div key={`b${i}`} className="w-[14px] h-[16px] rounded-[1px] flex items-center justify-center text-[6px] font-mono font-bold bg-lantern-bronze/30 text-lantern-bronze border border-lantern-bronze/20">
+            ?
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (req.rule === 'sextet') {
+    return (
+      <div className="flex gap-[1px] mt-0.5">
+        {[0, 1, 2, 3, 4, 5].map(i => (
+          <div key={i} className="w-[14px] h-[16px] rounded-[1px] flex items-center justify-center text-[6px] font-mono font-bold bg-lantern-ember/30 text-lantern-ember border border-lantern-ember/20">
+            =
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return null;
+}
 
 export const GameBoard: React.FC = () => {
   const { state } = useGame();
@@ -25,11 +83,10 @@ export const GameBoard: React.FC = () => {
 
   return (
     <div className="fixed inset-0 pt-16 pb-28 pointer-events-none">
-      <div className="relative w-full h-full max-w-lg mx-auto">
-        {/* Path */}
+      <div className="relative w-full h-full max-w-3xl mx-auto">
         <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
           <motion.path
-            d="M15% 88% Q25% 81% 35% 75% Q45% 69% 55% 65% Q63% 58% 72% 52% Q63% 46% 55% 40% Q45% 34% 35% 28% Q42% 21% 50% 15% L50% 5%"
+            d="M12% 88% Q20% 80% 28% 72% Q39% 67% 50% 62% Q64% 55% 78% 48% Q68% 42% 58% 36% Q45% 30% 32% 24% Q40% 18% 48% 12% L48% 4%"
             stroke="currentColor"
             strokeWidth="2.5"
             strokeDasharray="6 4"
@@ -55,10 +112,16 @@ export const GameBoard: React.FC = () => {
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{
                 opacity: isCleared ? 0.5 : 1,
-                scale: isActive ? 1.15 : isCleared ? 0.8 : 0.85,
+                scale: isActive ? 1.2 : isCleared ? 0.8 : 0.85,
               }}
               transition={{ delay: idx * 0.1, type: 'spring', stiffness: 200, damping: 20 }}
             >
+              <span className={clsx(
+                'text-[10px] font-mono font-bold leading-none',
+                isActive ? 'text-lantern-gold' : isCleared ? 'text-lantern-moss' : 'text-lantern-parchment/30'
+              )}>
+                {zone}
+              </span>
               <motion.div
                 animate={{
                   borderColor: isActive ? '#e8c34b' : isCleared ? '#5b9a4e' : 'rgba(212,197,169,0.1)',
@@ -68,7 +131,7 @@ export const GameBoard: React.FC = () => {
                 }}
                 transition={isActive ? { repeat: Infinity, duration: 2 } : {}}
                 className={clsx(
-                  'w-10 h-10 rounded-full flex items-center justify-center border transition-colors',
+                  'w-12 h-12 rounded-full flex items-center justify-center border transition-colors',
                   isActive
                     ? 'bg-lantern-bronze/20 shadow-lg'
                     : isCleared
@@ -82,15 +145,11 @@ export const GameBoard: React.FC = () => {
                 )} />
               </motion.div>
 
+              <RequirementDice zone={zone} />
+
               <span className={clsx(
-                'text-[9px] font-display font-bold tracking-wider uppercase',
-                isActive ? 'text-lantern-gold' : isCleared ? 'text-lantern-moss/60' : 'text-lantern-parchment/40'
-              )}>
-                {zone}
-              </span>
-              <span className={clsx(
-                'text-[7px] font-body leading-none text-center max-w-[55px]',
-                isActive ? 'text-lantern-parchment/70' : 'text-lantern-parchment/20'
+                'text-[7px] font-body leading-none text-center max-w-[60px]',
+                isActive ? 'text-lantern-parchment/60' : 'text-lantern-parchment/15'
               )}>
                 {t(`zone${zone}` as any)}
               </span>

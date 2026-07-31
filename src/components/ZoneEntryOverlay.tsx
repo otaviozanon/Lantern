@@ -14,7 +14,7 @@ export const ZoneEntryOverlay: React.FC = () => {
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: '100%', opacity: 0 }}
       transition={{ type: 'spring', stiffness: 200, damping: 26, mass: 0.8 }}
-      className="fixed bottom-0 left-0 right-0 z-[80] bg-lantern-dark/95 border-t border-lantern-bronze/20 rounded-t-3xl px-6 py-6 max-h-[65vh] overflow-y-auto scrollbar-hide"
+      className="fixed bottom-0 left-0 right-0 z-[80] border-t border-lantern-bronze/20 rounded-t-3xl px-6 py-6 max-h-[65vh] overflow-y-auto scrollbar-hide" style={{ background: 'rgba(13,10,5,0.95)' }}
     >
       <div className="flex flex-col items-center gap-5">
         <div className="w-12 h-1 bg-lantern-parchment/20 rounded-full" />

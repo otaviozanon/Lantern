@@ -33,7 +33,7 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onClose }) => 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[300] bg-lantern-dark/98 flex flex-col items-center justify-center p-6"
+      className="fixed inset-0 z-[300] flex flex-col items-center justify-center p-6" style={{ background: 'rgba(13,10,5,0.98)' }}
     >
       <button onClick={onClose} className="absolute top-4 right-4 text-lantern-parchment/40 hover:text-lantern-parchment">
         <Icon icon="pixelarticons:close" className="w-6 h-6" />

@@ -37,7 +37,7 @@ function App() {
       <LanguageToggle />
 
       {/* Top-left action buttons */}
-      <div className="fixed top-4 left-4 z-[300] flex gap-2">
+      <div className="fixed top-4 right-4 z-[300] flex gap-2">
         <button
           onClick={() => setShowRules(true)}
           className="px-3 py-1.5 rounded-full bg-lantern-bronze/20 border border-lantern-bronze/30 text-xs font-display font-bold text-lantern-parchment hover:bg-lantern-bronze/30 transition-all backdrop-blur-sm uppercase tracking-wider flex items-center gap-1.5"

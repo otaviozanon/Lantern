@@ -13,7 +13,7 @@ export const HUD: React.FC = () => {
   if (phase === 'SETUP' || phase === 'GAME_OVER' || phase === 'VICTORY') return null;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between pointer-events-none">
+    <header className="fixed top-0 left-0 right-0 z-50 px-6 pt-14 pb-4 flex items-center justify-between pointer-events-none">
       {/* Zone info */}
       <div className="flex flex-col">
         <span className="text-[10px] text-lantern-parchment/30 uppercase font-black tracking-[0.3em]">

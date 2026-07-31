@@ -16,7 +16,7 @@ export const BonfireOverlay: React.FC = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.3 } }}
-      className="fixed inset-0 z-[100] bg-lantern-dark/98 flex flex-col items-center justify-center gap-6 p-6 overflow-hidden"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 p-6 overflow-hidden" style={{ background: 'rgba(13,10,5,0.98)' }}
     >
       {/* Ambient flame particles */}
       {flameParticles.map(i => (

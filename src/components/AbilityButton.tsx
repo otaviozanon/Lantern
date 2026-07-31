@@ -60,8 +60,11 @@ export const AbilityButton: React.FC<AbilityButtonProps> = ({
       )}
 
       <Icon icon={icon} className="w-5 h-5 text-lantern-gold" />
-      <span className="text-xs font-display font-bold text-lantern-parchment tracking-wider">
+      <span className="text-xs font-display font-bold text-lantern-parchment tracking-wider" style={{ textWrap: 'balance' as any }}>
         {label}
+      </span>
+      <span className="text-[9px] text-lantern-parchment/35 text-center leading-tight max-w-[70px]" style={{ textWrap: 'balance' as any }}>
+        {description}
       </span>
       {preview && !isDisabled && (
         <motion.span

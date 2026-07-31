@@ -16,7 +16,7 @@ export const RulesModal: React.FC<RulesModalProps> = ({ onClose }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[300] bg-lantern-dark/98 overflow-y-auto py-8 px-4"
+      className="fixed inset-0 z-[300] overflow-y-auto py-8 px-4" style={{ background: 'rgba(13,10,5,0.98)' }}
     >
       <div className="max-w-lg mx-auto">
         <div className="flex items-center justify-between mb-6">
