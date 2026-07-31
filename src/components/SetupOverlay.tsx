@@ -17,6 +17,21 @@ const SETUP_SLOTS: { key: keyof GameState['assignedSetup']; labelKey: string }[]
   { key: 'scroll', labelKey: 'bonfireScroll' },
 ];
 
+const springs = {
+  bouncy: { type: 'spring' as const, stiffness: 400, damping: 10 },
+  snappy: { type: 'spring' as const, stiffness: 300, damping: 30 },
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
+};
+
+const itemAnim = {
+  hidden: { opacity: 0, y: 20, scale: 0.9 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: springs.snappy },
+};
+
 export const SetupOverlay: React.FC = () => {
   const { state, rollSetup, assignSetupDie, confirmSetup } = useGame();
   const { t } = useLanguage();
@@ -68,83 +83,114 @@ export const SetupOverlay: React.FC = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="fixed inset-0 z-[100] bg-lantern-dark/95 flex flex-col items-center justify-center gap-6 p-6"
+      exit={{ opacity: 0, transition: { duration: 0.2 } }}
+      className="fixed inset-0 z-[100] bg-lantern-dark/95 flex flex-col items-center justify-center gap-5 p-4"
     >
-      <div className="flex flex-col items-center gap-2">
-        <h1 className="text-3xl font-display font-black text-lantern-gold gold-shimmer tracking-[0.2em] uppercase">
+      {/* Title */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ ...springs.bouncy, delay: 0.1 }}
+        className="flex flex-col items-center gap-1"
+      >
+        <motion.h1
+          className="text-3xl font-display font-black text-lantern-gold gold-shimmer tracking-[0.2em] uppercase"
+          animate={{ textShadow: ['0 0 8px rgba(232,195,75,0.3)', '0 0 20px rgba(232,195,75,0.6)', '0 0 8px rgba(232,195,75,0.3)'] }}
+          transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
+        >
           {t('gameTitle')}
-        </h1>
+        </motion.h1>
         <p className="text-sm text-lantern-parchment/50 font-body italic">
           {t('assignDestiny')}
         </p>
-      </div>
+      </motion.div>
 
-      <div className="flex gap-3">
+      {/* Dice row */}
+      <motion.div variants={stagger} initial="hidden" animate="visible" className="flex gap-3">
         {state.dice.map((d, i) => {
           const assigned = assignedIndices.has(i);
           return (
-            <div key={i} className="relative">
+            <motion.div key={i} variants={itemAnim} className="relative">
               <DiceComponent
                 dice={d}
                 onClick={() => handleDieClick(i)}
                 className={clsx(
                   assigned && 'opacity-30 pointer-events-none',
-                  selectedDieIndex === i && 'ring-2 ring-lantern-gold'
+                  selectedDieIndex === i && '!ring-2 !ring-lantern-gold'
                 )}
               />
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
 
-      {sum < SETUP_REROLL_THRESHOLD && state.dice.length === 6 && (
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          onClick={rollSetup}
-          className="px-4 py-2 text-xs font-display font-bold text-lantern-ember border border-lantern-ember/30 rounded-full hover:bg-lantern-ember/10 transition-all uppercase tracking-[0.2em]"
-        >
-          {t('sumReroll', { sum, threshold: SETUP_REROLL_THRESHOLD })}
-        </motion.button>
-      )}
+      {/* Reroll button */}
+      <AnimatePresence>
+        {sum < SETUP_REROLL_THRESHOLD && state.dice.length === 6 && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={rollSetup}
+            className="px-4 py-2 text-xs font-display font-bold text-lantern-ember border border-lantern-ember/30 rounded-full hover:bg-lantern-ember/10 transition-colors uppercase tracking-[0.2em]"
+          >
+            {t('sumReroll', { sum, threshold: SETUP_REROLL_THRESHOLD })}
+          </motion.button>
+        )}
+      </AnimatePresence>
 
-      <div className="grid grid-cols-3 gap-3 max-w-xs w-full">
-        {SETUP_SLOTS.map(slot => (
+      {/* Slots grid */}
+      <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-3 gap-2 max-w-xs w-full">
+        {SETUP_SLOTS.map((slot, i) => (
           <motion.button
             key={slot.key}
+            variants={{ ...itemAnim, visible: { ...itemAnim.visible, transition: { ...springs.snappy, delay: 0.25 + i * 0.06 } } }}
+            whileHover={!allAssigned ? { scale: 1.05 } : undefined}
             whileTap={{ scale: 0.95 }}
             onClick={() => state.assignedSetup[slot.key] > 0 ? handleUndo(slot.key) : handleSlotClick(slot.key)}
             className={clsx(
-              'p-3 rounded-xl border text-center transition-all min-h-[70px] flex flex-col items-center justify-center gap-1',
+              'p-2.5 rounded-xl border text-center transition-colors min-h-[65px] flex flex-col items-center justify-center gap-0.5',
               state.assignedSetup[slot.key] > 0
-                ? 'bg-lantern-bronze/20 border-lantern-gold/50'
+                ? 'bg-lantern-bronze/20 border-lantern-gold/50 shadow-lg shadow-lantern-gold/5'
                 : selectedDieValue !== null
                 ? 'border-dashed border-lantern-parchment/20 hover:border-lantern-bronze/50 cursor-pointer'
                 : 'border-dashed border-lantern-parchment/10 opacity-50'
             )}
           >
-            <span className="text-[10px] font-display font-bold text-lantern-parchment/70 tracking-wider leading-tight">
+            <span className="text-[9px] font-display font-bold text-lantern-parchment/70 tracking-wider leading-tight">
               {t(slot.labelKey as any)}
             </span>
             {state.assignedSetup[slot.key] > 0 ? (
-              <span className="text-lg font-mono font-bold text-lantern-gold">
+              <motion.span
+                key={state.assignedSetup[slot.key]}
+                initial={{ scale: 0, rotate: -90 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={springs.bouncy}
+                className="text-lg font-mono font-bold text-lantern-gold"
+              >
                 {state.assignedSetup[slot.key]}
-              </span>
+              </motion.span>
             ) : (
               <span className="text-lg text-lantern-parchment/20">—</span>
             )}
           </motion.button>
         ))}
-      </div>
+      </motion.div>
 
+      {/* Begin button */}
       <AnimatePresence>
         {allAssigned && (
           <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 30, scale: 0.8 }}
+            whileHover={{ scale: 1.06, boxShadow: '0 0 30px rgba(232,195,75,0.3)' }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ ...springs.bouncy }}
             onClick={confirmSetup}
-            className="bg-lantern-gold text-lantern-dark px-12 py-3 font-display font-black rounded-full hover:bg-white active:scale-95 transition-all shadow-2xl text-sm uppercase tracking-[0.3em]"
+            className="bg-lantern-gold text-lantern-dark px-10 py-3 font-display font-black rounded-full transition-all shadow-xl text-sm uppercase tracking-[0.3em]"
           >
             {t('beginJourney')}
           </motion.button>

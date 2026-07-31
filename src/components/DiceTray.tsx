@@ -9,33 +9,69 @@ interface DiceTrayProps {
   matchedIndices?: Set<number>;
 }
 
+const container = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0.05,
+    },
+  },
+  exit: {
+    transition: {
+      staggerChildren: 0.03,
+      staggerDirection: -1,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: -24, rotate: -15, scale: 0.7 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotate: 0,
+    scale: 1,
+    transition: { type: 'spring', stiffness: 300, damping: 25 },
+  },
+  exit: {
+    opacity: 0,
+    y: 20,
+    scale: 0.5,
+    transition: { duration: 0.15 },
+  },
+};
+
 export const DiceTray: React.FC<DiceTrayProps> = ({ dice, onDiceClick, matchedIndices }) => {
   return (
-    <div className="flex flex-wrap justify-center gap-3 p-4">
-      <AnimatePresence mode="popLayout">
-        {dice.map((d, idx) => (
-          <motion.div
-            key={d.id}
-            layout
-            initial={{ opacity: 0, y: -20, rotate: Math.random() * 20 - 10 }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              rotate: 0,
-              boxShadow: matchedIndices?.has(idx)
-                ? '0 0 12px rgba(91, 154, 78, 0.6)'
-                : 'none',
-            }}
-            exit={{ opacity: 0, scale: 0.5 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 20, delay: idx * 0.05 }}
-          >
-            <DiceComponent
-              dice={d}
-              onClick={() => onDiceClick(d.id)}
-            />
-          </motion.div>
-        ))}
-      </AnimatePresence>
-    </div>
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="flex flex-wrap justify-center gap-3 p-4 min-h-[80px]"
+    >
+      {dice.map((d, idx) => (
+        <motion.div
+          key={d.id}
+          variants={item}
+          layout
+          animate={{
+            filter: matchedIndices?.has(idx)
+              ? 'drop-shadow(0 0 8px rgba(91, 154, 78, 0.8))'
+              : 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))',
+          }}
+          transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+        >
+          <DiceComponent
+            dice={d}
+            onClick={() => onDiceClick(d.id)}
+          />
+        </motion.div>
+      ))}
+      {dice.length === 0 && (
+        <div className="w-14 h-14 md:w-16 md:h-16 rounded-lg border-2 border-dashed border-lantern-parchment/10 animate-pulse" />
+      )}
+    </motion.div>
   );
 };
