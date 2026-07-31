@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@iconify-json/pixelarticons": "^1.2.7",
+    "@iconify/react": "^6.0.2",
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.2",
     "lucide-react": "^0.395.0",

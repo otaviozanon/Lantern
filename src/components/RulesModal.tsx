@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { X } from 'lucide-react';
+import { Icon } from '@iconify/react';
 import { useLanguage } from '../hooks/useLanguage';
 import { ZONE_NAMES } from '../constants/game';
 
@@ -24,7 +24,7 @@ export const RulesModal: React.FC<RulesModalProps> = ({ onClose }) => {
             {t('rulesTitle')}
           </h2>
           <button onClick={onClose} className="text-lantern-parchment/40 hover:text-lantern-parchment">
-            <X className="w-6 h-6" />
+            <Icon icon="pixelarticons:close" className="w-6 h-6" />
           </button>
         </div>
 

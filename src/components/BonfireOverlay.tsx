@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Flame } from 'lucide-react';
+import { Icon } from '@iconify/react';
 import { useGame } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useLanguage';
 
@@ -51,7 +51,7 @@ export const BonfireOverlay: React.FC = () => {
         }}
         transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
       >
-        <Flame className="w-20 h-20 text-lantern-ember" />
+        <Icon icon="pixelarticons:fire" className="w-20 h-20 text-lantern-ember" />
       </motion.div>
 
       <motion.h2

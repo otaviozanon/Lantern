@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Icon } from '@iconify/react';
 import { useLanguage } from '../hooks/useLanguage';
 import { TranslationKey } from '../i18n/translations';
 
@@ -36,7 +36,7 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onClose }) => 
       className="fixed inset-0 z-[300] bg-lantern-dark/98 flex flex-col items-center justify-center p-6"
     >
       <button onClick={onClose} className="absolute top-4 right-4 text-lantern-parchment/40 hover:text-lantern-parchment">
-        <X className="w-6 h-6" />
+        <Icon icon="pixelarticons:close" className="w-6 h-6" />
       </button>
 
       <div className="flex flex-col items-center gap-6 max-w-md text-center">
@@ -68,7 +68,7 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onClose }) => 
             disabled={step === 0}
             className="p-2 rounded-full border border-lantern-parchment/20 text-lantern-parchment/60 hover:text-lantern-parchment disabled:opacity-20 disabled:cursor-not-allowed"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <Icon icon="pixelarticons:chevron-left" className="w-5 h-5" />
           </button>
           <button
             onClick={next}

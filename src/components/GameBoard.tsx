@@ -1,13 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { clsx } from 'clsx';
-import { PawPrint, Ghost, Building2, Skull, Flame, Bug, TowerControl, Swords } from 'lucide-react';
+import { Icon } from '@iconify/react';
 import { useGame } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useLanguage';
 
-const ZONE_ICONS: Record<number, React.ElementType> = {
-  1: PawPrint, 2: Ghost, 3: Building2, 4: Skull,
-  5: Flame, 6: Bug, 7: TowerControl, 8: Swords,
+const ZONE_ICONS: Record<number, string> = {
+  1: 'pixelarticons:dog', 2: 'pixelarticons:alien', 3: 'pixelarticons:building-community', 4: 'pixelarticons:skull',
+  5: 'pixelarticons:fire', 6: 'pixelarticons:bug', 7: 'pixelarticons:castle', 8: 'pixelarticons:sync',
 };
 
 const ZONE_POSITIONS: Record<number, { x: string; y: string }> = {
@@ -42,7 +42,7 @@ export const GameBoard: React.FC = () => {
         </svg>
 
         {Array.from({ length: 8 }, (_, i) => i + 1).map((zone, idx) => {
-          const Icon = ZONE_ICONS[zone] || Skull;
+          const icon = ZONE_ICONS[zone] || 'pixelarticons:skull';
           const pos = ZONE_POSITIONS[zone];
           const isCleared = clearedZones[zone];
           const isActive = currentZone === zone;
@@ -76,7 +76,7 @@ export const GameBoard: React.FC = () => {
                     : 'bg-lantern-dark/50'
                 )}
               >
-                <Icon className={clsx(
+                <Icon icon={icon} className={clsx(
                   'w-5 h-5',
                   isActive ? 'text-lantern-gold' : isCleared ? 'text-lantern-moss' : 'text-lantern-parchment/30'
                 )} />

@@ -1,6 +1,6 @@
 import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { BookOpen, GraduationCap } from 'lucide-react';
+import { Icon } from '@iconify/react';
 import { useGame } from './hooks/useGame';
 import { useLanguage } from './hooks/useLanguage';
 import { GameBoard } from './components/GameBoard';
@@ -42,14 +42,14 @@ function App() {
           onClick={() => setShowRules(true)}
           className="px-3 py-1.5 rounded-full bg-lantern-bronze/20 border border-lantern-bronze/30 text-xs font-display font-bold text-lantern-parchment hover:bg-lantern-bronze/30 transition-all backdrop-blur-sm uppercase tracking-wider flex items-center gap-1.5"
         >
-          <BookOpen className="w-3.5 h-3.5" />
+          <Icon icon="pixelarticons:book-open" className="w-3.5 h-3.5" />
           {t('rules')}
         </button>
         <button
           onClick={() => setShowTutorial(true)}
           className="px-3 py-1.5 rounded-full bg-lantern-gold/20 border border-lantern-gold/30 text-xs font-display font-bold text-lantern-gold hover:bg-lantern-gold/30 transition-all backdrop-blur-sm uppercase tracking-wider flex items-center gap-1.5"
         >
-          <GraduationCap className="w-3.5 h-3.5" />
+          <Icon icon="pixelarticons:teach" className="w-3.5 h-3.5" />
           {t('tutorial')}
         </button>
       </div>

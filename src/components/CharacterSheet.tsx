@@ -1,12 +1,12 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sword, Swords, Wand2, Shield, BookOpen } from 'lucide-react';
+import { Icon } from '@iconify/react';
 import { useGame } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useLanguage';
 import { EXPERIENCE_LINES } from '../constants/game';
 
-const ABILITY_ICONS: Record<string, React.ElementType> = {
-  criticalHit: Sword, counterAttack: Swords, magicSpell: Wand2, constitution: Shield,
+const ABILITY_ICONS: Record<string, string> = {
+  criticalHit: 'pixelarticons:sword', counterAttack: 'pixelarticons:sync', magicSpell: 'pixelarticons:magic-edit', constitution: 'pixelarticons:shield',
 };
 
 export const CharacterSheet: React.FC = () => {
@@ -38,7 +38,7 @@ export const CharacterSheet: React.FC = () => {
         <div className="flex items-stretch gap-3 overflow-x-auto scrollbar-hide min-w-0">
           {(['criticalHit', 'counterAttack', 'magicSpell', 'constitution'] as const).map((key, idx) => {
             const a = abilities[key];
-            const Icon = ABILITY_ICONS[key] || Sword;
+            const icon = ABILITY_ICONS[key] || 'pixelarticons:sword';
             return (
               <motion.div
                 key={key}
@@ -47,7 +47,7 @@ export const CharacterSheet: React.FC = () => {
                 transition={{ delay: 0.2 + idx * 0.05 }}
                 className="flex-1 flex flex-col items-center gap-1 min-w-0"
               >
-                <Icon className="w-4 h-4 text-lantern-bronze" />
+                <Icon icon={icon} className="w-4 h-4 text-lantern-bronze" />
                 <span className="text-[9px] font-display font-bold text-lantern-parchment/60 tracking-wider text-center leading-tight">
                   {t(key)}
                 </span>
@@ -77,7 +77,7 @@ export const CharacterSheet: React.FC = () => {
             transition={{ delay: 0.4 }}
             className="w-24 flex-none flex flex-col items-center gap-1 border-l border-lantern-bronze/10 pl-3"
           >
-            <BookOpen className="w-4 h-4 text-lantern-gold" />
+            <Icon icon="pixelarticons:book-open" className="w-4 h-4 text-lantern-gold" />
             <span className="text-[9px] font-display font-bold text-lantern-parchment/60 tracking-wider">{t('xp')}</span>
             <div className="flex flex-col gap-0.5">
               {experienceLines.map((filled, lineIdx) => (

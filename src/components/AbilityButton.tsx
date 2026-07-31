@@ -1,14 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { clsx } from 'clsx';
-import { Swords, Sword, Wand2, Shield } from 'lucide-react';
+import { Icon } from '@iconify/react';
 import { AbilityName } from '../types/game';
 
-const ICON_MAP: Record<string, React.ElementType> = {
-  criticalHit: Sword,
-  counterAttack: Swords,
-  magicSpell: Wand2,
-  constitution: Shield,
+const ICON_MAP: Record<string, string> = {
+  criticalHit: 'pixelarticons:sword',
+  counterAttack: 'pixelarticons:sync',
+  magicSpell: 'pixelarticons:magic-edit',
+  constitution: 'pixelarticons:shield',
 };
 
 interface AbilityButtonProps {
@@ -32,7 +32,7 @@ export const AbilityButton: React.FC<AbilityButtonProps> = ({
   disabled,
   onClick,
 }) => {
-  const Icon = ICON_MAP[name] || Sword;
+  const icon = ICON_MAP[name] || 'pixelarticons:sword';
   const isDepleted = available <= 0;
   const isDisabled = disabled || isDepleted;
 
@@ -59,7 +59,7 @@ export const AbilityButton: React.FC<AbilityButtonProps> = ({
         />
       )}
 
-      <Icon className="w-5 h-5 text-lantern-gold" />
+      <Icon icon={icon} className="w-5 h-5 text-lantern-gold" />
       <span className="text-xs font-display font-bold text-lantern-parchment tracking-wider">
         {label}
       </span>

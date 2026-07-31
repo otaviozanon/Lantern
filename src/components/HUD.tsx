@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGame } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useLanguage';
-import { Flame } from 'lucide-react';
+import { Icon } from '@iconify/react';
 
 export const HUD: React.FC = () => {
   const { state } = useGame();
@@ -57,7 +57,7 @@ export const HUD: React.FC = () => {
               exit={{ scale: 0, rotate: 45 }}
               transition={{ type: 'spring', stiffness: 400, damping: 10 }}
             >
-              <Flame className="w-5 h-5 text-lantern-ember animate-pulse" />
+              <Icon icon="pixelarticons:fire" className="w-5 h-5 text-lantern-ember animate-pulse" />
             </motion.div>
           )}
         </AnimatePresence>
