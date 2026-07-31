@@ -1,10 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useGame } from '../hooks/useGame';
+import { useLanguage } from '../hooks/useLanguage';
 import { getScore, getTitle } from '../utils/gameUtils';
 
 export const ResultOverlay: React.FC = () => {
   const { state, restart } = useGame();
+  const { t } = useLanguage();
   if (state.phase !== 'GAME_OVER' && state.phase !== 'VICTORY') return null;
 
   const score = getScore(state);
@@ -20,16 +22,16 @@ export const ResultOverlay: React.FC = () => {
     >
       <div className="flex flex-col items-center gap-2 text-center">
         <span className="text-[10px] text-lantern-parchment/20 uppercase font-black tracking-[0.4em]">
-          {isVictory ? 'Victory' : 'Game Over'}
+          {isVictory ? t('victory') : t('gameOver')}
         </span>
         <h2 className="text-3xl md:text-5xl font-display font-black gold-shimmer uppercase text-center px-4">
-          {isVictory ? 'The Dragon is Defeated!' : 'Darkness Consumes the Fortress'}
+          {isVictory ? t('dragonDefeated') : t('darknessConsumes')}
         </h2>
       </div>
 
       <div className="flex flex-col items-center gap-1">
         <span className="text-[10px] text-lantern-parchment/30 uppercase font-black tracking-[0.3em]">
-          Adventure Score
+          {t('adventureScore')}
         </span>
         <span className="text-4xl font-mono font-bold text-lantern-gold">{score}</span>
         <span className="text-sm font-body text-lantern-parchment/60 italic">{title}</span>
@@ -43,7 +45,7 @@ export const ResultOverlay: React.FC = () => {
         onClick={restart}
         className="bg-lantern-gold text-lantern-dark px-12 py-4 font-display font-black rounded-full hover:bg-white active:scale-95 transition-all shadow-2xl text-sm uppercase tracking-[0.3em] cursor-pointer"
       >
-        New Adventure
+        {t('newAdventure')}
       </motion.button>
     </motion.div>
   );

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { clsx } from 'clsx';
 import { PawPrint, Ghost, Building2, Skull, Flame, Bug, TowerControl, Swords } from 'lucide-react';
 import { useGame } from '../hooks/useGame';
-import { ZONE_NAMES } from '../constants/game';
+import { useLanguage } from '../hooks/useLanguage';
 
 const ZONE_ICONS: Record<number, React.ElementType> = {
   1: PawPrint,
@@ -29,6 +29,7 @@ const ZONE_POSITIONS: Record<number, { x: string; y: string }> = {
 
 export const GameBoard: React.FC = () => {
   const { state } = useGame();
+  const { t } = useLanguage();
   const { phase, currentZone, clearedZones } = state;
   if (phase === 'SETUP' || phase === 'GAME_OVER' || phase === 'VICTORY') return null;
 
@@ -88,7 +89,7 @@ export const GameBoard: React.FC = () => {
                 'text-[8px] font-body leading-none text-center max-w-[60px]',
                 isActive ? 'text-lantern-parchment/70' : 'text-lantern-parchment/20'
               )}>
-                {ZONE_NAMES[zone]}
+                {t(`zone${zone}` as any)}
               </span>
             </motion.div>
           );

@@ -2,7 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Sword, Swords, Wand2, Shield, BookOpen } from 'lucide-react';
 import { useGame } from '../hooks/useGame';
-import { ABILITY_LABELS, EXPERIENCE_LINES } from '../constants/game';
+import { useLanguage } from '../hooks/useLanguage';
+import { EXPERIENCE_LINES } from '../constants/game';
 
 const ABILITY_ICONS: Record<string, React.ElementType> = {
   criticalHit: Sword,
@@ -13,6 +14,7 @@ const ABILITY_ICONS: Record<string, React.ElementType> = {
 
 export const CharacterSheet: React.FC = () => {
   const { state } = useGame();
+  const { t } = useLanguage();
   const { phase, abilities, experience, experienceLinesCompleted } = state;
   if (phase === 'SETUP' || phase === 'GAME_OVER' || phase === 'VICTORY') return null;
 
@@ -39,7 +41,7 @@ export const CharacterSheet: React.FC = () => {
               <div key={key} className="flex-1 flex flex-col items-center gap-1 min-w-0">
                 <Icon className="w-4 h-4 text-lantern-bronze" />
                 <span className="text-[9px] font-display font-bold text-lantern-parchment/60 tracking-wider text-center leading-tight">
-                  {ABILITY_LABELS[key]}
+                  {t(key)}
                 </span>
                 <div className="flex flex-wrap justify-center gap-0.5 max-w-[80px]">
                   {Array.from({ length: a.total }).map((_, i) => (
@@ -63,7 +65,7 @@ export const CharacterSheet: React.FC = () => {
           <div className="w-24 flex-none flex flex-col items-center gap-1 border-l border-lantern-bronze/10 pl-3">
             <BookOpen className="w-4 h-4 text-lantern-gold" />
             <span className="text-[9px] font-display font-bold text-lantern-parchment/60 tracking-wider">
-              XP
+              {t('xp')}
             </span>
             <div className="flex flex-col gap-0.5">
               {experienceLines.map((filled, lineIdx) => (

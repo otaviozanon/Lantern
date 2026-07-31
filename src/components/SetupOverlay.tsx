@@ -2,22 +2,24 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { clsx } from 'clsx';
 import { useGame } from '../hooks/useGame';
+import { useLanguage } from '../hooks/useLanguage';
 import { DiceComponent } from './Dice';
 import { diceSum } from '../utils/diceUtils';
 import { SETUP_REROLL_THRESHOLD } from '../constants/game';
 import { GameState } from '../types/game';
 
-const SETUP_SLOTS: { key: keyof GameState['assignedSetup']; label: string }[] = [
-  { key: 'criticalHit', label: 'Critical Hit' },
-  { key: 'counterAttack', label: 'Counter-Attack' },
-  { key: 'magicSpell', label: 'Magic Spell' },
-  { key: 'constitution', label: 'Constitution' },
-  { key: 'experience', label: 'Experience' },
-  { key: 'scroll', label: 'Bonfire Scroll' },
+const SETUP_SLOTS: { key: keyof GameState['assignedSetup']; labelKey: string }[] = [
+  { key: 'criticalHit', labelKey: 'criticalHit' },
+  { key: 'counterAttack', labelKey: 'counterAttack' },
+  { key: 'magicSpell', labelKey: 'magicSpell' },
+  { key: 'constitution', labelKey: 'constitution' },
+  { key: 'experience', labelKey: 'experience' },
+  { key: 'scroll', labelKey: 'bonfireScroll' },
 ];
 
 export const SetupOverlay: React.FC = () => {
   const { state, rollSetup, assignSetupDie, confirmSetup } = useGame();
+  const { t } = useLanguage();
   const [selectedDieValue, setSelectedDieValue] = useState<number | null>(null);
   const [selectedDieIndex, setSelectedDieIndex] = useState<number | null>(null);
   const [assignedIndices, setAssignedIndices] = useState<Set<number>>(new Set());
@@ -70,10 +72,10 @@ export const SetupOverlay: React.FC = () => {
     >
       <div className="flex flex-col items-center gap-2">
         <h1 className="text-3xl font-display font-black text-lantern-gold gold-shimmer tracking-[0.2em] uppercase">
-          Lantern
+          {t('gameTitle')}
         </h1>
         <p className="text-sm text-lantern-parchment/50 font-body italic">
-          Assign your destiny
+          {t('assignDestiny')}
         </p>
       </div>
 
@@ -102,7 +104,7 @@ export const SetupOverlay: React.FC = () => {
           onClick={rollSetup}
           className="px-4 py-2 text-xs font-display font-bold text-lantern-ember border border-lantern-ember/30 rounded-full hover:bg-lantern-ember/10 transition-all uppercase tracking-[0.2em]"
         >
-          Sum {sum} &lt; {SETUP_REROLL_THRESHOLD} — Reroll
+          {t('sumReroll', { sum, threshold: SETUP_REROLL_THRESHOLD })}
         </motion.button>
       )}
 
@@ -122,7 +124,7 @@ export const SetupOverlay: React.FC = () => {
             )}
           >
             <span className="text-[10px] font-display font-bold text-lantern-parchment/70 tracking-wider leading-tight">
-              {slot.label}
+              {t(slot.labelKey as any)}
             </span>
             {state.assignedSetup[slot.key] > 0 ? (
               <span className="text-lg font-mono font-bold text-lantern-gold">
@@ -144,7 +146,7 @@ export const SetupOverlay: React.FC = () => {
             onClick={confirmSetup}
             className="bg-lantern-gold text-lantern-dark px-12 py-3 font-display font-black rounded-full hover:bg-white active:scale-95 transition-all shadow-2xl text-sm uppercase tracking-[0.3em]"
           >
-            Begin Journey
+            {t('beginJourney')}
           </motion.button>
         )}
       </AnimatePresence>

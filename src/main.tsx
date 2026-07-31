@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import { GameProvider } from './hooks/useGame'
+import { LanguageProvider } from './hooks/useLanguage'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <GameProvider>
-      <App />
-    </GameProvider>
+    <LanguageProvider>
+      <GameProvider>
+        <App />
+      </GameProvider>
+    </LanguageProvider>
   </React.StrictMode>,
 )

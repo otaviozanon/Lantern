@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useGame } from '../hooks/useGame';
-import { ZONE_NAMES, ZONE_REQUIREMENTS, ABILITY_DESCRIPTIONS } from '../constants/game';
+import { useLanguage } from '../hooks/useLanguage';
+import { ABILITY_DESCRIPTIONS } from '../constants/game';
 import { DiceTray } from './DiceTray';
 import { AbilityButton } from './AbilityButton';
 import { checkZoneMatch, getMatchProgress } from '../utils/gameUtils';
@@ -9,6 +10,7 @@ import { oppositeFace } from '../utils/diceUtils';
 
 export const FightOverlay: React.FC = () => {
   const { state, toggleDiceSelection, useCriticalHit, useCounterAttack, useMagicSpell, useConstitution, confirmCombo } = useGame();
+  const { t } = useLanguage();
   if (state.phase !== 'FIGHTING') return null;
 
   const values = state.dice.map(d => d.value);
@@ -31,7 +33,7 @@ export const FightOverlay: React.FC = () => {
 
         <div className="w-full max-w-xs">
           <div className="flex justify-between text-[10px] font-mono text-lantern-parchment/40 mb-1">
-            <span>Match Progress</span>
+            <span>{t('matchProgress')}</span>
             <span>{progress.matched}/{progress.required}</span>
           </div>
           <div className="h-1.5 bg-lantern-dark rounded-full overflow-hidden border border-lantern-parchment/10">
@@ -56,7 +58,7 @@ export const FightOverlay: React.FC = () => {
               {key === 'counterAttack' ? (
                 <div className="flex flex-col items-center gap-1">
                   <span className="text-[10px] font-display font-bold text-lantern-parchment/70 tracking-wider">
-                    Counter
+                    {t('counter')}
                   </span>
                   <div className="flex gap-1">
                     <motion.button
@@ -93,7 +95,7 @@ export const FightOverlay: React.FC = () => {
                 <AbilityButton
                   key={key}
                   name={key}
-                  label={key === 'criticalHit' ? 'Crit' : key === 'magicSpell' ? 'Spell' : 'Endure'}
+                  label={key === 'criticalHit' ? t('crit') : key === 'magicSpell' ? t('spell') : t('endure')}
                   description={ABILITY_DESCRIPTIONS[key]}
                   available={state.abilities[key].available}
                   total={state.abilities[key].total}
@@ -117,7 +119,7 @@ export const FightOverlay: React.FC = () => {
             onClick={confirmCombo}
             className="bg-lantern-moss text-lantern-dark px-10 py-2.5 font-display font-black rounded-full hover:bg-green-400 transition-all shadow-lg text-sm uppercase tracking-[0.2em]"
           >
-            Zone Cleared!
+            {t('zoneClearedButton')}
           </motion.button>
         )}
       </div>
