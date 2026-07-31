@@ -24,10 +24,9 @@ export const FightOverlay: React.FC = () => {
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: '100%', opacity: 0 }}
       transition={{ type: 'spring', stiffness: 220, damping: 26, mass: 0.8 }}
-      className="fixed bottom-0 left-0 right-0 z-[80] border-t border-lantern-bronze/20 rounded-t-3xl px-4 py-4 max-h-[55vh] overflow-y-auto scrollbar-hide" style={{ background: 'rgba(13,10,5,0.95)' }}
+      className="fixed bottom-[88px] left-0 right-0 z-40 border-t border-lantern-bronze/20 px-3 py-2.5 max-h-[50vh] overflow-y-auto scrollbar-hide" style={{ background: 'rgba(13,10,5,0.95)' }}
     >
       <div className="flex flex-col items-center gap-3">
-        <div className="w-12 h-1 bg-lantern-parchment/20 rounded-full" />
 
         {/* Match progress */}
         <motion.div

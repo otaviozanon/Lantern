@@ -81,8 +81,12 @@ export const GameBoard: React.FC = () => {
   const { phase, currentZone, clearedZones } = state;
   if (phase === 'SETUP' || phase === 'GAME_OVER' || phase === 'VICTORY') return null;
 
+  const visibleZones = Array.from({ length: 8 }, (_, i) => i + 1).filter(z =>
+    z <= currentZone + 1 || clearedZones[z]
+  );
+
   return (
-    <div className="fixed inset-0 pt-16 pb-28 pointer-events-none">
+    <div className="fixed inset-0 pt-16 pointer-events-none" style={{ paddingBottom: '88px' }}>
       <div className="relative w-full h-full max-w-3xl mx-auto">
         <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
           <motion.path
@@ -98,11 +102,12 @@ export const GameBoard: React.FC = () => {
           />
         </svg>
 
-        {Array.from({ length: 8 }, (_, i) => i + 1).map((zone, idx) => {
+        {visibleZones.map((zone, idx) => {
           const icon = ZONE_ICONS[zone] || 'pixelarticons:skull';
           const pos = ZONE_POSITIONS[zone];
           const isCleared = clearedZones[zone];
           const isActive = currentZone === zone;
+          const isNext = zone === currentZone + 1;
 
           return (
             <motion.div
@@ -151,7 +156,7 @@ export const GameBoard: React.FC = () => {
                 'text-[7px] font-body leading-none text-center max-w-[60px]',
                 isActive ? 'text-lantern-parchment/60' : 'text-lantern-parchment/15'
               )}>
-                {t(`zone${zone}` as any)}
+                {isNext && !clearedZones[zone] ? '???' : t(`zone${zone}` as any)}
               </span>
             </motion.div>
           );

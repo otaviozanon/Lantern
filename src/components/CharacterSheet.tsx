@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { clsx } from 'clsx';
 import { Icon } from '@iconify/react';
 import { useGame } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useLanguage';
@@ -32,7 +33,7 @@ export const CharacterSheet: React.FC = () => {
   })();
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 z-40 p-2.5">
+    <footer className="fixed bottom-0 left-0 right-0 z-30 p-2.5">
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

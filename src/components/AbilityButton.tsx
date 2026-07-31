@@ -43,7 +43,7 @@ export const AbilityButton: React.FC<AbilityButtonProps> = ({
       onClick={onClick}
       disabled={isDisabled}
       className={clsx(
-        'flex flex-col items-center gap-1 p-3 rounded-xl border transition-colors min-w-[80px] relative overflow-hidden',
+        'flex flex-col items-center gap-1 p-2 rounded-xl border transition-colors min-w-[60px] relative overflow-hidden',
         isDisabled
           ? 'opacity-20 cursor-not-allowed border-white/5 bg-white/5'
           : 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-lantern-bronze/50'
@@ -59,7 +59,7 @@ export const AbilityButton: React.FC<AbilityButtonProps> = ({
         />
       )}
 
-      <Icon icon={icon} className="w-5 h-5 text-lantern-gold" />
+      <Icon icon={icon} className="w-4 h-4 text-lantern-gold" />
       <span className="text-xs font-display font-bold text-lantern-parchment tracking-wider" style={{ textWrap: 'balance' as any }}>
         {label}
       </span>
