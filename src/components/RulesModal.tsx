@@ -2,8 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Icon } from '@iconify/react';
 import { useLanguage } from '../hooks/useLanguage';
-import { ZONE_NAMES } from '../constants/game';
-
 interface RulesModalProps {
   onClose: () => void;
 }

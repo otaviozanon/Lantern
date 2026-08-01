@@ -30,8 +30,6 @@ function App() {
     }
   }, [state.phase, state.dice.length, rollSetup]);
 
-  console.log('[App] render phase:', state.phase, 'zone:', state.currentZone, 'pending:', state.pendingSkillBonuses);
-
   return (
     <div className="h-screen w-screen bg-lantern-dark flex flex-col font-pixel selection:bg-lantern-gold/30 overflow-hidden text-lantern-parchment">
       <LanguageToggle />

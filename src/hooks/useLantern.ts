@@ -1,10 +1,8 @@
 import { useState, useCallback } from 'react';
-import { GameState, GamePhase, Dice, StatKey, AbilityName } from '../types/game';
-import { MAX_CIRCLES, SETUP_REROLL_THRESHOLD, EXPERIENCE_LINES } from '../constants/game';
+import { GameState, GamePhase, StatKey } from '../types/game';
+import { MAX_CIRCLES, SETUP_REROLL_THRESHOLD } from '../constants/game';
 import { rollDice, oppositeFace, adjustValue, diceSum } from '../utils/diceUtils';
 import { checkZoneMatch, getExperienceLinesCompleted, getScore, getTitle } from '../utils/gameUtils';
-
-const ABILITY_NAMES: AbilityName[] = ['criticalHit', 'counterAttack', 'magicSpell'];
 
 function createInitialState(): GameState {
   return {
@@ -31,13 +29,6 @@ function createInitialState(): GameState {
 
 export function useLantern() {
   const [state, setState] = useState<GameState>(createInitialState);
-
-  const gainExperience = useCallback((amount: number) => {
-    setState(prev => {
-      const newExp = Math.min(prev.experience + amount, 12);
-      return { ...prev, experience: newExp };
-    });
-  }, []);
 
   const rollSetup = useCallback(() => {
     const dice = rollDice(6);
@@ -80,13 +71,11 @@ export function useLantern() {
 
   const enterZone = useCallback(() => {
     setState(prev => {
-      console.log('[enterZone] zone:', prev.currentZone, 'experience:', prev.experience, 'pending:', prev.pendingSkillBonuses);
       const newDice = rollDice(6);
       const onesCount = newDice.filter(d => d.value === 1).length;
       const newExp = prev.experience + onesCount;
 
       const match = checkZoneMatch(newDice.map(d => d.value), prev.currentZone);
-      console.log('[enterZone] dice:', newDice.map(d => d.value), 'ones:', onesCount, 'match:', match);
 
       const hasCircles =
         prev.abilities.criticalHit.available > 0 ||
@@ -104,7 +93,6 @@ export function useLantern() {
       const linesBefore = getExperienceLinesCompleted(prev.experience);
       const linesAfter = getExperienceLinesCompleted(newExp);
 
-      console.log('[enterZone] newPhase:', newPhase, 'newExp:', newExp, 'linesBefore:', linesBefore, 'linesAfter:', linesAfter);
       return {
         ...prev,
         dice: newDice,
@@ -276,22 +264,18 @@ export function useLantern() {
     setState(prev => {
       const linesNow = getExperienceLinesCompleted(prev.experience);
       const newBonuses = Math.max(0, linesNow - prev.experienceLinesCompleted);
-      console.log('[confirmCombo] experience:', prev.experience, 'linesNow:', linesNow, 'prevLines:', prev.experienceLinesCompleted, 'newBonuses:', newBonuses, 'pendingBefore:', prev.pendingSkillBonuses);
-      const result = {
+      return {
         ...prev,
         experienceLinesCompleted: linesNow,
         pendingSkillBonuses: prev.pendingSkillBonuses + newBonuses,
-        phase: prev.currentZone === 8 ? 'VICTORY' : 'ZONE_EXIT',
+        phase: (prev.currentZone === 8 ? 'VICTORY' : 'ZONE_EXIT') as GamePhase,
         winner: prev.currentZone === 8 ? true : prev.winner,
       };
-      console.log('[confirmCombo] RETURN phase:', result.phase, 'zone:', result.currentZone);
-      return result;
     });
   }, []);
 
   const exitZone = useCallback((bonusTarget: StatKey | null) => {
     setState(prev => {
-      console.log('[exitZone] bonusTarget:', bonusTarget, 'zone:', prev.currentZone, 'pending:', prev.pendingSkillBonuses, 'experience:', prev.experience);
       const newCleared = [...prev.clearedZones];
       newCleared[prev.currentZone] = true;
 
@@ -321,7 +305,6 @@ export function useLantern() {
         if (newPending === 0) {
           const nextZone = Math.min(prev.currentZone + 1, 8);
           const isBonfire = nextZone === 5;
-          console.log('[exitZone] bonus->nextZone:', nextZone, 'isBonfire:', isBonfire);
           return {
             ...prev,
             clearedZones: newCleared,
@@ -344,7 +327,6 @@ export function useLantern() {
 
       if (newPending === 0) {
         if (prev.currentZone === 8) {
-          console.log('[exitZone] victory!');
           return {
             ...prev,
             clearedZones: newCleared,
@@ -354,7 +336,6 @@ export function useLantern() {
         }
         const nextZone = Math.min(prev.currentZone + 1, 8);
         const isBonfire = nextZone === 5;
-        console.log('[exitZone] no-bonus->nextZone:', nextZone, 'isBonfire:', isBonfire);
         return {
           ...prev,
           clearedZones: newCleared,
@@ -377,7 +358,6 @@ export function useLantern() {
     setState(prev => {
       const newConstitution = Math.min(prev.abilities.constitution.available + 1, MAX_CIRCLES);
       const newExperience = Math.min(prev.scrollExperience, 12);
-      const previousLinesCompleted = prev.experienceLinesCompleted;
       const newLinesCompleted = getExperienceLinesCompleted(newExperience);
 
       return {

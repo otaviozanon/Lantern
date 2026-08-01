@@ -11,10 +11,9 @@ export const ZoneExitOverlay: React.FC = () => {
   const { state, exitZone } = useGame();
   const { t } = useLanguage();
   if (state.phase !== 'ZONE_EXIT') return null;
-  console.log('[ZoneExitOverlay] rendering, pending:', state.pendingSkillBonuses, 'zone:', state.currentZone);
 
-  const handleBonus = (key: StatKey) => { console.log('[ZoneExitOverlay] handleBonus:', key); exitZone(key); };
-  const handleContinue = () => { console.log('[ZoneExitOverlay] handleContinue clicked, phase:', state.phase, 'zone:', state.currentZone); exitZone(null); };
+  const handleBonus = (key: StatKey) => exitZone(key);
+  const handleContinue = () => exitZone(null);
 
   return (
     <motion.div

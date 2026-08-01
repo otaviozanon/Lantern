@@ -23,10 +23,6 @@ export function adjustValue(value: number, delta: number): number {
   return result;
 }
 
-export function getDiceValues(dice: Dice[]): number[] {
-  return dice.map(d => d.value);
-}
-
 export function diceSum(dice: Dice[]): number {
   return dice.reduce((sum, d) => sum + d.value, 0);
 }

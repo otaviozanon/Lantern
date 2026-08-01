@@ -10,9 +10,6 @@ export type GamePhase =
 export type AbilityName = 'criticalHit' | 'counterAttack' | 'magicSpell';
 export type StatKey = AbilityName | 'constitution';
 
-export const ABILITY_NAMES: AbilityName[] = ['criticalHit', 'counterAttack', 'magicSpell'];
-export const STAT_KEYS: StatKey[] = ['criticalHit', 'counterAttack', 'magicSpell', 'constitution'];
-
 export interface Dice {
   id: string;
   value: number;
@@ -46,9 +43,4 @@ export interface ZoneRequirement {
   groupSize?: number;
 }
 
-export const SCORING_TIERS: { min: number; max: number; title: string }[] = [
-  { min: 0, max: 0, title: 'Promising Adventurer' },
-  { min: 1, max: 5, title: 'Master at Arms' },
-  { min: 6, max: 15, title: 'Heroic Swashbuckler' },
-  { min: 16, max: Infinity, title: 'Legendary Lantern Lord' },
-];
+

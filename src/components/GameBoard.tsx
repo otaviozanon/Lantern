@@ -18,14 +18,14 @@ const ZONE_ICONS: Record<number, string> = {
 };
 
 const ZONE_POSITIONS: Record<number, { x: string; y: string }> = {
-  1: { x: "0%",   y: "68%" },
-  2: { x: "17%",  y: "18%" },
-  3: { x: "32%",  y: "68%" },
-  4: { x: "47%",  y: "18%" },
-  5: { x: "62%",  y: "54%" },
-  6: { x: "75%",  y: "68%" },
-  7: { x: "88%",  y: "18%" },
-  8: { x: "98%",  y: "42%" },
+  1: { x: "0%", y: "70%" },
+  2: { x: "12%", y: "10%" },
+  3: { x: "24%", y: "70%" },
+  4: { x: "36%", y: "10%" },
+  5: { x: "52%", y: "45%" },
+  6: { x: "60%", y: "70%" },
+  7: { x: "72%", y: "10%" },
+  8: { x: "86%", y: "38%" },
 };
 
 function getZonePosition(
@@ -53,9 +53,6 @@ function getZonePosition(
   }
   return ZONE_POSITIONS[zone] || { x: "50%", y: "50%" };
 }
-
-const PATH_D =
-  "M12,78 Q18,71 24,65 Q32,60 40,55 Q49,50 58,45 Q64,40 70,35 Q59,30 48,25 Q53,20 58,15 Q64,11 70,7";
 
 function RequirementDice({ zone }: { zone: number }) {
   const req = ZONE_REQUIREMENTS[zone];
@@ -85,7 +82,7 @@ function RequirementDice({ zone }: { zone: number }) {
   }
 
   if (req.rule === "fixedWithGroup") {
-    const faces: (number | "=")[] = [...req.fixed];
+    const faces: (number | "=" | "?")[] = [...req.fixed];
     const gs = req.groupSize || 0;
     for (let i = 0; i < gs; i++) faces.push("=");
     while (faces.length < 6) faces.push("?");
@@ -159,16 +156,14 @@ export const GameBoard: React.FC = () => {
     phase !== "SETUP" && phase !== "GAME_OVER" && phase !== "VICTORY";
   if (!shouldShow) return null;
 
-  const visibleZones = Array.from({ length: 8 }, (_, i) => i + 1).filter(
-    (z) => z <= currentZone + 1 || clearedZones[z],
-  );
+  const allZones = Array.from({ length: 8 }, (_, i) => i + 1);
 
   return (
-    <div className="flex-1 relative min-h-0 pt-8 pointer-events-none">
-      <div className="relative w-full h-full max-w-6xl mx-auto">
-        {visibleZones.map((zone, idx) => {
+    <div className="flex-1 relative min-h-0 pt-8 pointer-events-none mb-10">
+      <div className="relative w-full h-full max-w-[60vw] mx-auto pl-2">
+        {allZones.map((zone, idx) => {
           const icon = ZONE_ICONS[zone] || "pixelarticons:skull";
-          const pos = getZonePosition(zone, visibleZones.length, idx);
+          const pos = getZonePosition(zone, allZones.length, idx);
           const isCleared = clearedZones[zone];
           const isActive = currentZone === zone;
           const isNext = zone === currentZone + 1;

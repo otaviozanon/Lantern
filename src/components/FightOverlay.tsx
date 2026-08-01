@@ -12,8 +12,7 @@ import { oppositeFace } from '../utils/diceUtils';
 export const FightOverlay: React.FC = () => {
   const { state, toggleDiceSelection, useCriticalHit, useCounterAttack, useMagicSpell, useConstitution, confirmCombo } = useGame();
   const { t } = useLanguage();
-  if (state.phase !== 'FIGHTING') { console.log('[FightOverlay] not rendering, phase:', state.phase); return null; }
-  console.log('[FightOverlay] rendering, match:', checkZoneMatch(state.dice.map(d => d.value), state.currentZone));
+  if (state.phase !== 'FIGHTING') return null;
 
   const values = state.dice.map(d => d.value);
   const match = checkZoneMatch(values, state.currentZone);
