@@ -55,13 +55,20 @@ export const RulesModal: React.FC<RulesModalProps> = ({ onClose }) => {
           <section>
             <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesZones')}</h3>
             <ul className="space-y-1 pl-4 list-disc">
-              <li>Zona 1: 2, 3, 4 + 3 dados quaisquer</li>
+              <li>Zona 1: 4, 5 + 4 dados quaisquer</li>
               <li>Zona 2: 2, 3, 4 + 3 dados quaisquer</li>
               <li>Zona 3: 3, 4, 5 + 3 dados quaisquer</li>
-              <li>Zona 4: Full House (3+3 iguais)</li>
+              <li>Zona 4: 4, 5, 6 + 3 dados quaisquer</li>
               <li>Zona 5: A Fogueira (especial)</li>
-              <li>Zona 6: 2, 3, 4 + 3 dados quaisquer</li>
-              <li>Zona 7: 4, 5, 6 + 3 dados quaisquer</li>
+              <li>Zona 6: 2, 3, 4 + 3 dados idênticos</li>
+              <li>Zona 7: 3, 4, 5 + 3 dados idênticos</li>
+              <li>Zona 8: Full House (3+3 iguais)</li>
+              <li>Zona 9: 4, 5, 6 + 3 dados idênticos</li>
+              <li>Zona 10: A Fogueira (especial)</li>
+              <li>Zona 11: 2, 4, 6 + 3 dados idênticos</li>
+              <li>Zona 12: 1, 2, 3, 4 + 2 dados quaisquer</li>
+              <li>Zona 13: Full House (3+3 iguais)</li>
+              <li>Zona 14: 3, 4, 5, 6 + 2 dados idênticos</li>
               <li>Zona 15: Sexteto (6 dados idênticos)</li>
             </ul>
           </section>
