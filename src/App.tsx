@@ -30,15 +30,17 @@ function App() {
     }
   }, [state.phase, state.dice.length, rollSetup]);
 
+  console.log('[App] render phase:', state.phase, 'zone:', state.currentZone, 'pending:', state.pendingSkillBonuses);
+
   return (
-    <div className="h-screen w-screen bg-[#0a0a1a] flex flex-col font-pixel selection:bg-[#ffd700]/30 overflow-hidden text-[#e0e0e0]">
+    <div className="h-screen w-screen bg-lantern-dark flex flex-col font-pixel selection:bg-lantern-gold/30 overflow-hidden text-lantern-parchment">
       <LanguageToggle />
 
       <div className="fixed top-4 right-4 z-[300] flex gap-2">
         <button
           onClick={toggleTooltips}
-          className={`px-3 py-1.5 border-2 text-xs font-bold transition-none uppercase tracking-wider flex items-center gap-1.5 shadow-[2px_2px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none ${
-            showTooltips ? 'bg-[#00ff66]/20 border-[#00ff66]/30 text-[#00ff66]' : 'bg-[#12122a] border-[#2a2a4a] text-[#666688]'
+          className={`px-3 py-1.5 border-2 text-xs font-bold transition-none uppercase tracking-wider flex items-center gap-1.5 shadow-[2px_2px_0px_rgba(0,0,0,0.3)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none ${
+            showTooltips ? 'bg-lantern-moss/20 border-lantern-moss/30 text-lantern-moss' : 'bg-lantern-dark/80 border-lantern-bronze/30 text-lantern-parchment/30'
           }`}
         >
           <Icon icon="pixelarticons:info-box" className="w-3.5 h-3.5" />
@@ -46,14 +48,14 @@ function App() {
         </button>
         <button
           onClick={() => setShowRules(true)}
-          className="px-3 py-1.5 bg-[#ffd700]/20 border-2 border-[#ffd700]/30 text-xs font-bold text-[#e0e0e0] transition-none shadow-[2px_2px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none uppercase tracking-wider flex items-center gap-1.5"
+          className="px-3 py-1.5 bg-lantern-gold/20 border-2 border-lantern-gold/30 text-xs font-bold text-lantern-parchment transition-none shadow-[2px_2px_0px_rgba(0,0,0,0.3)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none uppercase tracking-wider flex items-center gap-1.5"
         >
           <Icon icon="pixelarticons:book-open" className="w-3.5 h-3.5" />
           {t('rules')}
         </button>
         <button
           onClick={() => setShowTutorial(true)}
-          className="px-3 py-1.5 bg-[#ffd700]/20 border-2 border-[#ffd700]/30 text-xs font-bold text-[#ffd700] transition-none shadow-[2px_2px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none uppercase tracking-wider flex items-center gap-1.5"
+          className="px-3 py-1.5 bg-lantern-gold/20 border-2 border-lantern-gold/30 text-xs font-bold text-lantern-gold transition-none shadow-[2px_2px_0px_rgba(0,0,0,0.3)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none uppercase tracking-wider flex items-center gap-1.5"
         >
           <Icon icon="pixelarticons:teach" className="w-3.5 h-3.5" />
           {t('tutorial')}
@@ -63,7 +65,7 @@ function App() {
       <HUD />
       <GameBoard />
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {state.phase === 'ZONE_ENTRY' && <ZoneEntryOverlay key="zone-entry" />}
         {state.phase === 'FIGHTING' && <FightOverlay key="fight" />}
         {state.phase === 'ZONE_EXIT' && <ZoneExitOverlay key="zone-exit" />}

@@ -10,13 +10,13 @@ import { diceSum } from '../utils/diceUtils';
 import { SETUP_REROLL_THRESHOLD } from '../constants/game';
 import { GameState } from '../types/game';
 
-const SETUP_SLOTS: { key: keyof GameState['assignedSetup']; labelKey: string }[] = [
-  { key: 'criticalHit', labelKey: 'criticalHit' },
-  { key: 'counterAttack', labelKey: 'counterAttack' },
-  { key: 'magicSpell', labelKey: 'magicSpell' },
-  { key: 'constitution', labelKey: 'constitution' },
-  { key: 'experience', labelKey: 'experience' },
-  { key: 'scroll', labelKey: 'bonfireScroll' },
+const SETUP_SLOTS: { key: keyof GameState['assignedSetup']; labelKey: string; descKey: string }[] = [
+  { key: 'criticalHit', labelKey: 'criticalHit', descKey: 'flipDie' },
+  { key: 'counterAttack', labelKey: 'counterAttack', descKey: 'addSubtract' },
+  { key: 'magicSpell', labelKey: 'magicSpell', descKey: 'rerollOne' },
+  { key: 'constitution', labelKey: 'constitution', descKey: 'rerollSelected' },
+  { key: 'experience', labelKey: 'experience', descKey: 'expDesc' },
+  { key: 'scroll', labelKey: 'bonfireScroll', descKey: 'scrollDesc' },
 ];
 
 const springs = {
@@ -86,7 +86,7 @@ export const SetupOverlay: React.FC = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.2 } }}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-5 p-4" style={{ background: '#0a0a1a' }}
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-5 p-4 bg-lantern-dark"
     >
       {/* Title */}
       <motion.div
@@ -96,13 +96,13 @@ export const SetupOverlay: React.FC = () => {
         className="flex flex-col items-center gap-1"
       >
         <motion.h1
-          className="text-3xl font-black text-[#ffd700] tracking-[0.2em] uppercase"
+          className="text-3xl font-black text-lantern-gold tracking-[0.2em] uppercase"
           animate={{ textShadow: ['0 0 8px rgba(255,215,0,0.3)', '0 0 20px rgba(255,215,0,0.6)', '0 0 8px rgba(255,215,0,0.3)'] }}
           transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
         >
           {t('gameTitle')}
         </motion.h1>
-        <p className="text-sm text-[#666688] italic">
+        <p className="text-sm text-lantern-parchment/30 italic">
           {t('assignDestiny')}
         </p>
       </motion.div>
@@ -118,7 +118,7 @@ export const SetupOverlay: React.FC = () => {
                 onClick={() => handleDieClick(i)}
                 className={clsx(
                   assigned && 'opacity-30 pointer-events-none',
-                  selectedDieIndex === i && '!ring-2 !ring-[#ffd700]'
+                  selectedDieIndex === i && '!ring-2 !ring-lantern-gold'
                 )}
               />
             </motion.div>
@@ -146,25 +146,28 @@ export const SetupOverlay: React.FC = () => {
       </AnimatePresence>
 
       {/* Slots grid */}
-      <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-3 gap-2 max-w-xs w-full">
+      <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-2 gap-2 max-w-sm w-full">
         {SETUP_SLOTS.map((slot, i) => (
           <motion.button
             key={slot.key}
-            variants={{ ...itemAnim, visible: { ...itemAnim.visible, transition: { ...springs.snappy, delay: 0.25 + i * 0.06 } } }}
-            whileHover={!allAssigned ? { scale: 1.05 } : undefined}
-            whileTap={{ scale: 0.95 }}
+            variants={{ ...itemAnim, visible: { ...itemAnim.visible, transition: { ...springs.snappy, delay: 0.25 + i * 0.05 } } }}
+            whileHover={!allAssigned ? { scale: 1.03 } : undefined}
+            whileTap={{ scale: 0.97 }}
             onClick={() => state.assignedSetup[slot.key] > 0 ? handleUndo(slot.key) : handleSlotClick(slot.key)}
             className={clsx(
-              'p-2.5 border-2 text-center min-h-[65px] flex flex-col items-center justify-center gap-0.5',
+              'p-3 border-2 text-center transition-colors min-h-[80px] flex flex-col items-center justify-center gap-1',
               state.assignedSetup[slot.key] > 0
-                ? 'bg-[#12122a] border-[#ffd700]/50 shadow-[2px_2px_0px_#000]'
+                ? 'bg-lantern-bronze/20 border-lantern-gold/50 shadow-[2px_2px_0px_rgba(0,0,0,0.4)]'
                 : selectedDieValue !== null
-                ? 'border-dashed border-[#e0e0e0]/20 hover:border-[#ffd700]/50 cursor-pointer'
-                : 'border-dashed border-[#e0e0e0]/10 opacity-50'
+                ? 'border-dashed border-lantern-parchment/20 hover:border-lantern-bronze/50 cursor-pointer bg-lantern-dark/80'
+                : 'border-dashed border-lantern-parchment/10 opacity-50 bg-lantern-dark/80'
             )}
           >
-            <span className="text-[9px] font-bold text-[#e0e0e0]/70 tracking-wider leading-tight">
+            <span className="text-[10px] font-bold text-lantern-parchment/80 tracking-wider leading-tight">
               {t(slot.labelKey as any)}
+            </span>
+            <span className="text-[7px] text-lantern-parchment/25 leading-tight text-center">
+              {t(slot.descKey as any)}
             </span>
             {state.assignedSetup[slot.key] > 0 ? (
               <motion.span
@@ -172,12 +175,12 @@ export const SetupOverlay: React.FC = () => {
                 initial={{ scale: 0, rotate: -90 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={springs.bouncy}
-                className="text-lg font-mono font-bold text-[#ffd700]"
+                className="text-lg font-mono font-bold text-lantern-gold"
               >
                 {state.assignedSetup[slot.key]}
               </motion.span>
             ) : (
-              <span className="text-lg text-[#e0e0e0]/20">—</span>
+              <span className="text-lg text-lantern-parchment/10">—</span>
             )}
           </motion.button>
         ))}

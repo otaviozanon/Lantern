@@ -57,10 +57,8 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onClose }) => 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[300] flex flex-col items-center justify-center p-6"
-      style={{ background: '#0a0a1a' }}
-    >
-      <button onClick={onClose} className="absolute top-4 right-4 text-[#666688] hover:text-[#e0e0e0] z-10">
+      className="fixed inset-0 z-[300] flex flex-col items-center justify-center p-6 bg-lantern-dark">
+      <button onClick={onClose} className="absolute top-4 right-4 text-lantern-parchment/30 hover:text-lantern-parchment z-10">
         <Icon icon="pixelarticons:close" className="w-6 h-6" />
       </button>
 
@@ -71,7 +69,7 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onClose }) => 
             <motion.div
               key={i}
               animate={{
-                backgroundColor: i <= step ? '#ffd700' : '#12122a',
+                backgroundColor: i <= step ? '#e8c34b' : '#1a140c',
                 scale: i === step ? 1.4 : 1,
                 width: i === step ? 16 : 8,
               }}
@@ -80,7 +78,7 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onClose }) => 
           ))}
         </div>
 
-        <span className="text-[9px] text-[#666688] uppercase font-black tracking-[0.3em]">
+        <span className="text-[9px] text-lantern-parchment/30 uppercase font-black tracking-[0.3em]">
           {step + 1}/{TUTORIAL_STEPS.length}
         </span>
 
@@ -97,16 +95,16 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onClose }) => 
             <motion.div
               animate={{ scale: [1, 1.1, 1] }}
               transition={{ repeat: Infinity, duration: 2 }}
-              className="w-16 h-16 bg-[#ffd700]/10 border-2 border-[#ffd700]/20 flex items-center justify-center"
+              className="w-16 h-16 bg-lantern-gold/10 border-2 border-lantern-gold/20 flex items-center justify-center"
             >
-              <Icon icon={st.icon} className="w-8 h-8 text-[#ffd700]" />
+              <Icon icon={st.icon} className="w-8 h-8 text-lantern-gold" />
             </motion.div>
 
-            <h3 className="text-xl font-black text-[#ffd700] tracking-wider uppercase">
+            <h3 className="text-xl font-black text-lantern-gold tracking-wider uppercase">
               {t(st.titleKey)}
             </h3>
 
-            <p className="text-sm text-[#e0e0e0]/80 leading-relaxed max-w-[280px]">
+            <p className="text-sm text-lantern-parchment/80 leading-relaxed max-w-[280px]">
               {t(st.bodyKey)}
             </p>
           </motion.div>
@@ -117,21 +115,21 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onClose }) => 
           <button
             onClick={prev}
             disabled={step === 0}
-            className="p-2 border-2 border-[#2a2a4a] text-[#e0e0e0]/60 hover:text-[#e0e0e0] hover:border-[#4444aa] disabled:opacity-30 disabled:cursor-not-allowed shadow-[2px_2px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+            className="p-2 border-2 border-lantern-bronze/30 text-lantern-parchment/60 hover:text-lantern-parchment hover:border-lantern-gold/50 disabled:opacity-30 disabled:cursor-not-allowed shadow-[2px_2px_0px_rgba(0,0,0,0.3)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
           >
             <Icon icon="pixelarticons:chevron-left" className="w-5 h-5" />
           </button>
 
           <button
             onClick={next}
-            className="bg-[#ffd700] text-[#0a0a1a] px-10 py-2.5 font-black shadow-[3px_3px_0px_#885500] border-2 border-[#cc8800] text-sm uppercase tracking-[0.2em] hover:bg-[#ffee44] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
+            className="bg-lantern-gold text-lantern-dark px-10 py-2.5 font-black shadow-[3px_3px_0px_rgba(0,0,0,0.4)] border-2 border-lantern-gold/50 text-sm uppercase tracking-[0.2em] hover:bg-lantern-gold/80 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
           >
             {step === TUTORIAL_STEPS.length - 1 ? t('finishTutorial') : t('nextStep')}
           </button>
 
           <button
             onClick={onClose}
-            className="px-3 py-2 text-xs text-[#666688] hover:text-[#e0e0e0]/60 transition-colors"
+            className="px-3 py-2 text-xs text-lantern-parchment/30 hover:text-lantern-parchment/60 transition-colors"
           >
             {t('skipTutorial')}
           </button>

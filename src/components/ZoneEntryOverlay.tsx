@@ -16,7 +16,7 @@ export const ZoneEntryOverlay: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-      className="shrink-0 border-t border-[#2a2a4a] px-3 py-3" style={{ background: '#0a0a1a' }}
+      className="shrink-0 border-t border-lantern-bronze/30 px-3 py-3 bg-lantern-dark"
     >
       <div className="flex flex-col items-center gap-5">
 
@@ -24,7 +24,7 @@ export const ZoneEntryOverlay: React.FC = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-lg font-bold text-[#ffd700] tracking-wider uppercase"
+          className="text-lg font-bold text-lantern-gold tracking-wider uppercase"
         >
           {t('zone')} {state.currentZone}
         </motion.h2>

@@ -16,26 +16,31 @@ export const RulesModal: React.FC<RulesModalProps> = ({ onClose }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[300] overflow-y-auto py-8 px-4" style={{ background: '#0a0a1a' }}
+      className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-lantern-dark/95"
     >
-      <div className="max-w-lg mx-auto">
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-lantern-dark border-2 border-lantern-bronze/30 shadow-[4px_4px_0px_rgba(0,0,0,0.5)] p-6 max-w-lg w-full max-h-[70vh] overflow-y-auto retro-scroll"
+      >
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-black text-[#ffd700] tracking-wider uppercase">
+          <h2 className="text-lg font-black text-lantern-gold tracking-wider uppercase">
             {t('rulesTitle')}
           </h2>
-          <button onClick={onClose} className="text-[#666688] hover:text-[#e0e0e0]">
+          <button onClick={onClose} className="text-lantern-parchment/30 hover:text-lantern-parchment">
             <Icon icon="pixelarticons:close" className="w-6 h-6" />
           </button>
         </div>
 
-        <div className="space-y-5 text-[#e0e0e0]/80 text-sm leading-relaxed">
+        <div className="space-y-5 text-lantern-parchment/80 text-sm leading-relaxed">
           <section>
-            <h3 className="text-[#ffd700] font-bold text-base mb-2">{t('rulesSetup')}</h3>
+            <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesSetup')}</h3>
             <p>{t('rulesSetupText')}</p>
           </section>
 
           <section>
-            <h3 className="text-[#ffd700] font-bold text-base mb-2">{t('rulesAbilities')}</h3>
+            <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesAbilities')}</h3>
             <ul className="space-y-1.5 pl-4 list-disc">
               <li>{t('rulesCriticalHit')}</li>
               <li>{t('rulesCounterAttack')}</li>
@@ -45,12 +50,12 @@ export const RulesModal: React.FC<RulesModalProps> = ({ onClose }) => {
           </section>
 
           <section>
-            <h3 className="text-[#ffd700] font-bold text-base mb-2">{t('rulesExperience')}</h3>
+            <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesExperience')}</h3>
             <p>{t('rulesExpText')}</p>
           </section>
 
           <section>
-            <h3 className="text-[#ffd700] font-bold text-base mb-2">{t('rulesZones')}</h3>
+            <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesZones')}</h3>
             <ul className="space-y-1 pl-4 list-disc">
               <li>Zona 1: 2, 3, 4 + 3 dados quaisquer</li>
               <li>Zona 2: 2, 3, 4 + 3 dados quaisquer</li>
@@ -64,30 +69,30 @@ export const RulesModal: React.FC<RulesModalProps> = ({ onClose }) => {
           </section>
 
           <section>
-            <h3 className="text-[#ffd700] font-bold text-base mb-2">{t('rulesCombat')}</h3>
+            <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesCombat')}</h3>
             <p>{t('rulesCombatText')}</p>
           </section>
 
           <section>
-            <h3 className="text-[#ffd700] font-bold text-base mb-2">{t('rulesZone5')}</h3>
+            <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesZone5')}</h3>
             <p>{t('rulesZone5Text')}</p>
           </section>
 
           <section>
-            <h3 className="text-[#ffd700] font-bold text-base mb-2">{t('rulesScoring')}</h3>
+            <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesScoring')}</h3>
             <p>{t('rulesScoringText')}</p>
           </section>
 
           <div className="flex justify-center pt-4 pb-8">
             <button
               onClick={onClose}
-              className="bg-[#ffd700] text-[#0a0a1a] px-8 py-2 font-bold shadow-[3px_3px_0px_#885500] border-2 border-[#cc8800] text-sm uppercase tracking-wider hover:bg-[#ffee44] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
+              className="bg-lantern-gold text-lantern-dark px-8 py-2 font-bold shadow-[3px_3px_0px_rgba(0,0,0,0.4)] border-2 border-lantern-gold/50 text-sm uppercase tracking-wider hover:bg-lantern-gold/80 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
             >
               {t('rulesClose')}
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };

@@ -12,7 +12,8 @@ import { oppositeFace } from '../utils/diceUtils';
 export const FightOverlay: React.FC = () => {
   const { state, toggleDiceSelection, useCriticalHit, useCounterAttack, useMagicSpell, useConstitution, confirmCombo } = useGame();
   const { t } = useLanguage();
-  if (state.phase !== 'FIGHTING') return null;
+  if (state.phase !== 'FIGHTING') { console.log('[FightOverlay] not rendering, phase:', state.phase); return null; }
+  console.log('[FightOverlay] rendering, match:', checkZoneMatch(state.dice.map(d => d.value), state.currentZone));
 
   const values = state.dice.map(d => d.value);
   const match = checkZoneMatch(values, state.currentZone);
@@ -26,7 +27,7 @@ export const FightOverlay: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-      className="shrink-0 border-t border-[#2a2a4a] px-3 py-2.5 max-h-[42vh] overflow-y-auto scrollbar-hide" style={{ background: '#0a0a1a' }}
+      className="shrink-0 border-t border-lantern-bronze/30 px-3 py-2.5 max-h-[55vh] overflow-y-auto retro-scroll bg-lantern-dark"
     >
       <div className="flex flex-col items-center gap-3">
 
@@ -47,7 +48,7 @@ export const FightOverlay: React.FC = () => {
             <React.Fragment key={key}>
               {key === 'counterAttack' ? (
                 <div className="flex flex-col items-center gap-1">
-                  <span className="text-[10px] font-bold text-[#e0e0e0]/70 tracking-wider">
+                  <span className="text-[10px] font-bold text-lantern-parchment/70 tracking-wider">
                     {t('counter')}
                   </span>
                   <div className="flex gap-1">
@@ -56,7 +57,7 @@ export const FightOverlay: React.FC = () => {
                       whileTap={{ scale: 0.9 }}
                       disabled={state.abilities.counterAttack.available <= 0}
                       onClick={() => useCounterAttack(-1)}
-                      className="px-3 py-1.5 border-2 border-[#2a2a4a] bg-[#12122a] text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed shadow-[2px_2px_0px_#000] hover:bg-[#1e1e3a] hover:border-[#4444aa] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+                      className="px-3 py-1.5 border-2 border-lantern-bronze/30 bg-lantern-dark/80 text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed shadow-[2px_2px_0px_rgba(0,0,0,0.3)] hover:bg-lantern-dark/60 hover:border-lantern-gold/50 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
                     >
                       -1
                     </motion.button>
@@ -65,7 +66,7 @@ export const FightOverlay: React.FC = () => {
                       whileTap={{ scale: 0.9 }}
                       disabled={state.abilities.counterAttack.available <= 0}
                       onClick={() => useCounterAttack(1)}
-                      className="px-3 py-1.5 border-2 border-[#2a2a4a] bg-[#12122a] text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed shadow-[2px_2px_0px_#000] hover:bg-[#1e1e3a] hover:border-[#4444aa] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+                      className="px-3 py-1.5 border-2 border-lantern-bronze/30 bg-lantern-dark/80 text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed shadow-[2px_2px_0px_rgba(0,0,0,0.3)] hover:bg-lantern-dark/60 hover:border-lantern-gold/50 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
                     >
                       +1
                     </motion.button>
@@ -75,7 +76,7 @@ export const FightOverlay: React.FC = () => {
                       <motion.div
                         key={i}
                         animate={{
-                          backgroundColor: i < state.abilities.counterAttack.available ? '#ffd700' : '#12122a',
+                          backgroundColor: i < state.abilities.counterAttack.available ? '#e8c34b' : '#1a140c',
                           scale: i === state.abilities.counterAttack.available - 1 && state.abilities.counterAttack.available > 0 ? [1, 1.4, 1] : 1,
                         }}
                         transition={{ duration: 0.3 }}
@@ -83,7 +84,7 @@ export const FightOverlay: React.FC = () => {
                       />
                     ))}
                   </div>
-                  <span className="text-[8px] text-[#666688] font-mono">
+                  <span className="text-[8px] text-lantern-parchment/30 font-mono">
                     {state.abilities.counterAttack.available}/{state.abilities.counterAttack.total}
                   </span>
                 </div>
@@ -92,7 +93,7 @@ export const FightOverlay: React.FC = () => {
                   key={key}
                   name={key}
                   label={key === 'criticalHit' ? t('crit') : key === 'magicSpell' ? t('spell') : t('endure')}
-                  description={key === 'criticalHit' ? t('flipDie') : key === 'magicSpell' ? t('rerollOne') : t('endure')}
+                  description={key === 'criticalHit' ? t('flipDie') : key === 'magicSpell' ? t('rerollOne') : t('rerollSelected')}
                   available={state.abilities[key].available}
                   total={state.abilities[key].total}
                   preview={key === 'criticalHit' ? critPreview : undefined}
@@ -120,7 +121,7 @@ export const FightOverlay: React.FC = () => {
             whileHover={{ scale: 1.06, boxShadow: '0 0 24px rgba(91,154,78,0.5)' }}
             whileTap={{ scale: 0.94 }}
             onClick={confirmCombo}
-            className="bg-[#00aa44] text-[#0a0a1a] px-10 py-2.5 font-black transition-colors shadow-[3px_3px_0px_#005522] border-2 border-[#008833] text-sm uppercase tracking-[0.2em]"
+            className="bg-lantern-moss text-lantern-dark px-10 py-2.5 font-black transition-colors shadow-[3px_3px_0px_rgba(0,0,0,0.4)] border-2 border-lantern-moss/50 text-sm uppercase tracking-[0.2em]"
           >
             {t('zoneClearedButton')}
           </motion.button>

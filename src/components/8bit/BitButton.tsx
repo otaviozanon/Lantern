@@ -16,11 +16,11 @@ export const BitButton: React.FC<BitButtonProps> = ({
   const base = 'retro relative inline-flex items-center justify-center px-4 py-2 text-[10px] uppercase transition-none active:translate-x-[2px] active:translate-y-[2px] disabled:opacity-30 disabled:cursor-not-allowed';
   
   const variants: Record<string, string> = {
-    default: 'bg-[#12122a] text-[#e0e0e0] border-2 border-[#2a2a4a] shadow-[3px_3px_0px_#000] hover:bg-[#1e1e3a] active:shadow-none',
-    gold: 'bg-[#ffd700] text-[#0a0a1a] border-2 border-[#cc8800] shadow-[3px_3px_0px_#885500] hover:bg-[#ffee44] active:shadow-none',
-    green: 'bg-[#00aa44] text-[#0a0a1a] border-2 border-[#008833] shadow-[3px_3px_0px_#005522] hover:bg-[#00cc55] active:shadow-none',
-    red: 'bg-[#cc2222] text-white border-2 border-[#991111] shadow-[3px_3px_0px_#550000] hover:bg-[#ee3333] active:shadow-none',
-    ghost: 'bg-transparent text-[#e0e0e0]/40 hover:text-[#e0e0e0] border-2 border-transparent hover:border-[#2a2a4a] shadow-none',
+    default: 'bg-lantern-dark/80 text-lantern-parchment border-2 border-lantern-bronze/30 shadow-[3px_3px_0px_rgba(0,0,0,0.4)] hover:bg-lantern-dark/60 active:shadow-none',
+    gold: 'bg-lantern-gold text-lantern-dark border-2 border-lantern-gold/50 shadow-[3px_3px_0px_rgba(0,0,0,0.4)] hover:bg-lantern-gold/80 active:shadow-none',
+    green: 'bg-lantern-moss text-lantern-dark border-2 border-lantern-moss/50 shadow-[3px_3px_0px_rgba(0,0,0,0.4)] hover:bg-lantern-moss/80 active:shadow-none',
+    red: 'bg-lantern-ember text-white border-2 border-lantern-ember/50 shadow-[3px_3px_0px_rgba(0,0,0,0.4)] hover:bg-lantern-ember/80 active:shadow-none',
+    ghost: 'bg-transparent text-lantern-parchment/40 hover:text-lantern-parchment border-2 border-transparent hover:border-lantern-bronze/30 shadow-none',
   };
 
   const sizes: Record<string, string> = {

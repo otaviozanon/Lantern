@@ -16,21 +16,21 @@ export const BitProgress: React.FC<BitProgressProps> = ({
 }) => {
   const pct = Math.min((value / max) * 100, 100);
   const colors: Record<string, string> = {
-    gold: 'bg-[#ffd700]',
-    green: 'bg-[#00ff66]',
-    red: 'bg-[#ff3333]',
-    cyan: 'bg-[#00ffff]',
+    gold: 'bg-lantern-gold',
+    green: 'bg-lantern-moss',
+    red: 'bg-lantern-ember',
+    cyan: 'bg-lantern-gold',
   };
 
   return (
     <div className={clsx('flex flex-col gap-1', className)}>
       {(label || showValue) && (
-        <div className="flex justify-between text-[8px] retro text-[#666688]">
+        <div className="flex justify-between text-[8px] retro text-lantern-parchment/30">
           {label && <span>{label}</span>}
           {showValue && <span>{value}/{max}</span>}
         </div>
       )}
-      <div className="h-3 bg-[#0a0a1a] border-2 border-[#2a2a4a] overflow-hidden relative">
+      <div className="h-3 bg-lantern-dark border-2 border-lantern-bronze/30 overflow-hidden relative">
         <motion.div
           className={clsx('h-full', colors[color])}
           animate={{ width: `${pct}%` }}

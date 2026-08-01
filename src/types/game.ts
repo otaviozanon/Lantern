@@ -42,7 +42,8 @@ export interface GameState {
 
 export interface ZoneRequirement {
   fixed: number[];
-  rule: 'fixed' | 'fullHouse' | 'sextet' | 'bonfire';
+  rule: 'fixed' | 'fullHouse' | 'sextet' | 'bonfire' | 'fixedWithGroup';
+  groupSize?: number;
 }
 
 export const SCORING_TIERS: { min: number; max: number; title: string }[] = [

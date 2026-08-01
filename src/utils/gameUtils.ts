@@ -35,6 +35,18 @@ export function checkZoneMatch(diceValues: number[], zone: number): boolean {
       return isSextet(diceValues);
     case 'bonfire':
       return true;
+    case 'fixedWithGroup': {
+      const gs = req.groupSize || 0;
+      const remaining = [...diceValues];
+      for (const r of req.fixed) {
+        const idx = remaining.indexOf(r);
+        if (idx === -1) return false;
+        remaining.splice(idx, 1);
+      }
+      const freq = new Map<number, number>();
+      for (const v of remaining) freq.set(v, (freq.get(v) || 0) + 1);
+      return Math.max(...freq.values(), 0) >= gs;
+    }
     default:
       return false;
   }
@@ -57,12 +69,34 @@ export function getMatchProgress(diceValues: number[], zone: number): { required
     return { required: req.fixed.length, matched };
   }
 
+  if (req.rule === 'fixedWithGroup') {
+    const gs = req.groupSize || 0;
+    const available = [...diceValues];
+    let matched = 0;
+    for (const r of req.fixed) {
+      const idx = available.indexOf(r);
+      if (idx !== -1) { matched++; available.splice(idx, 1); }
+    }
+    const freq = new Map<number, number>();
+    for (const v of available) freq.set(v, (freq.get(v) || 0) + 1);
+    const bestGroup = Math.min(Math.max(...freq.values(), 0), gs);
+    return { required: req.fixed.length + gs, matched: matched + bestGroup };
+  }
+
   if (req.rule === 'fullHouse') {
-    return { required: 6, matched: isFullHouse(diceValues) ? 6 : 0 };
+    const freq = new Map<number, number>();
+    for (const v of diceValues) freq.set(v, (freq.get(v) || 0) + 1);
+    const counts = Array.from(freq.values()).sort((a, b) => b - a);
+    const best = Math.min(counts[0] || 0, 3);
+    const second = counts.length > 1 ? Math.min(counts[1], 3) : 0;
+    return { required: 6, matched: Math.min(best + second, 6) };
   }
 
   if (req.rule === 'sextet') {
-    return { required: 6, matched: isSextet(diceValues) ? 6 : 0 };
+    const freq = new Map<number, number>();
+    for (const v of diceValues) freq.set(v, (freq.get(v) || 0) + 1);
+    const max = Math.max(...Array.from(freq.values()));
+    return { required: 6, matched: Math.min(max, 6) };
   }
 
   return { required: 0, matched: 0 };

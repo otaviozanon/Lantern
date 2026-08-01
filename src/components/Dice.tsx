@@ -64,8 +64,8 @@ export const DiceComponent: React.FC<{
         size,
         'rounded-lg cursor-pointer transition-none select-none relative preserve-3d',
         dice.selected
-          ? 'bg-[#ffd700] text-[#0a0a1a]'
-          : 'bg-[#f5eedc] text-[#0a0a1a]',
+          ? 'bg-lantern-gold text-lantern-dark'
+          : 'bg-lantern-parchment text-lantern-dark',
         className
       )}
       style={{ perspective: 600 }}

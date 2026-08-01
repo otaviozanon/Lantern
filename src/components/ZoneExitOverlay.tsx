@@ -11,9 +11,10 @@ export const ZoneExitOverlay: React.FC = () => {
   const { state, exitZone } = useGame();
   const { t } = useLanguage();
   if (state.phase !== 'ZONE_EXIT') return null;
+  console.log('[ZoneExitOverlay] rendering, pending:', state.pendingSkillBonuses, 'zone:', state.currentZone);
 
-  const handleBonus = (key: StatKey) => exitZone(key);
-  const handleContinue = () => exitZone(null);
+  const handleBonus = (key: StatKey) => { console.log('[ZoneExitOverlay] handleBonus:', key); exitZone(key); };
+  const handleContinue = () => { console.log('[ZoneExitOverlay] handleContinue clicked, phase:', state.phase, 'zone:', state.currentZone); exitZone(null); };
 
   return (
     <motion.div
@@ -21,7 +22,7 @@ export const ZoneExitOverlay: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-      className="shrink-0 border-t border-[#008833]/30 px-3 py-3" style={{ background: '#0a0a1a' }}
+      className="shrink-0 border-t border-lantern-moss/30 px-3 py-3 bg-lantern-dark"
     >
       <div className="flex flex-col items-center gap-5">
 
@@ -30,7 +31,7 @@ export const ZoneExitOverlay: React.FC = () => {
           animate={{ scale: 1 }}
           transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.1 }}
         >
-          <h2 className="text-lg font-bold text-[#00ff66] tracking-wider uppercase">
+          <h2 className="text-lg font-bold text-lantern-moss tracking-wider uppercase">
             {t('zoneCleared', { zone: state.currentZone })}
           </h2>
         </motion.div>
@@ -41,7 +42,7 @@ export const ZoneExitOverlay: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col items-center gap-3"
           >
-            <p className="text-sm text-[#e0e0e0]/70">
+            <p className="text-sm text-lantern-parchment/70">
               {t('chooseBonus', { remaining: state.pendingSkillBonuses })}
             </p>
             <div className="flex gap-2">
@@ -60,8 +61,8 @@ export const ZoneExitOverlay: React.FC = () => {
                     disabled={atMax}
                     className={`px-4 py-2 border-2 font-bold text-xs uppercase tracking-wider ${
                       atMax
-                        ? 'opacity-30 cursor-not-allowed border-[#12122a] bg-[#0a0a1a] text-[#666688]'
-                        : 'border-[#ffd700]/30 bg-[#12122a] text-[#ffd700] shadow-[2px_2px_0px_#000] hover:bg-[#1e1e3a] hover:border-[#ffd700] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none'
+                        ? 'opacity-30 cursor-not-allowed border-lantern-dark/80 bg-lantern-dark text-lantern-parchment/30'
+                        : 'border-lantern-gold/30 bg-lantern-dark/80 text-lantern-gold shadow-[2px_2px_0px_rgba(0,0,0,0.3)] hover:bg-lantern-dark/60 hover:border-lantern-gold active:translate-x-[2px] active:translate-y-[2px] active:shadow-none'
                     }`}
                   >
                     {key === 'criticalHit' ? t('crit') : key === 'counterAttack' ? t('counter') : key === 'magicSpell' ? t('spell') : t('endure')}

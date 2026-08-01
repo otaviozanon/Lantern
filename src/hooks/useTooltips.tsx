@@ -8,7 +8,7 @@ interface TooltipContextType {
 const TooltipContext = createContext<TooltipContextType | undefined>(undefined);
 
 export const TooltipProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [showTooltips, setShowTooltips] = useState(true);
+  const [showTooltips, setShowTooltips] = useState(false);
   const toggleTooltips = useCallback(() => setShowTooltips(p => !p), []);
   return (
     <TooltipContext.Provider value={{ showTooltips, toggleTooltips }}>
