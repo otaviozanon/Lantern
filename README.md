@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/jogadores-1-red" />
   <img src="https://img.shields.io/badge/duração-10%20min-blue" />
   <img src="https://img.shields.io/badge/idades-7%2B-green" />
-  <img src="https://img.shields.io/badge/zonas-8-orange" />
+  <img src="https://img.shields.io/badge/zonas-15-orange" />
 </p>
 
 ---
@@ -21,9 +21,9 @@
 ## Como Jogar
 
 1. Role 6 dados e distribua entre suas **habilidades** e **atributos**
-2. Avance pelas **8 zonas** derrotando inimigos com combinações de dados
+2. Avance pelas **15 zonas** derrotando inimigos com combinações de dados
 3. Use habilidades para manipular os dados e alcançar o combo da zona
-4. Derrote o **Dragão** na Zona 8 para vencer
+4. Derrote o **Dragão** na Zona 15 para vencer
 
 ### Habilidades
 

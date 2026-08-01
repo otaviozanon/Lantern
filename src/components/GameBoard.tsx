@@ -14,7 +14,14 @@ const ZONE_ICONS: Record<number, string> = {
   5: "pixelarticons:fire",
   6: "pixelarticons:bug",
   7: "pixelarticons:castle",
-  8: "pixelarticons:t-rex",
+  8: "pixelarticons:skull",
+  9: "pixelarticons:robot",
+  10: "pixelarticons:fire",
+  11: "pixelarticons:debug",
+  12: "pixelarticons:script",
+  13: "pixelarticons:magic-edit",
+  14: "pixelarticons:building",
+  15: "pixelarticons:t-rex",
 };
 
 const PAGE_0_ZONES = [1, 2, 3, 4, 5] as const;

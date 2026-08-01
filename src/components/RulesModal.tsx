@@ -62,7 +62,7 @@ export const RulesModal: React.FC<RulesModalProps> = ({ onClose }) => {
               <li>Zona 5: A Fogueira (especial)</li>
               <li>Zona 6: 2, 3, 4 + 3 dados quaisquer</li>
               <li>Zona 7: 4, 5, 6 + 3 dados quaisquer</li>
-              <li>Zona 8: Sexteto (6 dados idênticos)</li>
+              <li>Zona 15: Sexteto (6 dados idênticos)</li>
             </ul>
           </section>
 
