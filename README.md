@@ -6,7 +6,7 @@
 <p align="center"><strong>Solitaire Roll & Write Adventure</strong> — Jogo de dados solo inspirado em RPGs de mesa</p>
 
 <p align="center">
-  <a href="http://localhost:5173"><strong>🎲 JOGAR</strong></a>
+  <a href="https://lanterngame.vercel.app"><strong>🎲 JOGAR</strong></a>
 </p>
 
 <p align="center">
