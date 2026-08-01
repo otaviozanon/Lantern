@@ -97,6 +97,18 @@ export const translations = {
     tutorialGame5: 'Zone 5 (Bonfire) is special: gain +1 Constitution and reset your Experience.',
     tutorialGame6: 'Zone 8 is the Dragon! You need 6 identical dice. Save your best abilities for it.',
     tutorialGame7: 'Clear all 8 zones to win. Your score is remaining circles. Good luck!',
+    tutTitle1: 'Welcome, Adventurer',
+    tutBody1: 'Lantern is a solo dice adventure. Roll dice, use abilities, and climb through 8 zones to defeat the Dragon. Your score is how many circles you save.',
+    tutTitle2: 'Setup: Assign Your Stats',
+    tutBody2: 'Roll 6 dice and assign each to an ability or stat. Higher numbers = more uses. If the total is below 15, you may reroll. Choose wisely — this defines your adventure!',
+    tutTitle3: 'Combat: Match the Zone',
+    tutBody3: 'Each zone requires a specific dice combo (shown on the map as mini dice). Roll 6d6 to enter. Use abilities to manipulate dice until you match the requirement.',
+    tutTitle4: 'Abilities Explained',
+    tutBody4: 'Critical Hit: flip a die face (1↔6). Counter-Attack: add or subtract 1. Magic Spell: reroll one die. Constitution: reroll any number of selected dice.',
+    tutTitle5: 'Experience & The Bonfire',
+    tutBody5: 'Every time you roll a 1, you gain +1 XP circle. Complete XP lines (5+4+3) to earn bonus ability circles. At Zone 5 (The Bonfire), you rest and reset your XP.',
+    tutTitle6: 'Victory: Defeat Zone 8',
+    tutBody6: 'The final zone requires ALL SIX dice to show the same value (a Sextet). Save your best abilities for this. Win and earn your title: from Promising Adventurer to Legendary Lantern Lord.',
 
     // Rules modal content
     rulesTitle: 'Game Rules',
@@ -117,6 +129,14 @@ export const translations = {
     rulesScoring: 'Scoring',
     rulesScoringText: 'Your score = total remaining circles across all abilities. 0: Promising Adventurer, 1-5: Master at Arms, 6-15: Heroic Swashbuckler, 16+: Legendary Lantern Lord.',
     rulesClose: 'Close',
+
+    // Tooltips
+    tips: 'Tips',
+    tooltipSetup: 'Click a die, then click a slot to assign it. Higher values = more uses!',
+    tooltipEnterZone: 'Click to roll 6 dice. Each 1 gives +1 XP automatically.',
+    tooltipFight: 'Select a die (golden border), then use an ability to change it. Match the zone combo!',
+    tooltipFightAbilities: 'Crit: flip face. Counter: +/-1. Spell: reroll 1. Endure: reroll all selected.',
+    tooltipZoneExit: 'If you completed an XP line, choose where to add +1 circle (max 7).',
   },
   pt: {
     gameTitle: 'Lantern',
@@ -201,6 +221,18 @@ export const translations = {
     tutorialGame5: 'Zona 5 (Fogueira) é especial: ganhe +1 Constituição e reinicie sua Experiência.',
     tutorialGame6: 'Zona 8 é o Dragão! Você precisa de 6 dados idênticos. Guarde suas melhores habilidades.',
     tutorialGame7: 'Limpe todas as 8 zonas para vencer. Sua pontuação = círculos restantes. Boa sorte!',
+    tutTitle1: 'Bem-vindo, Aventureiro',
+    tutBody1: 'Lantern é uma aventura solo de dados. Role dados, use habilidades e escale 8 zonas para derrotar o Dragão. Sua pontuação é quantos círculos você economizar.',
+    tutTitle2: 'Preparação: Atribua Seus Atributos',
+    tutBody2: 'Role 6 dados e atribua cada um a uma habilidade. Números maiores = mais usos. Se a soma for menor que 15, você pode rerrolar. Escolha bem — isso define sua aventura!',
+    tutTitle3: 'Combate: Acerte o Combo da Zona',
+    tutBody3: 'Cada zona exige um combo específico de dados (mostrado no mapa como mini dados). Role 6d6 para entrar. Use habilidades para manipular os dados até acertar o combo.',
+    tutTitle4: 'Habilidades Explicadas',
+    tutBody4: 'Acerto Crítico: inverte a face (1↔6). Contra-Ataque: adiciona ou subtrai 1. Feitiço Mágico: rerrola um dado. Constituição: rerrola qualquer quantidade de dados selecionados.',
+    tutTitle5: 'Experiência e a Fogueira',
+    tutBody5: 'Sempre que rolar 1, ganha +1 círculo de EXP. Complete linhas de EXP (5+4+3) para ganhar bônus de círculos. Na Zona 5 (A Fogueira), você descansa e reseta sua EXP.',
+    tutTitle6: 'Vitória: Derrote a Zona 8',
+    tutBody6: 'A zona final exige que TODOS os 6 dados mostrem o mesmo valor (Sexteto). Guarde suas melhores habilidades para esta. Vença e ganhe seu título: de Aventureiro Promissor a Lendário Senhor da Lanterna.',
 
     rulesTitle: 'Regras do Jogo',
     rulesSetup: 'Preparação',
@@ -220,5 +252,13 @@ export const translations = {
     rulesScoring: 'Pontuação',
     rulesScoringText: 'Sua pontuação = total de círculos restantes. 0: Aventureiro Promissor, 1-5: Mestre em Armas, 6-15: Espadachim Heroico, 16+: Lendário Senhor da Lanterna.',
     rulesClose: 'Fechar',
+
+    // Tooltips
+    tips: 'Dicas',
+    tooltipSetup: 'Clique num dado e depois num slot para atribuir. Valores maiores = mais usos!',
+    tooltipEnterZone: 'Clique para rolar 6 dados. Cada 1 dá +1 EXP automaticamente.',
+    tooltipFight: 'Selecione um dado (borda dourada) e use uma habilidade. Acerte o combo da zona!',
+    tooltipFightAbilities: 'Crítico: inverte face. Contra: +/-1. Feitiço: rerrola 1. Suportar: rerrola selecionados.',
+    tooltipZoneExit: 'Se completou linha de EXP, escolha onde adicionar +1 círculo (máx 7).',
   }
 } as const;

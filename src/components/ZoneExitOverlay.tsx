@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useGame } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useLanguage';
+import { GameTooltip } from './GameTooltip';
 import { StatKey } from '../types/game';
 import { MAX_CIRCLES } from '../constants/game';
 
@@ -15,11 +16,11 @@ export const ZoneExitOverlay: React.FC = () => {
 
   return (
     <motion.div
-      initial={{ y: '100%', opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      exit={{ y: '100%', opacity: 0 }}
-      transition={{ type: 'spring', stiffness: 200, damping: 26 }}
-      className="fixed bottom-[88px] left-0 right-0 z-40 border-t border-lantern-moss/30 px-3 py-3" style={{ background: 'rgba(13,10,5,0.95)' }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+      className="shrink-0 border-t border-lantern-moss/30 px-3 py-3" style={{ background: 'rgba(13,10,5,0.95)' }}
     >
       <div className="flex flex-col items-center gap-5">
 
@@ -67,6 +68,9 @@ export const ZoneExitOverlay: React.FC = () => {
                   </motion.button>
                 );
               })}
+            </div>
+            <div className="relative mt-2">
+              <GameTooltip message={t('tooltipZoneExit' as any)} position="top" />
             </div>
           </motion.div>
         )}

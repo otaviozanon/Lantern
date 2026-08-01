@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 import { useGame } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useLanguage';
 import { DiceComponent } from './Dice';
+import { GameTooltip } from './GameTooltip';
 import { diceSum } from '../utils/diceUtils';
 import { SETUP_REROLL_THRESHOLD } from '../constants/game';
 import { GameState } from '../types/game';
@@ -123,6 +124,10 @@ export const SetupOverlay: React.FC = () => {
           );
         })}
       </motion.div>
+
+      <div className="relative">
+        {state.dice.length > 0 && <GameTooltip message={t('tooltipSetup' as any)} position="top" />}
+      </div>
 
       {/* Reroll button */}
       <AnimatePresence>

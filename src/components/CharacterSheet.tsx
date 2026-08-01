@@ -33,7 +33,7 @@ export const CharacterSheet: React.FC = () => {
   })();
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 z-30 p-2.5">
+    <footer className="relative z-10 p-2.5 shrink-0">
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

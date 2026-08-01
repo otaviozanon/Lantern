@@ -4,6 +4,7 @@ import { useGame } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useLanguage';
 import { DiceTray } from './DiceTray';
 import { AbilityButton } from './AbilityButton';
+import { GameTooltip } from './GameTooltip';
 import { checkZoneMatch, getMatchProgress } from '../utils/gameUtils';
 import { oppositeFace } from '../utils/diceUtils';
 
@@ -20,11 +21,11 @@ export const FightOverlay: React.FC = () => {
 
   return (
     <motion.div
-      initial={{ y: '100%', opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      exit={{ y: '100%', opacity: 0 }}
-      transition={{ type: 'spring', stiffness: 220, damping: 26, mass: 0.8 }}
-      className="fixed bottom-[88px] left-0 right-0 z-40 border-t border-lantern-bronze/20 px-3 py-2.5 max-h-[50vh] overflow-y-auto scrollbar-hide" style={{ background: 'rgba(13,10,5,0.95)' }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+      className="shrink-0 border-t border-lantern-bronze/20 px-3 py-2.5 max-h-[42vh] overflow-y-auto scrollbar-hide" style={{ background: 'rgba(13,10,5,0.95)' }}
     >
       <div className="flex flex-col items-center gap-3">
 
@@ -123,6 +124,10 @@ export const FightOverlay: React.FC = () => {
             </React.Fragment>
           ))}
         </motion.div>
+
+        <div className="relative w-full flex justify-center">
+          <GameTooltip message={t('tooltipFightAbilities' as any)} position="top" className="mt-2" />
+        </div>
 
         {/* Zone cleared button */}
         {match && (
