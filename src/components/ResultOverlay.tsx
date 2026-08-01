@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useGame } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useLanguage';
+import { BitButton } from './8bit/BitButton';
 import { getScore, getTitle } from '../utils/gameUtils';
 
 const springs = {
@@ -43,14 +44,14 @@ export const ResultOverlay: React.FC = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4 }}
-      className="fixed inset-0 flex flex-col items-center justify-center z-[200] gap-8 p-6" style={{ background: 'rgba(13,10,5,0.98)' }}
+      className="fixed inset-0 flex flex-col items-center justify-center z-[200] gap-8 p-6" style={{ background: '#0a0a1a' }}
     >
       {/* Status label */}
       <motion.span
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="text-[10px] text-lantern-parchment/20 uppercase font-black tracking-[0.4em]"
+        className="text-[10px] text-[#e0e0e0]/20 uppercase font-black tracking-[0.4em]"
       >
         {isVictory ? t('victory') : t('gameOver')}
       </motion.span>
@@ -60,7 +61,7 @@ export const ResultOverlay: React.FC = () => {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.4, ...springs.bouncy }}
-        className="text-3xl md:text-5xl font-display font-black gold-shimmer uppercase text-center px-4"
+        className="text-3xl md:text-5xl font-black text-[#ffd700] uppercase text-center px-4"
       >
         {isVictory ? t('dragonDefeated') : t('darknessConsumes')}
       </motion.h2>
@@ -72,14 +73,14 @@ export const ResultOverlay: React.FC = () => {
         transition={{ delay: 0.8 }}
         className="flex flex-col items-center gap-1"
       >
-        <span className="text-[10px] text-lantern-parchment/30 uppercase font-black tracking-[0.3em]">
+        <span className="text-[10px] text-[#e0e0e0]/30 uppercase font-black tracking-[0.3em]">
           {t('adventureScore')}
         </span>
         <motion.span
           key={displayScore}
           initial={{ scale: 1.2 }}
           animate={{ scale: 1 }}
-          className="text-5xl font-mono font-bold text-lantern-gold"
+          className="text-5xl font-mono font-bold text-[#ffd700]"
         >
           {displayScore}
         </motion.span>
@@ -87,24 +88,20 @@ export const ResultOverlay: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="text-sm font-body text-lantern-parchment/60 italic"
+          className="text-sm text-[#e0e0e0]/60 italic"
         >
           {title}
         </motion.span>
       </motion.div>
 
       {/* Restart button */}
-      <motion.button
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5, type: 'spring', stiffness: 200, damping: 20 }}
-        whileHover={{ scale: 1.06, boxShadow: '0 0 30px rgba(232,195,75,0.3)' }}
-        whileTap={{ scale: 0.94 }}
-        onClick={restart}
-        className="bg-lantern-gold text-lantern-dark px-12 py-4 font-display font-black rounded-full transition-colors shadow-2xl text-sm uppercase tracking-[0.3em] cursor-pointer"
       >
-        {t('newAdventure')}
-      </motion.button>
+        <BitButton variant="gold" size="lg" onClick={restart}>{t('newAdventure')}</BitButton>
+      </motion.div>
     </motion.div>
   );
 };

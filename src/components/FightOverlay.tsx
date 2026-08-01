@@ -5,6 +5,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import { DiceTray } from './DiceTray';
 import { AbilityButton } from './AbilityButton';
 import { GameTooltip } from './GameTooltip';
+import { BitProgress } from './8bit/BitProgress';
 import { checkZoneMatch, getMatchProgress } from '../utils/gameUtils';
 import { oppositeFace } from '../utils/diceUtils';
 
@@ -25,31 +26,12 @@ export const FightOverlay: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-      className="shrink-0 border-t border-lantern-bronze/20 px-3 py-2.5 max-h-[42vh] overflow-y-auto scrollbar-hide" style={{ background: 'rgba(13,10,5,0.95)' }}
+      className="shrink-0 border-t border-[#2a2a4a] px-3 py-2.5 max-h-[42vh] overflow-y-auto scrollbar-hide" style={{ background: '#0a0a1a' }}
     >
       <div className="flex flex-col items-center gap-3">
 
         {/* Match progress */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-xs"
-        >
-          <div className="flex justify-between text-[10px] font-mono text-lantern-parchment/40 mb-1">
-            <span>{t('matchProgress')}</span>
-            <span>{progress.matched}/{progress.required}</span>
-          </div>
-          <div className="h-1.5 bg-lantern-dark rounded-full overflow-hidden border border-lantern-parchment/10">
-            <motion.div
-              className="h-full rounded-full"
-              style={{ background: progress.required > 0 && progress.matched === progress.required ? '#5b9a4e' : '#c97d3f' }}
-              animate={{
-                width: progress.required > 0 ? `${(progress.matched / progress.required) * 100}%` : '0%',
-              }}
-              transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-            />
-          </div>
-        </motion.div>
+        <BitProgress value={progress.matched} max={progress.required} color="green" label={t('matchProgress')} showValue className="w-full max-w-xs" />
 
         {/* Dice */}
         <DiceTray dice={state.dice} onDiceClick={toggleDiceSelection} />
@@ -65,7 +47,7 @@ export const FightOverlay: React.FC = () => {
             <React.Fragment key={key}>
               {key === 'counterAttack' ? (
                 <div className="flex flex-col items-center gap-1">
-                  <span className="text-[10px] font-display font-bold text-lantern-parchment/70 tracking-wider">
+                  <span className="text-[10px] font-bold text-[#e0e0e0]/70 tracking-wider">
                     {t('counter')}
                   </span>
                   <div className="flex gap-1">
@@ -74,7 +56,7 @@ export const FightOverlay: React.FC = () => {
                       whileTap={{ scale: 0.9 }}
                       disabled={state.abilities.counterAttack.available <= 0}
                       onClick={() => useCounterAttack(-1)}
-                      className="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-mono disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+                      className="px-3 py-1.5 border-2 border-[#2a2a4a] bg-[#12122a] text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed shadow-[2px_2px_0px_#000] hover:bg-[#1e1e3a] hover:border-[#4444aa] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
                     >
                       -1
                     </motion.button>
@@ -83,7 +65,7 @@ export const FightOverlay: React.FC = () => {
                       whileTap={{ scale: 0.9 }}
                       disabled={state.abilities.counterAttack.available <= 0}
                       onClick={() => useCounterAttack(1)}
-                      className="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-mono disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
+                      className="px-3 py-1.5 border-2 border-[#2a2a4a] bg-[#12122a] text-xs font-mono disabled:opacity-30 disabled:cursor-not-allowed shadow-[2px_2px_0px_#000] hover:bg-[#1e1e3a] hover:border-[#4444aa] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
                     >
                       +1
                     </motion.button>
@@ -93,15 +75,15 @@ export const FightOverlay: React.FC = () => {
                       <motion.div
                         key={i}
                         animate={{
-                          backgroundColor: i < state.abilities.counterAttack.available ? '#c97d3f' : '#2a2015',
+                          backgroundColor: i < state.abilities.counterAttack.available ? '#ffd700' : '#12122a',
                           scale: i === state.abilities.counterAttack.available - 1 && state.abilities.counterAttack.available > 0 ? [1, 1.4, 1] : 1,
                         }}
                         transition={{ duration: 0.3 }}
-                        className="w-1.5 h-1.5 rounded-full"
+                        className="w-1.5 h-1.5"
                       />
                     ))}
                   </div>
-                  <span className="text-[8px] text-lantern-parchment/30 font-mono">
+                  <span className="text-[8px] text-[#666688] font-mono">
                     {state.abilities.counterAttack.available}/{state.abilities.counterAttack.total}
                   </span>
                 </div>
@@ -138,7 +120,7 @@ export const FightOverlay: React.FC = () => {
             whileHover={{ scale: 1.06, boxShadow: '0 0 24px rgba(91,154,78,0.5)' }}
             whileTap={{ scale: 0.94 }}
             onClick={confirmCombo}
-            className="bg-lantern-moss text-lantern-dark px-10 py-2.5 font-display font-black rounded-full transition-colors shadow-lg text-sm uppercase tracking-[0.2em]"
+            className="bg-[#00aa44] text-[#0a0a1a] px-10 py-2.5 font-black transition-colors shadow-[3px_3px_0px_#005522] border-2 border-[#008833] text-sm uppercase tracking-[0.2em]"
           >
             {t('zoneClearedButton')}
           </motion.button>

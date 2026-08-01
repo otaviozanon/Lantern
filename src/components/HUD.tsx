@@ -16,7 +16,7 @@ export const HUD: React.FC = () => {
     <header className="fixed top-0 left-0 right-0 z-50 px-6 pt-14 pb-4 flex items-center justify-between pointer-events-none">
       {/* Zone info */}
       <div className="flex flex-col">
-        <span className="text-[10px] text-lantern-parchment/30 uppercase font-black tracking-[0.3em]">
+        <span className="text-[10px] text-[#666688] uppercase font-black tracking-[0.3em]">
           {t('zone')}
         </span>
         <AnimatePresence mode="wait">
@@ -26,7 +26,7 @@ export const HUD: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className="text-xl font-display font-bold text-lantern-gold"
+            className="text-xl font-bold text-[#ffd700]"
           >
             {currentZone} — {t(`zone${currentZone}` as any)}
           </motion.span>
@@ -36,14 +36,14 @@ export const HUD: React.FC = () => {
       <div className="flex items-center gap-4">
         {/* Circles counter */}
         <div className="flex flex-col items-end">
-          <span className="text-[10px] text-lantern-parchment/30 uppercase font-black tracking-[0.3em]">
+          <span className="text-[10px] text-[#666688] uppercase font-black tracking-[0.3em]">
             {t('circles')}
           </span>
           <motion.span
             key={totalCircles}
             initial={{ scale: 1.2 }}
             animate={{ scale: 1 }}
-            className="text-xl font-mono font-bold text-lantern-parchment"
+            className="text-xl font-mono font-bold text-[#e0e0e0]"
           >
             {totalCircles}
           </motion.span>
@@ -57,7 +57,7 @@ export const HUD: React.FC = () => {
               exit={{ scale: 0, rotate: 45 }}
               transition={{ type: 'spring', stiffness: 400, damping: 10 }}
             >
-              <Icon icon="pixelarticons:fire" className="w-5 h-5 text-lantern-ember animate-pulse" />
+              <Icon icon="pixelarticons:fire" className="w-5 h-5 text-[#ff8800] animate-pulse" />
             </motion.div>
           )}
         </AnimatePresence>

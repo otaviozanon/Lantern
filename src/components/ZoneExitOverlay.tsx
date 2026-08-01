@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useGame } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useLanguage';
 import { GameTooltip } from './GameTooltip';
+import { BitButton } from './8bit/BitButton';
 import { StatKey } from '../types/game';
 import { MAX_CIRCLES } from '../constants/game';
 
@@ -20,7 +21,7 @@ export const ZoneExitOverlay: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-      className="shrink-0 border-t border-lantern-moss/30 px-3 py-3" style={{ background: 'rgba(13,10,5,0.95)' }}
+      className="shrink-0 border-t border-[#008833]/30 px-3 py-3" style={{ background: '#0a0a1a' }}
     >
       <div className="flex flex-col items-center gap-5">
 
@@ -29,7 +30,7 @@ export const ZoneExitOverlay: React.FC = () => {
           animate={{ scale: 1 }}
           transition={{ type: 'spring', stiffness: 400, damping: 10, delay: 0.1 }}
         >
-          <h2 className="text-lg font-display font-bold text-lantern-moss tracking-wider uppercase">
+          <h2 className="text-lg font-bold text-[#00ff66] tracking-wider uppercase">
             {t('zoneCleared', { zone: state.currentZone })}
           </h2>
         </motion.div>
@@ -40,7 +41,7 @@ export const ZoneExitOverlay: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col items-center gap-3"
           >
-            <p className="text-sm text-lantern-parchment/70 font-body">
+            <p className="text-sm text-[#e0e0e0]/70">
               {t('chooseBonus', { remaining: state.pendingSkillBonuses })}
             </p>
             <div className="flex gap-2">
@@ -57,10 +58,10 @@ export const ZoneExitOverlay: React.FC = () => {
                     whileTap={!atMax ? { scale: 0.92 } : undefined}
                     onClick={() => !atMax && handleBonus(key)}
                     disabled={atMax}
-                    className={`px-4 py-2 rounded-lg border font-display text-xs font-bold uppercase tracking-wider transition-colors ${
+                    className={`px-4 py-2 border-2 font-bold text-xs uppercase tracking-wider ${
                       atMax
-                        ? 'opacity-20 cursor-not-allowed border-white/5'
-                        : 'border-lantern-gold/30 hover:bg-lantern-gold/10 text-lantern-gold'
+                        ? 'opacity-30 cursor-not-allowed border-[#12122a] bg-[#0a0a1a] text-[#666688]'
+                        : 'border-[#ffd700]/30 bg-[#12122a] text-[#ffd700] shadow-[2px_2px_0px_#000] hover:bg-[#1e1e3a] hover:border-[#ffd700] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none'
                     }`}
                   >
                     {key === 'criticalHit' ? t('crit') : key === 'counterAttack' ? t('counter') : key === 'magicSpell' ? t('spell') : t('endure')}
@@ -76,16 +77,14 @@ export const ZoneExitOverlay: React.FC = () => {
         )}
 
         {state.pendingSkillBonuses === 0 && (
-          <motion.button
+          <motion.div
             initial={{ opacity: 0, y: 16, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            whileHover={{ scale: 1.06 }}
-            whileTap={{ scale: 0.94 }}
-            onClick={handleContinue}
-            className="bg-lantern-gold text-lantern-dark px-10 py-2.5 font-display font-black rounded-full transition-colors shadow-lg text-sm uppercase tracking-[0.2em]"
           >
-            {state.currentZone === 8 ? t('seeResults') : t('nextZone')}
-          </motion.button>
+            <BitButton variant="gold" size="lg" onClick={handleContinue}>
+              {state.currentZone === 8 ? t('seeResults') : t('nextZone')}
+            </BitButton>
+          </motion.div>
         )}
       </div>
     </motion.div>

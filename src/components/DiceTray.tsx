@@ -70,7 +70,7 @@ export const DiceTray: React.FC<DiceTrayProps> = ({ dice, onDiceClick, matchedIn
         </motion.div>
       ))}
       {dice.length === 0 && (
-        <div className="w-14 h-14 md:w-16 md:h-16 rounded-lg border-2 border-dashed border-lantern-parchment/10 animate-pulse" />
+        <div className="w-14 h-14 md:w-16 md:h-16 border-2 border-dashed border-[#2a2a4a] animate-pulse" />
       )}
     </motion.div>
   );

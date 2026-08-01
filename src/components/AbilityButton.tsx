@@ -43,10 +43,10 @@ export const AbilityButton: React.FC<AbilityButtonProps> = ({
       onClick={onClick}
       disabled={isDisabled}
       className={clsx(
-        'flex flex-col items-center gap-1 p-2 rounded-xl border transition-colors min-w-[60px] relative overflow-hidden',
+        'flex flex-col items-center gap-1 p-2 border-2 relative min-w-[60px] transition-none',
         isDisabled
-          ? 'opacity-20 cursor-not-allowed border-white/5 bg-white/5'
-          : 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-lantern-bronze/50'
+          ? 'opacity-30 cursor-not-allowed border-[#12122a] bg-[#0a0a1a]'
+          : 'border-[#2a2a4a] bg-[#12122a] shadow-[2px_2px_0px_#000] hover:bg-[#1e1e3a] hover:border-[#4444aa] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none'
       )}
     >
       {/* Ripple on click */}
@@ -55,15 +55,15 @@ export const AbilityButton: React.FC<AbilityButtonProps> = ({
           key={available}
           initial={{ opacity: 0, scale: 0 }}
           animate={available < (total || 1) ? { opacity: 0 } : {}}
-          className="absolute inset-0 bg-lantern-bronze/20 rounded-xl"
+          className="absolute inset-0 bg-[#ffd700]/20"
         />
       )}
 
-      <Icon icon={icon} className="w-4 h-4 text-lantern-gold" />
-      <span className="text-xs font-display font-bold text-lantern-parchment tracking-wider" style={{ textWrap: 'balance' as any }}>
+      <Icon icon={icon} className="w-4 h-4 text-[#ffd700]" />
+      <span className="text-[10px] font-bold text-[#e0e0e0] tracking-wider" style={{ textWrap: 'balance' as any }}>
         {label}
       </span>
-      <span className="text-[9px] text-lantern-parchment/35 text-center leading-tight max-w-[70px]" style={{ textWrap: 'balance' as any }}>
+      <span className="text-[9px] text-[#666688] text-center leading-tight max-w-[70px]" style={{ textWrap: 'balance' as any }}>
         {description}
       </span>
       {preview && !isDisabled && (
@@ -71,7 +71,7 @@ export const AbilityButton: React.FC<AbilityButtonProps> = ({
           key={preview}
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-[10px] font-mono text-lantern-bronze"
+          className="text-[10px] font-mono text-[#ff8800]"
         >
           {preview}
         </motion.span>
@@ -82,15 +82,15 @@ export const AbilityButton: React.FC<AbilityButtonProps> = ({
             key={i}
             initial={false}
             animate={{
-              backgroundColor: i < available ? '#c97d3f' : '#2a2015',
+                  backgroundColor: i < available ? '#ffd700' : '#12122a',
               scale: i === available - 1 && available > 0 ? [1, 1.4, 1] : i < available ? 1 : 0.9,
             }}
             transition={{ duration: 0.3 }}
-            className="w-2 h-2 rounded-full"
+            className="w-2 h-2"
           />
         ))}
       </div>
-      <span className="text-[9px] text-lantern-parchment/40 font-mono">
+      <span className="text-[9px] text-[#666688] font-mono">
         {available}/{total}
       </span>
     </motion.button>

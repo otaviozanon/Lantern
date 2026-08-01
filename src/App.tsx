@@ -31,14 +31,14 @@ function App() {
   }, [state.phase, state.dice.length, rollSetup]);
 
   return (
-    <div className="h-screen w-screen parchment-bg flex flex-col font-body selection:bg-lantern-bronze/30 overflow-hidden text-lantern-parchment">
+    <div className="h-screen w-screen bg-[#0a0a1a] flex flex-col font-pixel selection:bg-[#ffd700]/30 overflow-hidden text-[#e0e0e0]">
       <LanguageToggle />
 
       <div className="fixed top-4 right-4 z-[300] flex gap-2">
         <button
           onClick={toggleTooltips}
-          className={`px-3 py-1.5 rounded-full border text-xs font-display font-bold transition-all backdrop-blur-sm uppercase tracking-wider flex items-center gap-1.5 ${
-            showTooltips ? 'bg-lantern-moss/20 border-lantern-moss/30 text-lantern-moss' : 'bg-white/5 border-white/10 text-lantern-parchment/40'
+          className={`px-3 py-1.5 border-2 text-xs font-bold transition-none uppercase tracking-wider flex items-center gap-1.5 shadow-[2px_2px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none ${
+            showTooltips ? 'bg-[#00ff66]/20 border-[#00ff66]/30 text-[#00ff66]' : 'bg-[#12122a] border-[#2a2a4a] text-[#666688]'
           }`}
         >
           <Icon icon="pixelarticons:info-box" className="w-3.5 h-3.5" />
@@ -46,14 +46,14 @@ function App() {
         </button>
         <button
           onClick={() => setShowRules(true)}
-          className="px-3 py-1.5 rounded-full bg-lantern-bronze/20 border border-lantern-bronze/30 text-xs font-display font-bold text-lantern-parchment hover:bg-lantern-bronze/30 transition-all backdrop-blur-sm uppercase tracking-wider flex items-center gap-1.5"
+          className="px-3 py-1.5 bg-[#ffd700]/20 border-2 border-[#ffd700]/30 text-xs font-bold text-[#e0e0e0] transition-none shadow-[2px_2px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none uppercase tracking-wider flex items-center gap-1.5"
         >
           <Icon icon="pixelarticons:book-open" className="w-3.5 h-3.5" />
           {t('rules')}
         </button>
         <button
           onClick={() => setShowTutorial(true)}
-          className="px-3 py-1.5 rounded-full bg-lantern-gold/20 border border-lantern-gold/30 text-xs font-display font-bold text-lantern-gold hover:bg-lantern-gold/30 transition-all backdrop-blur-sm uppercase tracking-wider flex items-center gap-1.5"
+          className="px-3 py-1.5 bg-[#ffd700]/20 border-2 border-[#ffd700]/30 text-xs font-bold text-[#ffd700] transition-none shadow-[2px_2px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none uppercase tracking-wider flex items-center gap-1.5"
         >
           <Icon icon="pixelarticons:teach" className="w-3.5 h-3.5" />
           {t('tutorial')}

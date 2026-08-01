@@ -1,38 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import './components/8bit/retro.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply h-screen w-screen overflow-hidden antialiased select-none;
-    background: #0d0a05;
-    color: #d4c5a9;
+    @apply h-screen w-screen overflow-hidden antialiased select-none font-pixel;
+    background: #0a0a1a;
+    color: #e0e0e0;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
   }
 
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.03;
-    pointer-events: none;
-    z-index: 10;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  * {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
   }
 }
 
 @layer components {
-  .parchment-bg {
-    background: linear-gradient(180deg, #1a140c 0%, #0d0a05 100%);
+  .retro-panel {
+    background: #12122a;
+    border: 2px solid #2a2a4a;
+    box-shadow: 4px 4px 0px #000;
+  }
+
+  .retro-btn {
+    background: #12122a;
+    border: 2px solid #2a2a4a;
+    box-shadow: 3px 3px 0px #000;
+    transition: all 0.05s steps(1);
+  }
+  .retro-btn:hover {
+    background: #1e1e3a;
+    border-color: #4444aa;
+    box-shadow: 2px 2px 0px #000;
+  }
+  .retro-btn:active {
+    box-shadow: 0px 0px 0px #000;
+    transform: translate(3px, 3px);
+  }
+
+  .retro-btn-gold {
+    background: #ffd700;
+    border: 2px solid #cc8800;
+    color: #0a0a1a;
+    box-shadow: 3px 3px 0px #885500;
+  }
+  .retro-btn-gold:hover {
+    background: #ffee44;
+  }
+  .retro-btn-gold:active {
+    box-shadow: 0px 0px 0px #885500;
+    transform: translate(3px, 3px);
+  }
+
+  .retro-btn-green {
+    background: #00aa44;
+    border: 2px solid #008833;
+    color: #0a0a1a;
+    box-shadow: 3px 3px 0px #005522;
+  }
+  .retro-btn-green:hover {
+    background: #00cc55;
+  }
+  .retro-btn-green:active {
+    box-shadow: 0px 0px 0px #005522;
+    transform: translate(3px, 3px);
+  }
+
+  .retro-btn-red {
+    background: #cc2222;
+    border: 2px solid #991111;
+    color: #fff;
+    box-shadow: 3px 3px 0px #550000;
+  }
+  .retro-btn-red:hover {
+    background: #ee3333;
+  }
+  .retro-btn-red:active {
+    box-shadow: 0px 0px 0px #550000;
+    transform: translate(3px, 3px);
   }
 
   .gold-shimmer {
-    background: linear-gradient(135deg, #e8c34b 0%, #fdf0a6 50%, #e8c34b 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    @apply animate-pulse;
+    color: #ffd700;
+    text-shadow: 2px 2px 0px #885500;
   }
 
   .scrollbar-hide::-webkit-scrollbar {

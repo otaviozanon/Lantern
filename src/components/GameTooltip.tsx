@@ -23,11 +23,11 @@ export const GameTooltip: React.FC<GameTooltipProps> = ({ message, position = 'b
         exit={{ opacity: 0, scale: 0.9 }}
         className={`absolute ${posClass} left-1/2 -translate-x-1/2 z-[400] pointer-events-none ${className}`}
       >
-        <div className="bg-lantern-gold/90 text-lantern-dark px-3 py-1.5 rounded-lg text-[10px] font-body leading-relaxed whitespace-nowrap shadow-lg text-center max-w-[200px]">
+        <div className="bg-[#ffd700]/90 text-[#0a0a1a] px-3 py-1.5 text-[10px] leading-relaxed whitespace-nowrap shadow-lg text-center max-w-[200px]">
           <Icon icon="pixelarticons:info-box" className="inline w-3 h-3 mr-1 -mt-0.5" />
           {message}
         </div>
-        <div className="absolute left-1/2 -translate-x-1/2 w-2 h-2 bg-lantern-gold/90 rotate-45" style={{ [position === 'top' ? 'bottom' : 'top']: '-4px' }} />
+        <div className="absolute left-1/2 -translate-x-1/2 w-2 h-2 bg-[#ffd700]/90 rotate-45" style={{ [position === 'top' ? 'bottom' : 'top']: '-4px' }} />
       </motion.div>
     </AnimatePresence>
   );

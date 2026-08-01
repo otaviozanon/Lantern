@@ -52,7 +52,7 @@ function RequirementDice({ zone }: { zone: number }) {
         {faces.map((face, i) => (
           <div key={i} className={clsx(
             'w-[14px] h-[16px] rounded-[1px] flex items-center justify-center text-[7px] font-mono font-bold',
-            face === '?' ? 'bg-white/5 text-lantern-parchment/15 border border-white/5' : 'bg-[#f5eedc]/30 text-lantern-parchment'
+            face === '?' ? 'bg-white/5 text-[#666688] border border-white/5' : 'bg-[#f5eedc]/30 text-[#e0e0e0]'
           )}>
             {face}
           </div>
@@ -65,10 +65,10 @@ function RequirementDice({ zone }: { zone: number }) {
     return (
       <div className="flex gap-[1px] mt-0.5">
         {[0, 1, 2].map(i => (
-          <div key={`a${i}`} className="w-[14px] h-[16px] rounded-[1px] flex items-center justify-center text-[6px] font-mono font-bold bg-lantern-gold/30 text-lantern-gold border border-lantern-gold/20">?</div>
+          <div key={`a${i}`} className="w-[14px] h-[16px] rounded-[1px] flex items-center justify-center text-[6px] font-mono font-bold bg-[#ffd700]/30 text-[#ffd700] border border-[#ffd700]/20">?</div>
         ))}
         {[0, 1, 2].map(i => (
-          <div key={`b${i}`} className="w-[14px] h-[16px] rounded-[1px] flex items-center justify-center text-[6px] font-mono font-bold bg-lantern-bronze/30 text-lantern-bronze border border-lantern-bronze/20">?</div>
+          <div key={`b${i}`} className="w-[14px] h-[16px] rounded-[1px] flex items-center justify-center text-[6px] font-mono font-bold bg-[#ff8800]/30 text-[#ff8800] border border-[#ff8800]/20">?</div>
         ))}
       </div>
     );
@@ -78,7 +78,7 @@ function RequirementDice({ zone }: { zone: number }) {
     return (
       <div className="flex gap-[1px] mt-0.5">
         {[0, 1, 2, 3, 4, 5].map(i => (
-          <div key={i} className="w-[14px] h-[16px] rounded-[1px] flex items-center justify-center text-[6px] font-mono font-bold bg-lantern-ember/30 text-lantern-ember border border-lantern-ember/20">=</div>
+          <div key={i} className="w-[14px] h-[16px] rounded-[1px] flex items-center justify-center text-[6px] font-mono font-bold bg-[#ff8800]/30 text-[#ff8800] border border-[#ff8800]/20">=</div>
         ))}
       </div>
     );
@@ -129,23 +129,23 @@ export const GameBoard: React.FC = () => {
                 transition={isActive ? { repeat: Infinity, duration: 2 } : {}}
                 className={clsx(
                   'w-12 h-12 rounded-full flex items-center justify-center border transition-colors',
-                  isActive ? 'bg-lantern-bronze/20 shadow-lg'
-                    : isCleared ? 'bg-lantern-moss/20'
-                    : isNext ? 'bg-lantern-dark/30'
-                    : 'bg-lantern-dark/50'
+                    isActive ? 'bg-[#ff8800]/20 shadow-lg'
+                      : isCleared ? 'bg-[#00ff66]/20'
+                      : isNext ? 'bg-[#12122a]'
+                      : 'bg-[#0a0a1a]/50'
                 )}
               >
                 <Icon icon={icon} className={clsx(
                   'w-5 h-5',
-                  isActive ? 'text-lantern-gold' : isCleared ? 'text-lantern-moss' : isNext ? 'text-lantern-parchment/20' : 'text-lantern-parchment/30'
+                  isActive ? 'text-[#ffd700]' : isCleared ? 'text-[#00ff66]' : isNext ? 'text-[#e0e0e0]/20' : 'text-[#e0e0e0]/30'
                 )} />
               </motion.div>
 
               <RequirementDice zone={zone} />
 
               <span className={clsx(
-                'text-[7px] font-body leading-none text-center max-w-[60px]',
-                isActive ? 'text-lantern-parchment/60' : 'text-lantern-parchment/15'
+                'text-[7px] leading-none text-center max-w-[60px]',
+                isActive ? 'text-[#e0e0e0]/60' : 'text-[#e0e0e0]/15'
               )}>
                 {isNext ? '???' : t(`zone${zone}` as any)}
               </span>
