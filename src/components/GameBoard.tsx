@@ -17,21 +17,32 @@ const ZONE_ICONS: Record<number, string> = {
   8: "pixelarticons:t-rex",
 };
 
-const PAGE_0_ZONES = [1, 2, 3, 4] as const;
-const PAGE_1_ZONES = [5, 6, 7, 8] as const;
+const PAGE_0_ZONES = [1, 2, 3, 4, 5] as const;
+const PAGE_1_ZONES = [6, 7, 8, 9, 10] as const;
+const PAGE_2_ZONES = [11, 12, 13, 14, 15] as const;
 
 const PAGE_0_POSITIONS: Record<number, { x: string; y: string }> = {
-  1: { x: "5%",  y: "68%" },
-  2: { x: "22%", y: "15%" },
-  3: { x: "45%", y: "68%" },
-  4: { x: "68%", y: "15%" },
+  1: { x: "4%",  y: "68%" },
+  2: { x: "18%", y: "15%" },
+  3: { x: "34%", y: "68%" },
+  4: { x: "52%", y: "15%" },
+  5: { x: "72%", y: "50%" },
 };
 
 const PAGE_1_POSITIONS: Record<number, { x: string; y: string }> = {
-  5: { x: "10%", y: "55%" },
-  6: { x: "30%", y: "68%" },
-  7: { x: "55%", y: "15%" },
-  8: { x: "78%", y: "30%" },
+  6: { x: "4%",  y: "50%" },
+  7: { x: "18%", y: "68%" },
+  8: { x: "34%", y: "15%" },
+  9: { x: "52%", y: "68%" },
+  10: { x: "72%", y: "50%" },
+};
+
+const PAGE_2_POSITIONS: Record<number, { x: string; y: string }> = {
+  11: { x: "4%",  y: "68%" },
+  12: { x: "18%", y: "15%" },
+  13: { x: "34%", y: "68%" },
+  14: { x: "52%", y: "15%" },
+  15: { x: "72%", y: "40%" },
 };
 
 function RequirementDice({ zone }: { zone: number }) {
@@ -154,7 +165,7 @@ export const GameBoard: React.FC = () => {
   const shouldShow = phase !== "SETUP" && phase !== "GAME_OVER" && phase !== "VICTORY";
   if (!shouldShow) return null;
 
-  const page = currentZone <= 4 ? 0 : 1;
+  const page = currentZone <= 5 ? 0 : currentZone <= 10 ? 1 : 2;
 
   return (
     <div className="flex-1 relative min-h-0 pt-8 pointer-events-none mb-10 overflow-hidden">
@@ -172,7 +183,9 @@ export const GameBoard: React.FC = () => {
           <div className="relative w-full h-full max-w-[85vw] mx-auto">
             {page === 0
               ? PAGE_0_ZONES.map(z => <ZoneMarker key={z} zone={z} positions={PAGE_0_POSITIONS} />)
-              : PAGE_1_ZONES.map(z => <ZoneMarker key={z} zone={z} positions={PAGE_1_POSITIONS} />)
+              : page === 1
+              ? PAGE_1_ZONES.map(z => <ZoneMarker key={z} zone={z} positions={PAGE_1_POSITIONS} />)
+              : PAGE_2_ZONES.map(z => <ZoneMarker key={z} zone={z} positions={PAGE_2_POSITIONS} />)
             }
           </div>
         </motion.div>

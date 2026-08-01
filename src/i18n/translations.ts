@@ -69,7 +69,14 @@ export const translations = {
     zone5: 'The Bonfire',
     zone6: 'The Spider',
     zone7: 'The Tower',
-    zone8: 'The Dragon',
+    zone8: 'The Undead',
+    zone9: 'The Golem',
+    zone10: 'The Campfire',
+    zone11: 'The Demon',
+    zone12: 'The Labyrinth',
+    zone13: 'The Warlock',
+    zone14: 'The Fortress',
+    zone15: 'The Dragon',
 
     // Out of chips
     outOfCircles: 'Out of Circles',
@@ -198,7 +205,14 @@ export const translations = {
     zone5: 'A Fogueira',
     zone6: 'A Aranha',
     zone7: 'A Torre',
-    zone8: 'O Dragão',
+    zone8: 'Os Mortos-Vivos',
+    zone9: 'O Golem',
+    zone10: 'A Fogueira',
+    zone11: 'O Demônio',
+    zone12: 'O Labirinto',
+    zone13: 'O Bruxo',
+    zone14: 'A Fortaleza',
+    zone15: 'O Dragão',
 
     outOfCircles: 'Sem Círculos',
 

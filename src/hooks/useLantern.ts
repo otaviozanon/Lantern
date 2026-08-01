@@ -8,7 +8,7 @@ function createInitialState(): GameState {
   return {
     phase: 'SETUP',
     currentZone: 1,
-    clearedZones: Array(9).fill(false),
+    clearedZones: Array(16).fill(false),
     dice: [],
     abilities: {
       criticalHit: { available: 0, total: 0 },
@@ -268,8 +268,8 @@ export function useLantern() {
         ...prev,
         experienceLinesCompleted: linesNow,
         pendingSkillBonuses: prev.pendingSkillBonuses + newBonuses,
-        phase: (prev.currentZone === 8 ? 'VICTORY' : 'ZONE_EXIT') as GamePhase,
-        winner: prev.currentZone === 8 ? true : prev.winner,
+        phase: (prev.currentZone === 15 ? 'VICTORY' : 'ZONE_EXIT') as GamePhase,
+        winner: prev.currentZone === 15 ? true : prev.winner,
       };
     });
   }, []);
@@ -291,7 +291,7 @@ export function useLantern() {
         };
         newPending--;
 
-        if (prev.currentZone === 8) {
+        if (prev.currentZone === 15) {
           return {
             ...prev,
             clearedZones: newCleared,
@@ -303,8 +303,8 @@ export function useLantern() {
         }
 
         if (newPending === 0) {
-          const nextZone = Math.min(prev.currentZone + 1, 8);
-          const isBonfire = nextZone === 5;
+          const nextZone = Math.min(prev.currentZone + 1, 15);
+          const isBonfire = nextZone === 5 || nextZone === 10;
           return {
             ...prev,
             clearedZones: newCleared,
@@ -326,7 +326,7 @@ export function useLantern() {
       }
 
       if (newPending === 0) {
-        if (prev.currentZone === 8) {
+        if (prev.currentZone === 15) {
           return {
             ...prev,
             clearedZones: newCleared,
@@ -334,8 +334,8 @@ export function useLantern() {
             winner: true,
           };
         }
-        const nextZone = Math.min(prev.currentZone + 1, 8);
-        const isBonfire = nextZone === 5;
+        const nextZone = Math.min(prev.currentZone + 1, 15);
+        const isBonfire = nextZone === 5 || nextZone === 10;
         return {
           ...prev,
           clearedZones: newCleared,

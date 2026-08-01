@@ -47,7 +47,7 @@ export const HUD: React.FC = () => {
           </motion.span>
         </div>
         <AnimatePresence>
-          {currentZone === 5 && phase !== 'BONFIRE' && (
+          {(currentZone === 5 || currentZone === 10) && phase !== 'BONFIRE' && (
             <motion.div
               initial={{ scale: 0, rotate: -45 }}
               animate={{ scale: 1, rotate: 0 }}

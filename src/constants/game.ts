@@ -9,22 +9,26 @@ export const ZONE_REQUIREMENTS: Record<number, ZoneRequirement> = {
   1: { fixed: [4, 5], rule: "fixed" },
   2: { fixed: [2, 3, 4], rule: "fixed" },
   3: { fixed: [3, 4, 5], rule: "fixed" },
-  4: { fixed: [], rule: "fullHouse" },
+  4: { fixed: [4, 5, 6], rule: "fixed" },
   5: { fixed: [], rule: "bonfire" },
   6: { fixed: [2, 3, 4], rule: "fixedWithGroup", groupSize: 3 },
-  7: { fixed: [4, 5, 6], rule: "fixed" },
-  8: { fixed: [], rule: "sextet" },
+  7: { fixed: [3, 4, 5], rule: "fixedWithGroup", groupSize: 3 },
+  8: { fixed: [], rule: "fullHouse" },
+  9: { fixed: [4, 5, 6], rule: "fixedWithGroup", groupSize: 3 },
+  10: { fixed: [], rule: "bonfire" },
+  11: { fixed: [2, 4, 6], rule: "fixedWithGroup", groupSize: 3 },
+  12: { fixed: [1, 2, 3, 4], rule: "fixed" },
+  13: { fixed: [], rule: "fullHouse" },
+  14: { fixed: [3, 4, 5, 6], rule: "fixedWithGroup", groupSize: 2 },
+  15: { fixed: [], rule: "sextet" },
 };
 
 export const ZONE_NAMES: Record<number, string> = {
-  1: "The Wolves",
-  2: "The Cultist",
-  3: "The Ruins",
-  4: "The Skeletons",
-  5: "The Bonfire",
-  6: "The Spider",
-  7: "The Tower",
-  8: "The Dragon",
+  1: "The Wolves",   2: "The Cultist",  3: "The Ruins",
+  4: "The Skeletons", 5: "The Bonfire",  6: "The Spider",
+  7: "The Tower",    8: "The Undead",   9: "The Golem",
+  10: "The Campfire", 11: "The Demon",  12: "The Labyrinth",
+  13: "The Warlock",  14: "The Fortress", 15: "The Dragon",
 };
 
 export const ABILITY_LABELS: Record<string, string> = {
