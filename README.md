@@ -49,6 +49,12 @@ Some os círculos restantes de todas as habilidades:
 | 6-15 | Espadachim Heroico |
 | 16+ | Lendário Senhor da Lanterna |
 
+## 📄 License
+
+GPL-3.0. See [LICENSE](/LICENSE).
+
+---
+
 <p align="center">
   Feito com ♥️
 </p>
