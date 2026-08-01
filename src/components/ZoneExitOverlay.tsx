@@ -82,7 +82,7 @@ export const ZoneExitOverlay: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
           >
             <BitButton variant="gold" size="lg" onClick={handleContinue}>
-              {state.currentZone === 8 ? t('seeResults') : t('nextZone')}
+              {state.currentZone === 15 ? t('seeResults') : t('nextZone')}
             </BitButton>
           </motion.div>
         )}
