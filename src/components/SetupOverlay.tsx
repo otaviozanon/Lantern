@@ -96,7 +96,7 @@ export const SetupOverlay: React.FC = () => {
         className="flex flex-col items-center gap-1"
       >
         <motion.h1
-          className="text-3xl font-black text-lantern-gold tracking-[0.2em] uppercase"
+          className="text-2xl sm:text-3xl font-black text-lantern-gold tracking-[0.2em] uppercase"
           animate={{ textShadow: ['0 0 8px rgba(255,215,0,0.3)', '0 0 20px rgba(255,215,0,0.6)', '0 0 8px rgba(255,215,0,0.3)'] }}
           transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
         >
@@ -146,7 +146,7 @@ export const SetupOverlay: React.FC = () => {
       </AnimatePresence>
 
       {/* Slots grid */}
-      <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-2 gap-2 max-w-sm w-full">
+      <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-2 sm:grid-cols-2 gap-1.5 sm:gap-2 max-w-sm w-full px-1">
         {SETUP_SLOTS.map((slot, i) => (
           <motion.button
             key={slot.key}
@@ -155,7 +155,7 @@ export const SetupOverlay: React.FC = () => {
             whileTap={{ scale: 0.97 }}
             onClick={() => state.assignedSetup[slot.key] > 0 ? handleUndo(slot.key) : handleSlotClick(slot.key)}
             className={clsx(
-              'p-3 border-2 text-center transition-colors min-h-[80px] flex flex-col items-center justify-center gap-1',
+              'p-2 sm:p-3 border-2 text-center transition-colors min-h-[72px] sm:min-h-[80px] flex flex-col items-center justify-center gap-1',
               state.assignedSetup[slot.key] > 0
                 ? 'bg-lantern-bronze/20 border-lantern-gold/50 shadow-[2px_2px_0px_rgba(0,0,0,0.4)]'
                 : selectedDieValue !== null

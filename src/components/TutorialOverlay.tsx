@@ -62,7 +62,7 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onClose }) => 
         <Icon icon="pixelarticons:close" className="w-6 h-6" />
       </button>
 
-      <div className="flex flex-col items-center gap-6 max-w-sm w-full">
+      <div className="flex flex-col items-center gap-6 max-w-sm w-full px-2">
         {/* Progress dots */}
         <div className="flex gap-1.5">
           {TUTORIAL_STEPS.map((_, i) => (

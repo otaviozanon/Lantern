@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply h-screen w-screen overflow-hidden antialiased select-none font-pixel;
+    @apply min-h-dvh w-full overflow-x-hidden antialiased select-none font-pixel;
     background: #0d0a05;
     color: #d4c5a9;
     image-rendering: pixelated;

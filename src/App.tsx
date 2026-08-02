@@ -31,7 +31,7 @@ function App() {
   }, [state.phase, state.dice.length, rollSetup]);
 
   return (
-    <div className="h-screen w-screen bg-lantern-dark flex flex-col font-pixel selection:bg-lantern-gold/30 overflow-hidden text-lantern-parchment">
+    <div className="min-h-dvh w-full bg-lantern-dark flex flex-col font-pixel selection:bg-lantern-gold/30 overflow-x-hidden text-lantern-parchment pb-[env(safe-area-inset-bottom,8px)]">
       <LanguageToggle />
 
       <div className="fixed top-4 right-4 z-[300] flex gap-2">

@@ -20,7 +20,7 @@ export const RulesModal: React.FC<RulesModalProps> = ({ onClose }) => {
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
-        className="bg-lantern-dark border-2 border-lantern-bronze/30 shadow-[4px_4px_0px_rgba(0,0,0,0.5)] p-6 max-w-lg w-full max-h-[70vh] overflow-y-auto retro-scroll"
+        className="bg-lantern-dark border-2 border-lantern-bronze/30 shadow-[4px_4px_0px_rgba(0,0,0,0.5)] p-4 sm:p-6 max-w-lg w-[95vw] sm:w-full max-h-[80vh] overflow-y-auto retro-scroll"
       >
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-black text-lantern-gold tracking-wider uppercase">

@@ -26,7 +26,7 @@ export const FightOverlay: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-      className="shrink-0 border-t border-lantern-bronze/30 px-3 py-2.5 max-h-[55vh] overflow-y-auto retro-scroll bg-lantern-dark"
+      className="shrink-0 border-t border-lantern-bronze/30 px-2 sm:px-3 py-2.5 max-h-[50vh] overflow-y-auto retro-scroll bg-lantern-dark"
     >
       <div className="flex flex-col items-center gap-3">
 

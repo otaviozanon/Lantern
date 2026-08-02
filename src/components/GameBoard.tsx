@@ -175,7 +175,7 @@ export const GameBoard: React.FC = () => {
   const page = currentZone <= 5 ? 0 : currentZone <= 10 ? 1 : 2;
 
   return (
-    <div className="flex-1 relative min-h-0 pt-8 pointer-events-none mb-10 overflow-hidden">
+    <div className="flex-1 relative min-h-0 pt-4 sm:pt-8 pointer-events-none mb-10 overflow-hidden">
       <AnimatePresence mode="wait" custom={page}>
         <motion.div
           key={page}
@@ -187,7 +187,7 @@ export const GameBoard: React.FC = () => {
           transition={{ type: "spring", stiffness: 200, damping: 26 }}
           className="absolute inset-0 pt-8"
         >
-          <div className="relative w-full h-full max-w-[85vw] mx-auto">
+          <div className="relative w-full h-full max-w-[95vw] sm:max-w-[85vw] mx-auto">
             {page === 0
               ? PAGE_0_ZONES.map(z => <ZoneMarker key={z} zone={z} positions={PAGE_0_POSITIONS} />)
               : page === 1
