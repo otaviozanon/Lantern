@@ -11,19 +11,27 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/jogadores-1-red" />
-  <img src="https://img.shields.io/badge/duração-10%20min-blue" />
+  <img src="https://img.shields.io/badge/duração-10–15%20min-blue" />
   <img src="https://img.shields.io/badge/idades-7%2B-green" />
-  <img src="https://img.shields.io/badge/zonas-15-orange" />
+  <img src="https://img.shields.io/badge/zonas-8–15-orange" />
 </p>
 
 ---
 
+## Modos de Jogo
+
+| Modo | Zonas | Fogueiras | Bônus por Fogueira |
+|------|-------|-----------|---------------------|
+| **Normal** | 8 | 1 (Zona 5) | +1 Constituição |
+| **Difícil** | 15 | 2 (Zonas 5 e 10) | +1 Constituição + 1 círculo livre |
+
 ## Como Jogar
 
-1. Role 6 dados e distribua entre suas **habilidades** e **atributos**
-2. Avance pelas **15 zonas** derrotando inimigos com combinações de dados
-3. Use habilidades para manipular os dados e alcançar o combo da zona
-4. Derrote o **Dragão** na Zona 15 para vencer
+1. Escolha o modo (**Normal** ou **Difícil**) no lobby
+2. Role 6 dados e distribua entre suas **habilidades** e **atributos**
+3. Avance pelas zonas derrotando inimigos com combinações de dados
+4. Use habilidades para manipular os dados e alcançar o combo da zona
+5. Derrote o **Dragão** na última zona para vencer
 
 ### Habilidades
 
@@ -38,6 +46,10 @@
 
 Sempre que rolar **1** em qualquer dado, ganha +1 círculo de XP. Complete linhas de XP (5+4+3) para ganhar **+1 círculo bônus** em qualquer habilidade.
 
+### Fogueira
+
+Zonas especiais de descanso. Reseta seu XP para o valor do Pergaminho (definido no setup). Ganha +1 Constituição (+1 círculo livre no modo Difícil).
+
 ### Pontuação
 
 Some os círculos restantes de todas as habilidades:
@@ -48,12 +60,6 @@ Some os círculos restantes de todas as habilidades:
 | 1-5 | Mestre em Armas |
 | 6-15 | Espadachim Heroico |
 | 16+ | Lendário Senhor da Lanterna |
-
-## 📄 License
-
-GPL-3.0. See [LICENSE](/LICENSE).
-
----
 
 <p align="center">
   Feito com ♥️
