@@ -9,14 +9,14 @@ interface RulesModalProps {
   onClose: () => void;
 }
 
-function formatZoneReq(zone: number, req: { fixed: number[]; rule: string; groupSize?: number }): string {
+function formatZoneReq(zone: number, req: { fixed: number[]; rule: string; groupSize?: number }, t: (key: string) => string): string {
   const wc = 6 - req.fixed.length - (req.groupSize || 0);
   switch (req.rule) {
-    case 'fixed': return `${req.fixed.join(', ')} + ${wc} dados quaisquer`;
-    case 'fixedWithGroup': return `${req.fixed.join(', ')} + ${req.groupSize} dados idênticos`;
-    case 'fullHouse': return 'Full House (3+3 iguais)';
-    case 'bonfire': return '🔥 Fogueira (descanso)';
-    case 'sextet': return 'Sexteto (6 dados idênticos)';
+    case 'fixed': return `${req.fixed.join(', ')} + ${wc} ${t('reqAny')}`;
+    case 'fixedWithGroup': return `${req.fixed.join(', ')} + ${req.groupSize} ${t('reqGroup')}`;
+    case 'fullHouse': return t('reqFullHouse');
+    case 'bonfire': return t('reqBonfire');
+    case 'sextet': return t('reqSextet');
     default: return '';
   }
 }
@@ -75,7 +75,7 @@ export const RulesModal: React.FC<RulesModalProps> = ({ onClose }) => {
             <ul className="font-pixel-sans text-lg space-y-1 pl-4 list-disc">
               {zones.map(z => {
                 const req = reqs[z];
-                return <li key={z}>Zona {z}: {formatZoneReq(z, req)}</li>;
+                return <li key={z}>Zona {z}: {formatZoneReq(z, req, t)}</li>;
               })}
             </ul>
           </section>

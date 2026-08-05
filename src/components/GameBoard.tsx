@@ -127,11 +127,11 @@ function ZoneMarker({ zone, positions }: { zone: number; positions: Record<numbe
   if (reqData) {
     const wc = 6 - reqData.fixed.length - (reqData.groupSize || 0);
     switch (reqData.rule) {
-      case 'fixed': tooltipText = `Zona ${zone}: ${reqData.fixed.join(', ')} + ${wc} dados quaisquer`; break;
-      case 'fixedWithGroup': tooltipText = `Zona ${zone}: ${reqData.fixed.join(', ')} + ${reqData.groupSize} dados idênticos`; break;
-      case 'fullHouse': tooltipText = `Zona ${zone}: Full House (3+3 iguais)`; break;
-      case 'bonfire': tooltipText = `Zona ${zone}: Fogueira — descanso`; break;
-      case 'sextet': tooltipText = `Zona ${zone}: Sexteto (6 dados idênticos)`; break;
+      case 'fixed': tooltipText = `${t('zone')} ${zone}: ${reqData.fixed.join(', ')} + ${wc} ${t('reqAny')}`; break;
+      case 'fixedWithGroup': tooltipText = `${t('zone')} ${zone}: ${reqData.fixed.join(', ')} + ${reqData.groupSize} ${t('reqGroup')}`; break;
+      case 'fullHouse': tooltipText = `${t('zone')} ${zone}: ${t('reqFullHouse')}`; break;
+      case 'bonfire': tooltipText = `${t('zone')} ${zone}: ${t('reqBonfire')}`; break;
+      case 'sextet': tooltipText = `${t('zone')} ${zone}: ${t('reqSextet')}`; break;
     }
   }
 
