@@ -2,12 +2,30 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Icon } from '@iconify/react';
 import { useLanguage } from '../hooks/useLanguage';
+import { useGame } from '../hooks/useGame';
+import { getZoneRequirements } from '../constants/game';
+
 interface RulesModalProps {
   onClose: () => void;
 }
 
+function formatZoneReq(zone: number, req: { fixed: number[]; rule: string; groupSize?: number }): string {
+  const wc = 6 - req.fixed.length - (req.groupSize || 0);
+  switch (req.rule) {
+    case 'fixed': return `${req.fixed.join(', ')} + ${wc} dados quaisquer`;
+    case 'fixedWithGroup': return `${req.fixed.join(', ')} + ${req.groupSize} dados idênticos`;
+    case 'fullHouse': return 'Full House (3+3 iguais)';
+    case 'bonfire': return '🔥 Fogueira (descanso)';
+    case 'sextet': return 'Sexteto (6 dados idênticos)';
+    default: return '';
+  }
+}
+
 export const RulesModal: React.FC<RulesModalProps> = ({ onClose }) => {
   const { t } = useLanguage();
+  const { state } = useGame();
+  const reqs = getZoneRequirements(state.difficulty);
+  const zones = Object.keys(reqs).map(Number).sort((a, b) => a - b);
 
   return (
     <motion.div
@@ -55,21 +73,10 @@ export const RulesModal: React.FC<RulesModalProps> = ({ onClose }) => {
           <section>
             <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesZones')}</h3>
             <ul className="font-pixel-sans text-lg space-y-1 pl-4 list-disc">
-              <li>Zona 1: 4, 5 + 4 dados quaisquer</li>
-              <li>Zona 2: 2, 3, 4 + 3 dados quaisquer</li>
-              <li>Zona 3: 3, 4, 5 + 3 dados quaisquer</li>
-              <li>Zona 4: 4, 5, 6 + 3 dados quaisquer</li>
-              <li>Zona 5: A Fogueira (especial)</li>
-              <li>Zona 6: 2, 3, 4 + 3 dados idênticos</li>
-              <li>Zona 7: 3, 4, 5 + 3 dados idênticos</li>
-              <li>Zona 8: Full House (3+3 iguais)</li>
-              <li>Zona 9: 4, 5, 6 + 3 dados idênticos</li>
-              <li>Zona 10: A Fogueira (especial)</li>
-              <li>Zona 11: 2, 4, 6 + 3 dados idênticos</li>
-              <li>Zona 12: 1, 2, 3, 4 + 2 dados quaisquer</li>
-              <li>Zona 13: Full House (3+3 iguais)</li>
-              <li>Zona 14: 3, 4, 5, 6 + 2 dados idênticos</li>
-              <li>Zona 15: Sexteto (6 dados idênticos)</li>
+              {zones.map(z => {
+                const req = reqs[z];
+                return <li key={z}>Zona {z}: {formatZoneReq(z, req)}</li>;
+              })}
             </ul>
           </section>
 
