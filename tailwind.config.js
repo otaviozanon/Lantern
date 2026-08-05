@@ -13,6 +13,7 @@ export default {
       },
       fontFamily: {
         pixel: ['"Press Start 2P"', 'monospace'],
+        'pixel-sans': ['"Pixelify Sans"', 'monospace'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
     },

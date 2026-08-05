@@ -68,7 +68,7 @@ export const BonfireOverlay: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
-        className="text-sm text-lantern-parchment/60 text-center max-w-xs"
+        className="font-pixel-sans text-sm text-lantern-parchment/60 text-center max-w-xs"
       >
         {t('bonfireDesc')}
       </motion.p>

@@ -80,7 +80,7 @@ export const CharacterSheet: React.FC = () => {
                     />
                   ))}
                 </div>
-                <span className="text-[7px] text-lantern-parchment/30 text-center leading-tight px-0.5" style={{ textWrap: 'balance' as any }}>
+                <span className="font-pixel-sans text-[7px] text-lantern-parchment/30 text-center leading-tight px-0.5" style={{ textWrap: 'balance' as any }}>
                   {t(descKey as any)}
                 </span>
               </motion.div>
