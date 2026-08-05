@@ -149,6 +149,10 @@ export const translations = {
     tooltipFight: 'Select a die (golden border), then use an ability to change it. Match the zone combo!',
     tooltipFightAbilities: 'Crit: flip face. Counter: +/-1. Spell: reroll 1. Endure: reroll all selected.',
     tooltipZoneExit: 'If you completed an XP line, choose where to add +1 circle (max 7).',
+    tooltipMap: 'Each zone requires a dice combo. See mini-dice below each icon.',
+    tooltipSheet: 'Remaining circles per ability. If all reach zero, game over.',
+    tooltipBonfire: 'Rest! Gain +1 Constitution and your XP is reset.',
+    tooltipDice: 'Click dice to select (golden border). Then use an ability.',
   },
   pt: {
     gameTitle: 'Lantern',
@@ -284,5 +288,9 @@ export const translations = {
     tooltipFight: 'Selecione um dado (borda dourada) e use uma habilidade. Acerte o combo da zona!',
     tooltipFightAbilities: 'Crítico: inverte face. Contra: +/-1. Feitiço: rerrola 1. Suportar: rerrola selecionados.',
     tooltipZoneExit: 'Se completou linha de EXP, escolha onde adicionar +1 círculo (máx 7).',
+    tooltipMap: 'Cada zona exige um combo de dados. Veja os mini-dados abaixo de cada ícone.',
+    tooltipSheet: 'Círculos restantes de cada habilidade. Se zerar todas, fim de jogo.',
+    tooltipBonfire: 'Descanse! Ganha +1 Constituição e seu XP é resetado.',
+    tooltipDice: 'Clique nos dados para selecionar (borda dourada). Depois use uma habilidade.',
   }
 } as const;

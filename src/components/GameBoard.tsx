@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import { useGame } from "../hooks/useGame";
 import { useLanguage } from "../hooks/useLanguage";
 import { getZoneRequirements } from "../constants/game";
+import { GameTooltip } from './GameTooltip';
 
 const ZONE_ICONS: Record<number, string> = {
   1: "pixelarticons:dog",
@@ -119,10 +120,25 @@ function ZoneMarker({ zone, positions }: { zone: number; positions: Record<numbe
   const isCleared = clearedZones[zone];
   const isActive = currentZone === zone;
   const isNext = zone === currentZone + 1;
+  const reqs = getZoneRequirements(state.difficulty);
+  const reqData = reqs[zone];
+
+  let tooltipText = '';
+  if (reqData) {
+    const wc = 6 - reqData.fixed.length - (reqData.groupSize || 0);
+    switch (reqData.rule) {
+      case 'fixed': tooltipText = `Zona ${zone}: ${reqData.fixed.join(', ')} + ${wc} dados quaisquer`; break;
+      case 'fixedWithGroup': tooltipText = `Zona ${zone}: ${reqData.fixed.join(', ')} + ${reqData.groupSize} dados idênticos`; break;
+      case 'fullHouse': tooltipText = `Zona ${zone}: Full House (3+3 iguais)`; break;
+      case 'bonfire': tooltipText = `Zona ${zone}: Fogueira — descanso`; break;
+      case 'sextet': tooltipText = `Zona ${zone}: Sexteto (6 dados idênticos)`; break;
+    }
+  }
 
   return (
     <motion.div
-      className="absolute flex flex-col items-center gap-0.5"
+      className="absolute flex flex-col items-center gap-0.5 pointer-events-auto group cursor-help"
+      title={tooltipText}
       style={{ left: pos.x, top: pos.y, transform: "translate(-50%, -50%)" }}
       initial={{ opacity: 0, scale: 0.5, x: 40 }}
       animate={{ opacity: isNext ? 0.4 : isCleared ? 0.5 : 1, scale: isActive ? 1.25 : 0.9, x: 0 }}
@@ -145,6 +161,9 @@ function ZoneMarker({ zone, positions }: { zone: number; positions: Record<numbe
       <span className={clsx("text-[7px] leading-none text-center max-w-[60px]", isActive ? "text-lantern-parchment/60" : "text-lantern-parchment/15")}>
         {isNext ? "???" : t(`zone${zone}` as any)}
       </span>
+      <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap bg-lantern-dark border border-lantern-gold/30 px-2 py-1 text-[9px] font-pixel-sans text-lantern-gold shadow-lg z-50">
+        {tooltipText}
+      </div>
     </motion.div>
   );
 }
@@ -157,6 +176,7 @@ const slideVariants = {
 
 export const GameBoard: React.FC = () => {
   const { state } = useGame();
+  const { t } = useLanguage();
   const { phase, currentZone } = state;
   const shouldShow = phase !== "SETUP" && phase !== "GAME_OVER" && phase !== "VICTORY";
   if (!shouldShow) return null;
@@ -173,6 +193,9 @@ export const GameBoard: React.FC = () => {
 
   return (
     <div className="flex-1 relative min-h-0 pt-8 pointer-events-none mb-10 overflow-hidden">
+      <div className="absolute top-16 left-1/2 -translate-x-1/2 z-[400]">
+        <GameTooltip message={t('tooltipMap' as any)} position="bottom" />
+      </div>
       <AnimatePresence mode="wait" custom={currentPage}>
         <motion.div
           key={currentPage}

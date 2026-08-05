@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react';
 import { useGame } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useLanguage';
 import { EXPERIENCE_LINES } from '../constants/game';
+import { GameTooltip } from './GameTooltip';
 
 const ABILITY_ICONS: Record<string, string> = {
   criticalHit: 'pixelarticons:sword', counterAttack: 'pixelarticons:sync', magicSpell: 'pixelarticons:magic-edit', constitution: 'pixelarticons:shield',
@@ -37,6 +38,9 @@ export const CharacterSheet: React.FC = () => {
 
   return (
     <footer className="relative z-10 p-2.5 shrink-0">
+      <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-[400]">
+        <GameTooltip message={t('tooltipSheet' as any)} position="bottom" />
+      </div>
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

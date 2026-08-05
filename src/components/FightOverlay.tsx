@@ -36,6 +36,10 @@ export const FightOverlay: React.FC = () => {
         {/* Dice */}
         <DiceTray dice={state.dice} onDiceClick={toggleDiceSelection} />
 
+        <div className="relative w-full flex justify-center -mt-1">
+          <GameTooltip message={t('tooltipDice' as any)} position="top" />
+        </div>
+
         {/* Abilities */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}

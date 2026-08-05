@@ -4,6 +4,7 @@ import { Icon } from '@iconify/react';
 import { useGame } from '../hooks/useGame';
 import { useLanguage } from '../hooks/useLanguage';
 import { BitButton } from './8bit/BitButton';
+import { GameTooltip } from './GameTooltip';
 
 const flameParticles = Array.from({ length: 8 }, (_, i) => i);
 
@@ -54,6 +55,10 @@ export const BonfireOverlay: React.FC = () => {
       >
         <Icon icon="pixelarticons:fire" className="w-20 h-20 text-lantern-ember" />
       </motion.div>
+
+      <div className="relative mt-2">
+        <GameTooltip message={t('tooltipBonfire' as any)} position="top" />
+      </div>
 
       <motion.h2
         initial={{ opacity: 0, y: 10 }}
