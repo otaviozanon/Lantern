@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
-import { GameState, GamePhase, StatKey } from '../types/game';
-import { MAX_CIRCLES, SETUP_REROLL_THRESHOLD } from '../constants/game';
+import { GameState, GamePhase, StatKey, Difficulty } from '../types/game';
+import { MAX_CIRCLES, SETUP_REROLL_THRESHOLD, getVictoryZone, getBonfireZones } from '../constants/game';
 import { rollDice, oppositeFace, adjustValue, diceSum } from '../utils/diceUtils';
 import { checkZoneMatch, getExperienceLinesCompleted, getScore, getTitle } from '../utils/gameUtils';
 
@@ -8,6 +8,7 @@ function createInitialState(): GameState {
   return {
     phase: 'SETUP',
     currentZone: 1,
+    difficulty: 'hard',
     clearedZones: Array(16).fill(false),
     dice: [],
     abilities: {
@@ -29,6 +30,10 @@ function createInitialState(): GameState {
 
 export function useLantern() {
   const [state, setState] = useState<GameState>(createInitialState);
+
+  const setDifficulty = useCallback((d: Difficulty) => {
+    setState(prev => ({ ...prev, difficulty: d }));
+  }, []);
 
   const rollSetup = useCallback(() => {
     const dice = rollDice(6);
@@ -71,11 +76,12 @@ export function useLantern() {
 
   const enterZone = useCallback(() => {
     setState(prev => {
+      const victoryZone = getVictoryZone(prev.difficulty);
       const newDice = rollDice(6);
       const onesCount = newDice.filter(d => d.value === 1).length;
       const newExp = prev.experience + onesCount;
 
-      const match = checkZoneMatch(newDice.map(d => d.value), prev.currentZone);
+      const match = checkZoneMatch(newDice.map(d => d.value), prev.currentZone, prev.difficulty);
 
       const hasCircles =
         prev.abilities.criticalHit.available > 0 ||
@@ -130,7 +136,7 @@ export function useLantern() {
         ...prev.abilities,
         criticalHit: { ...prev.abilities.criticalHit, available: prev.abilities.criticalHit.available - 1 },
       };
-      const comboMet = checkZoneMatch(newDice.map(d => d.value), prev.currentZone);
+      const comboMet = checkZoneMatch(newDice.map(d => d.value), prev.currentZone, prev.difficulty);
       const hasCircles =
         newAbilities.criticalHit.available > 0 ||
         newAbilities.counterAttack.available > 0 ||
@@ -166,7 +172,7 @@ export function useLantern() {
         ...prev.abilities,
         counterAttack: { ...prev.abilities.counterAttack, available: prev.abilities.counterAttack.available - 1 },
       };
-      const comboMet = checkZoneMatch(newDice.map(d => d.value), prev.currentZone);
+      const comboMet = checkZoneMatch(newDice.map(d => d.value), prev.currentZone, prev.difficulty);
       const hasCircles =
         newAbilities.criticalHit.available > 0 ||
         newAbilities.counterAttack.available > 0 ||
@@ -202,7 +208,7 @@ export function useLantern() {
         ...prev.abilities,
         magicSpell: { ...prev.abilities.magicSpell, available: prev.abilities.magicSpell.available - 1 },
       };
-      const comboMet = checkZoneMatch(newDice.map(d => d.value), prev.currentZone);
+      const comboMet = checkZoneMatch(newDice.map(d => d.value), prev.currentZone, prev.difficulty);
       const hasCircles =
         newAbilities.criticalHit.available > 0 ||
         newAbilities.counterAttack.available > 0 ||
@@ -240,7 +246,7 @@ export function useLantern() {
         ...prev.abilities,
         constitution: { ...prev.abilities.constitution, available: prev.abilities.constitution.available - 1 },
       };
-      const comboMet = checkZoneMatch(newDice.map(d => d.value), prev.currentZone);
+      const comboMet = checkZoneMatch(newDice.map(d => d.value), prev.currentZone, prev.difficulty);
       const hasCircles =
         newAbilities.criticalHit.available > 0 ||
         newAbilities.counterAttack.available > 0 ||
@@ -264,18 +270,20 @@ export function useLantern() {
     setState(prev => {
       const linesNow = getExperienceLinesCompleted(prev.experience);
       const newBonuses = Math.max(0, linesNow - prev.experienceLinesCompleted);
+      const victoryZone = getVictoryZone(prev.difficulty);
       return {
         ...prev,
         experienceLinesCompleted: linesNow,
         pendingSkillBonuses: prev.pendingSkillBonuses + newBonuses,
-        phase: (prev.currentZone === 15 ? 'VICTORY' : 'ZONE_EXIT') as GamePhase,
-        winner: prev.currentZone === 15 ? true : prev.winner,
+        phase: (prev.currentZone === victoryZone ? 'VICTORY' : 'ZONE_EXIT') as GamePhase,
+        winner: prev.currentZone === victoryZone ? true : prev.winner,
       };
     });
   }, []);
 
   const exitZone = useCallback((bonusTarget: StatKey | null) => {
     setState(prev => {
+      const victoryZone = getVictoryZone(prev.difficulty);
       const newCleared = [...prev.clearedZones];
       newCleared[prev.currentZone] = true;
 
@@ -291,7 +299,7 @@ export function useLantern() {
         };
         newPending--;
 
-        if (prev.currentZone === 15) {
+        if (prev.currentZone === victoryZone) {
           return {
             ...prev,
             clearedZones: newCleared,
@@ -303,8 +311,9 @@ export function useLantern() {
         }
 
         if (newPending === 0) {
-          const nextZone = Math.min(prev.currentZone + 1, 15);
-          const isBonfire = nextZone === 5 || nextZone === 10;
+          const nextZone = Math.min(prev.currentZone + 1, victoryZone);
+          const bonfireZones = getBonfireZones(prev.difficulty);
+          const isBonfire = bonfireZones.includes(nextZone);
           return {
             ...prev,
             clearedZones: newCleared,
@@ -326,7 +335,7 @@ export function useLantern() {
       }
 
       if (newPending === 0) {
-        if (prev.currentZone === 15) {
+        if (prev.currentZone === victoryZone) {
           return {
             ...prev,
             clearedZones: newCleared,
@@ -334,8 +343,9 @@ export function useLantern() {
             winner: true,
           };
         }
-        const nextZone = Math.min(prev.currentZone + 1, 15);
-        const isBonfire = nextZone === 5 || nextZone === 10;
+        const nextZone = Math.min(prev.currentZone + 1, victoryZone);
+        const bonfireZones = getBonfireZones(prev.difficulty);
+        const isBonfire = bonfireZones.includes(nextZone);
         return {
           ...prev,
           clearedZones: newCleared,
@@ -356,6 +366,10 @@ export function useLantern() {
 
   const handleBonfire = useCallback(() => {
     setState(prev => {
+      const bonfireZones = getBonfireZones(prev.difficulty);
+      const isBonfireZone = bonfireZones.includes(prev.currentZone);
+      if (!isBonfireZone) return prev;
+
       const newConstitution = Math.min(prev.abilities.constitution.available + 1, MAX_CIRCLES);
       const newExperience = Math.min(prev.scrollExperience, 12);
       const newLinesCompleted = getExperienceLinesCompleted(newExperience);
@@ -397,6 +411,7 @@ export function useLantern() {
     exitZone,
     handleBonfire,
     restart,
+    setDifficulty,
     getScore: () => getScore(state),
     getTitle: () => getTitle(getScore(state)),
   };

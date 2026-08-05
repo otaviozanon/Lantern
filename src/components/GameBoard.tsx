@@ -4,7 +4,7 @@ import { clsx } from "clsx";
 import { Icon } from "@iconify/react";
 import { useGame } from "../hooks/useGame";
 import { useLanguage } from "../hooks/useLanguage";
-import { ZONE_REQUIREMENTS } from "../constants/game";
+import { getZoneRequirements } from "../constants/game";
 
 const ZONE_ICONS: Record<number, string> = {
   1: "pixelarticons:dog",
@@ -24,36 +24,25 @@ const ZONE_ICONS: Record<number, string> = {
   15: "pixelarticons:t-rex",
 };
 
-const PAGE_0_ZONES = [1, 2, 3, 4, 5] as const;
-const PAGE_1_ZONES = [6, 7, 8, 9, 10] as const;
-const PAGE_2_ZONES = [11, 12, 13, 14, 15] as const;
+const POSITION_TEMPLATES: { x: string; y: string }[] = [
+  { x: "4%",  y: "68%" },
+  { x: "18%", y: "15%" },
+  { x: "34%", y: "68%" },
+  { x: "52%", y: "15%" },
+  { x: "72%", y: "50%" },
+];
 
-const PAGE_0_POSITIONS: Record<number, { x: string; y: string }> = {
-  1: { x: "4%",  y: "68%" },
-  2: { x: "18%", y: "15%" },
-  3: { x: "34%", y: "68%" },
-  4: { x: "52%", y: "15%" },
-  5: { x: "72%", y: "50%" },
-};
-
-const PAGE_1_POSITIONS: Record<number, { x: string; y: string }> = {
-  6: { x: "4%",  y: "50%" },
-  7: { x: "18%", y: "68%" },
-  8: { x: "34%", y: "15%" },
-  9: { x: "52%", y: "68%" },
-  10: { x: "72%", y: "50%" },
-};
-
-const PAGE_2_POSITIONS: Record<number, { x: string; y: string }> = {
-  11: { x: "4%",  y: "68%" },
-  12: { x: "18%", y: "15%" },
-  13: { x: "34%", y: "68%" },
-  14: { x: "52%", y: "15%" },
-  15: { x: "72%", y: "40%" },
-};
+function buildPages(totalZones: number) {
+  const pages: number[][] = [];
+  for (let i = 1; i <= totalZones; i += 5) {
+    pages.push(Array.from({ length: Math.min(5, totalZones - i + 1) }, (_, j) => i + j));
+  }
+  return pages;
+}
 
 function RequirementDice({ zone }: { zone: number }) {
-  const req = ZONE_REQUIREMENTS[zone];
+  const { state } = useGame();
+  const req = getZoneRequirements(state.difficulty)[zone];
   if (!req) return null;
   if (req.rule === "bonfire") return null;
 
@@ -172,14 +161,22 @@ export const GameBoard: React.FC = () => {
   const shouldShow = phase !== "SETUP" && phase !== "GAME_OVER" && phase !== "VICTORY";
   if (!shouldShow) return null;
 
-  const page = currentZone <= 5 ? 0 : currentZone <= 10 ? 1 : 2;
+  const totalZones = state.difficulty === 'hard' ? 15 : 8;
+  const pages = buildPages(totalZones);
+  const page = pages.findIndex(p => p.includes(currentZone));
+  const currentPage = page >= 0 ? page : 0;
+
+  const positions: Record<number, { x: string; y: string }> = {};
+  pages[currentPage]?.forEach((zone, i) => {
+    positions[zone] = POSITION_TEMPLATES[i] || POSITION_TEMPLATES[4];
+  });
 
   return (
-    <div className="flex-1 relative min-h-0 pt-4 sm:pt-8 pointer-events-none mb-10 overflow-hidden">
-      <AnimatePresence mode="wait" custom={page}>
+    <div className="flex-1 relative min-h-0 pt-8 pointer-events-none mb-10 overflow-hidden">
+      <AnimatePresence mode="wait" custom={currentPage}>
         <motion.div
-          key={page}
-          custom={page}
+          key={currentPage}
+          custom={currentPage}
           variants={slideVariants}
           initial="enter"
           animate="center"
@@ -187,13 +184,10 @@ export const GameBoard: React.FC = () => {
           transition={{ type: "spring", stiffness: 200, damping: 26 }}
           className="absolute inset-0 pt-8"
         >
-          <div className="relative w-full h-full max-w-[95vw] sm:max-w-[85vw] mx-auto">
-            {page === 0
-              ? PAGE_0_ZONES.map(z => <ZoneMarker key={z} zone={z} positions={PAGE_0_POSITIONS} />)
-              : page === 1
-              ? PAGE_1_ZONES.map(z => <ZoneMarker key={z} zone={z} positions={PAGE_1_POSITIONS} />)
-              : PAGE_2_ZONES.map(z => <ZoneMarker key={z} zone={z} positions={PAGE_2_POSITIONS} />)
-            }
+          <div className="relative w-full h-full max-w-[85vw] mx-auto">
+            {pages[currentPage]?.map(z => (
+              <ZoneMarker key={z} zone={z} positions={positions} />
+            ))}
           </div>
         </motion.div>
       </AnimatePresence>

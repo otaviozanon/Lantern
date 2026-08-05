@@ -7,6 +7,8 @@ export type GamePhase =
   | 'GAME_OVER'
   | 'VICTORY';
 
+export type Difficulty = 'normal' | 'hard';
+
 export type AbilityName = 'criticalHit' | 'counterAttack' | 'magicSpell';
 export type StatKey = AbilityName | 'constitution';
 
@@ -34,6 +36,7 @@ export interface GameState {
   assignedSetup: Record<StatKey | 'experience' | 'scroll', number>;
   pendingSkillBonuses: number;
   rerollAvailable: boolean;
+  difficulty: Difficulty;
   winner: boolean | null;
 }
 

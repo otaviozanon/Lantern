@@ -15,8 +15,8 @@ export const FightOverlay: React.FC = () => {
   if (state.phase !== 'FIGHTING') return null;
 
   const values = state.dice.map(d => d.value);
-  const match = checkZoneMatch(values, state.currentZone);
-  const progress = getMatchProgress(values, state.currentZone);
+  const match = checkZoneMatch(values, state.currentZone, state.difficulty);
+  const progress = getMatchProgress(values, state.currentZone, state.difficulty);
   const selectedDie = state.dice.find(d => d.selected);
   const critPreview = selectedDie ? `${selectedDie.value} → ${oppositeFace(selectedDie.value)}` : undefined;
 

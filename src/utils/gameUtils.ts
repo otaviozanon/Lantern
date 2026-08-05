@@ -1,5 +1,5 @@
-import { ZONE_REQUIREMENTS, EXPERIENCE_LINES } from '../constants/game';
-import { ZoneRequirement } from '../types/game';
+import { getZoneRequirements, EXPERIENCE_LINES } from '../constants/game';
+import { ZoneRequirement, Difficulty } from '../types/game';
 
 function hasAllValues(diceValues: number[], required: number[]): boolean {
   const available = [...diceValues];
@@ -22,8 +22,9 @@ function isSextet(diceValues: number[]): boolean {
   return new Set(diceValues).size === 1;
 }
 
-export function checkZoneMatch(diceValues: number[], zone: number): boolean {
-  const req: ZoneRequirement | undefined = ZONE_REQUIREMENTS[zone];
+export function checkZoneMatch(diceValues: number[], zone: number, difficulty: Difficulty): boolean {
+  const reqs = getZoneRequirements(difficulty);
+  const req: ZoneRequirement | undefined = reqs[zone];
   if (!req) return false;
 
   switch (req.rule) {
@@ -52,8 +53,9 @@ export function checkZoneMatch(diceValues: number[], zone: number): boolean {
   }
 }
 
-export function getMatchProgress(diceValues: number[], zone: number): { required: number; matched: number } {
-  const req = ZONE_REQUIREMENTS[zone];
+export function getMatchProgress(diceValues: number[], zone: number, difficulty: Difficulty): { required: number; matched: number } {
+  const reqs = getZoneRequirements(difficulty);
+  const req = reqs[zone];
   if (!req || req.rule === 'bonfire') return { required: 0, matched: 0 };
 
   if (req.rule === 'fixed') {

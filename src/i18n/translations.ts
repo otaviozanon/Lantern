@@ -7,6 +7,9 @@ export const translations = {
     gameTitle: 'Lantern',
     gameSubtitle: 'A Solitaire Roll & Write Adventure',
     assignDestiny: 'Assign your destiny',
+    difficultyQuestion: 'Choose your path:',
+    difficultyNormal: 'Normal',
+    difficultyHard: 'Hard',
 
     // Setup
     criticalHit: 'Critical Hit',
@@ -151,6 +154,9 @@ export const translations = {
     gameTitle: 'Lantern',
     gameSubtitle: 'Uma Aventura Solo Roll & Write',
     assignDestiny: 'Defina seu destino',
+    difficultyQuestion: 'Escolha seu caminho:',
+    difficultyNormal: 'Normal',
+    difficultyHard: 'Difícil',
 
     criticalHit: 'Acerto Crítico',
     counterAttack: 'Contra-Ataque',

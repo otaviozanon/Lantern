@@ -35,7 +35,7 @@ const itemAnim = {
 };
 
 export const SetupOverlay: React.FC = () => {
-  const { state, rollSetup, assignSetupDie, confirmSetup } = useGame();
+  const { state, rollSetup, assignSetupDie, confirmSetup, setDifficulty } = useGame();
   const { t } = useLanguage();
   const [selectedDieValue, setSelectedDieValue] = useState<number | null>(null);
   const [selectedDieIndex, setSelectedDieIndex] = useState<number | null>(null);
@@ -103,11 +103,44 @@ export const SetupOverlay: React.FC = () => {
           {t('gameTitle')}
         </motion.h1>
         <p className="text-sm text-lantern-parchment/30 italic">
-          {t('assignDestiny')}
-        </p>
-      </motion.div>
+        {t('assignDestiny')}
+          </p>
+        </motion.div>
 
-      {/* Dice row */}
+        {/* Difficulty selector */}
+        {state.dice.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-col items-center gap-4"
+          >
+            <p className="text-sm text-lantern-parchment/50 text-center">
+              {t('difficultyQuestion')}
+            </p>
+            <div className="flex gap-4">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => { setDifficulty('normal'); rollSetup(); }}
+                className="px-8 py-4 border-2 border-lantern-moss/50 bg-lantern-moss/10 text-lantern-moss font-bold text-sm uppercase tracking-wider shadow-[3px_3px_0px_rgba(0,0,0,0.4)] hover:bg-lantern-moss/20 hover:border-lantern-moss active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-none"
+              >
+                {t('difficultyNormal')}
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => { setDifficulty('hard'); rollSetup(); }}
+                className="px-8 py-4 border-2 border-lantern-ember/50 bg-lantern-ember/10 text-lantern-ember font-bold text-sm uppercase tracking-wider shadow-[3px_3px_0px_rgba(0,0,0,0.4)] hover:bg-lantern-ember/20 hover:border-lantern-ember active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-none"
+              >
+                {t('difficultyHard')}
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Dice row */}
+        {state.dice.length > 0 && (
+        <>
       <motion.div variants={stagger} initial="hidden" animate="visible" className="flex gap-3">
         {state.dice.map((d, i) => {
           const assigned = assignedIndices.has(i);
@@ -198,6 +231,8 @@ export const SetupOverlay: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
+        </>
+      )}
     </motion.div>
   );
 };
