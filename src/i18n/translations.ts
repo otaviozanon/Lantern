@@ -49,7 +49,8 @@ export const translations = {
     bonfireDesc: 'Rest and reflect. Gain +1 Constitution and reset your Experience.',
     scrollExperience: 'Scroll Experience:',
     expDesc: 'Gain circles when rolling 1s. Complete lines for +1 bonuses.',
-    scrollDesc: 'Fixed value that resets your XP at Zones 5 & 10.',
+    scrollDescNormal: 'Fixed value that resets your XP at Zone 5.',
+    scrollDescHard: 'Fixed value that resets your XP at Zones 5 & 10.',
     restContinue: 'Rest & Continue',
 
     // Results
@@ -195,7 +196,8 @@ export const translations = {
     bonfireDesc: 'Descanse e reflita. Ganhe +1 Constituição e reinicie sua Experiência.',
     scrollExperience: 'Experiência do Pergaminho:',
     expDesc: 'Ganha círculos ao rolar 1. Complete linhas para bônus +1.',
-    scrollDesc: 'Valor fixo que reseta sua EXP nas Zonas 5 e 10.',
+    scrollDescNormal: 'Valor fixo que reseta sua EXP na Zona 5.',
+    scrollDescHard: 'Valor fixo que reseta sua EXP nas Zonas 5 e 10.',
     restContinue: 'Descansar e Continuar',
 
     victory: 'Vitória',

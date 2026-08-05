@@ -200,7 +200,7 @@ export const SetupOverlay: React.FC = () => {
               {t(slot.labelKey as any)}
             </span>
             <span className="font-pixel-sans text-[13px] text-lantern-parchment/25 leading-tight text-center">
-              {t(slot.descKey as any)}
+              {slot.key === 'scroll' ? (state.difficulty === 'hard' ? t('scrollDescHard' as any) : t('scrollDescNormal' as any)) : t(slot.descKey as any)}
             </span>
             {state.assignedSetup[slot.key] > 0 ? (
               <motion.span
