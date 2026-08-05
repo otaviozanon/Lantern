@@ -71,7 +71,7 @@ export const ZoneExitOverlay: React.FC = () => {
               })}
             </div>
             <div className="relative mt-2">
-              <GameTooltip message={t('tooltipZoneExit' as any)} position="top" />
+              <GameTooltip message={t('tooltipZoneExit')} position="top" />
             </div>
           </motion.div>
         )}

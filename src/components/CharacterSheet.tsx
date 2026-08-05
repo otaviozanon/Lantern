@@ -39,7 +39,7 @@ export const CharacterSheet: React.FC = () => {
   return (
     <footer className="relative z-10 p-2.5 shrink-0">
       <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-[400]">
-        <GameTooltip message={t('tooltipSheet' as any)} position="bottom" />
+        <GameTooltip message={t('tooltipSheet')} position="bottom" />
       </div>
       <motion.div
         initial={{ y: 20, opacity: 0 }}
@@ -68,7 +68,7 @@ export const CharacterSheet: React.FC = () => {
                 className="flex-1 flex flex-col items-center gap-0.5 min-w-0"
               >
                 <Icon icon={icon} className="w-3.5 h-3.5 text-lantern-gold" />
-                <span className="text-[8px] font-bold text-lantern-parchment/70 tracking-wider text-center leading-tight" style={{ textWrap: 'balance' as any }}>
+                <span className="text-[8px] font-bold text-lantern-parchment/70 tracking-wider text-center leading-tight" style={{ textWrap: 'balance' } as React.CSSProperties}>
                   {t(key)}
                 </span>
                 <div className="flex flex-wrap justify-center gap-0.5 max-w-[100px]">
@@ -84,8 +84,8 @@ export const CharacterSheet: React.FC = () => {
                     />
                   ))}
                 </div>
-                <span className="font-pixel-sans text-[13px] text-lantern-parchment/30 text-center leading-tight px-0.5" style={{ textWrap: 'balance' as any }}>
-                  {t(descKey as any)}
+                <span className="font-pixel-sans text-[13px] text-lantern-parchment/30 text-center leading-tight px-0.5" style={{ textWrap: 'balance' } as React.CSSProperties}>
+                  {t(descKey)}
                 </span>
               </motion.div>
             );

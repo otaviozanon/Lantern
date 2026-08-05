@@ -60,10 +60,10 @@ export const AbilityButton: React.FC<AbilityButtonProps> = ({
       )}
 
       <Icon icon={icon} className="w-4 h-4 text-lantern-gold" />
-      <span className="text-[10px] font-bold text-lantern-parchment tracking-wider" style={{ textWrap: 'balance' as any }}>
+      <span className="text-[10px] font-bold text-lantern-parchment tracking-wider" style={{ textWrap: 'balance' } as React.CSSProperties}>
         {label}
       </span>
-      <span className="font-pixel-sans text-[14px] text-lantern-parchment/30 text-center leading-tight max-w-[100px]" style={{ textWrap: 'balance' as any }}>
+      <span className="font-pixel-sans text-[14px] text-lantern-parchment/30 text-center leading-tight max-w-[100px]" style={{ textWrap: 'balance' } as React.CSSProperties}>
         {description}
       </span>
       {preview && !isDisabled && (

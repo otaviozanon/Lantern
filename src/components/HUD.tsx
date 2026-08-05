@@ -27,7 +27,7 @@ export const HUD: React.FC = () => {
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
             className="text-base font-bold text-lantern-gold leading-tight"
           >
-            {currentZone} — {t(`zone${currentZone}` as any)}
+            {currentZone} — {t(`zone${currentZone}`)}
           </motion.span>
         </AnimatePresence>
       </div>

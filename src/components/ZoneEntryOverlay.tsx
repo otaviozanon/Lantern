@@ -37,7 +37,7 @@ export const ZoneEntryOverlay: React.FC = () => {
           >
             <BitButton variant="gold" size="lg" onClick={enterZone}>{t('roll6d6')}</BitButton>
           </motion.div>
-          <GameTooltip message={t('tooltipEnterZone' as any)} position="top" />
+          <GameTooltip message={t('tooltipEnterZone')} position="top" />
         </div>
       </div>
     </motion.div>

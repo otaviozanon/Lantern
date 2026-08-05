@@ -37,7 +37,7 @@ export const FightOverlay: React.FC = () => {
         <DiceTray dice={state.dice} onDiceClick={toggleDiceSelection} />
 
         <div className="relative w-full flex justify-center -mt-1">
-          <GameTooltip message={t('tooltipDice' as any)} position="top" />
+          <GameTooltip message={t('tooltipDice')} position="top" />
         </div>
 
         {/* Abilities */}
@@ -112,7 +112,7 @@ export const FightOverlay: React.FC = () => {
         </motion.div>
 
         <div className="relative w-full flex justify-center">
-          <GameTooltip message={t('tooltipFightAbilities' as any)} position="top" className="mt-2" />
+          <GameTooltip message={t('tooltipFightAbilities')} position="top" className="mt-2" />
         </div>
 
         {/* Zone cleared button */}

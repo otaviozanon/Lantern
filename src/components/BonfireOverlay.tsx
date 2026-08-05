@@ -57,7 +57,7 @@ export const BonfireOverlay: React.FC = () => {
       </motion.div>
 
       <div className="relative mt-2">
-        <GameTooltip message={t('tooltipBonfire' as any)} position="top" />
+        <GameTooltip message={t('tooltipBonfire')} position="top" />
       </div>
 
       <motion.h2

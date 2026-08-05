@@ -1,10 +1,10 @@
 import React, { createContext, useContext, ReactNode, useState, useCallback } from 'react';
-import { translations, Language, TranslationKey } from '../i18n/translations';
+import { translations, Language } from '../i18n/translations';
 
 interface LanguageContextType {
   lang: Language;
   toggleLang: () => void;
-  t: (key: TranslationKey, params?: Record<string, string | number>) => string;
+  t: (key: string, params?: Record<string, string | number>) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -16,9 +16,9 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     setLang(prev => prev === 'en' ? 'pt' : 'en');
   }, []);
 
-  const t = useCallback((key: TranslationKey, params?: Record<string, string | number>): string => {
-    const dict = translations[lang];
-    let text: string = (dict as Record<string, string>)[key] ?? key;
+  const t = useCallback((key: string, params?: Record<string, string | number>): string => {
+    const dict = translations[lang] as Record<string, string>;
+    let text: string = dict[key] ?? key;
     if (params) {
       Object.entries(params).forEach(([k, v]) => {
         text = text.replace(`{${k}}`, String(v));

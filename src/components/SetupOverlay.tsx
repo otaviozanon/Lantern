@@ -160,7 +160,7 @@ export const SetupOverlay: React.FC = () => {
       </motion.div>
 
       <div className="relative">
-        {state.dice.length > 0 && <GameTooltip message={t('tooltipSetup' as any)} position="top" />}
+        {state.dice.length > 0 && <GameTooltip message={t('tooltipSetup')} position="top" />}
       </div>
 
       {/* Reroll button */}
@@ -197,10 +197,10 @@ export const SetupOverlay: React.FC = () => {
             )}
           >
             <span className="text-[10px] font-bold text-lantern-parchment/80 tracking-wider leading-tight">
-              {t(slot.labelKey as any)}
+              {t(slot.labelKey)}
             </span>
             <span className="font-pixel-sans text-[13px] text-lantern-parchment/25 leading-tight text-center">
-              {slot.key === 'scroll' ? (state.difficulty === 'hard' ? t('scrollDescHard' as any) : t('scrollDescNormal' as any)) : t(slot.descKey as any)}
+              {slot.key === 'scroll' ? (state.difficulty === 'hard' ? t('scrollDescHard') : t('scrollDescNormal')) : t(slot.descKey)}
             </span>
             {state.assignedSetup[slot.key] > 0 ? (
               <motion.span

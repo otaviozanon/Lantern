@@ -159,7 +159,7 @@ function ZoneMarker({ zone, positions }: { zone: number; positions: Record<numbe
       </motion.div>
       <RequirementDice zone={zone} />
       <span className={clsx("text-[7px] leading-none text-center max-w-[60px]", isActive ? "text-lantern-parchment/60" : "text-lantern-parchment/15")}>
-        {isNext ? "???" : t(`zone${zone}` as any)}
+        {isNext ? "???" : t(`zone${zone}`)}
       </span>
       <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap bg-lantern-dark border border-lantern-gold/30 px-2 py-1 text-[9px] font-pixel-sans text-lantern-gold shadow-lg z-50">
         {tooltipText}
@@ -194,7 +194,7 @@ export const GameBoard: React.FC = () => {
   return (
     <div className="flex-1 relative min-h-0 pt-8 pointer-events-none mb-10 overflow-hidden">
       <div className="absolute top-16 left-1/2 -translate-x-1/2 z-[400]">
-        <GameTooltip message={t('tooltipMap' as any)} position="bottom" />
+        <GameTooltip message={t('tooltipMap')} position="bottom" />
       </div>
       <AnimatePresence mode="wait" custom={currentPage}>
         <motion.div
