@@ -1,5 +1,5 @@
 import { AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useGame } from './hooks/useGame';
 import { useLanguage } from './hooks/useLanguage';
@@ -18,17 +18,11 @@ import { RulesModal } from './components/RulesModal';
 import { useTooltips } from './hooks/useTooltips';
 
 function App() {
-  const { state, rollSetup } = useGame();
+  const { state } = useGame();
   const { t } = useLanguage();
   const { showTooltips, toggleTooltips } = useTooltips();
   const [showTutorial, setShowTutorial] = useState(false);
   const [showRules, setShowRules] = useState(false);
-
-  useEffect(() => {
-    if (state.phase === 'SETUP' && state.dice.length === 0) {
-      rollSetup();
-    }
-  }, [state.phase, state.dice.length, rollSetup]);
 
   return (
     <div className="min-h-dvh w-full bg-lantern-dark flex flex-col font-pixel selection:bg-lantern-gold/30 overflow-x-hidden text-lantern-parchment pb-[env(safe-area-inset-bottom,8px)]">
