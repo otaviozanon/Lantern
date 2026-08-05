@@ -41,7 +41,7 @@ export const ZoneExitOverlay: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col items-center gap-3"
           >
-            <p className="font-pixel-sans text-sm text-lantern-parchment/70">
+            <p className="font-pixel-sans text-lg text-lantern-parchment/70">
               {t('chooseBonus', { remaining: state.pendingSkillBonuses })}
             </p>
             <div className="flex gap-2">

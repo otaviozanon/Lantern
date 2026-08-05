@@ -67,7 +67,7 @@ export const CharacterSheet: React.FC = () => {
                 <span className="text-[8px] font-bold text-lantern-parchment/70 tracking-wider text-center leading-tight" style={{ textWrap: 'balance' as any }}>
                   {t(key)}
                 </span>
-                <div className="flex flex-wrap justify-center gap-0.5 max-w-[70px]">
+                <div className="flex flex-wrap justify-center gap-0.5 max-w-[100px]">
                   {Array.from({ length: a.total }).map((_, i) => (
                     <motion.div
                       key={i}
@@ -80,7 +80,7 @@ export const CharacterSheet: React.FC = () => {
                     />
                   ))}
                 </div>
-                <span className="font-pixel-sans text-[7px] text-lantern-parchment/30 text-center leading-tight px-0.5" style={{ textWrap: 'balance' as any }}>
+                <span className="font-pixel-sans text-[13px] text-lantern-parchment/30 text-center leading-tight px-0.5" style={{ textWrap: 'balance' as any }}>
                   {t(descKey as any)}
                 </span>
               </motion.div>

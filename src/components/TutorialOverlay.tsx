@@ -104,7 +104,7 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onClose }) => 
               {t(st.titleKey)}
             </h3>
 
-            <p className="font-pixel-sans text-sm text-lantern-parchment/80 leading-relaxed max-w-[280px]">
+            <p className="font-pixel-sans text-lg text-lantern-parchment/80 leading-relaxed max-w-[280px]">
               {t(st.bodyKey)}
             </p>
           </motion.div>

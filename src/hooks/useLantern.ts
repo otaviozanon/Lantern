@@ -373,6 +373,7 @@ export function useLantern() {
       const newConstitution = Math.min(prev.abilities.constitution.available + 1, MAX_CIRCLES);
       const newExperience = Math.min(prev.scrollExperience, 12);
       const newLinesCompleted = getExperienceLinesCompleted(newExperience);
+      const bonusExtra = prev.difficulty === 'hard' ? 1 : 0;
 
       return {
         ...prev,
@@ -386,7 +387,7 @@ export function useLantern() {
         },
         experience: newExperience,
         experienceLinesCompleted: newLinesCompleted,
-        pendingSkillBonuses: prev.pendingSkillBonuses,
+        pendingSkillBonuses: prev.pendingSkillBonuses + bonusExtra,
         phase: 'ZONE_EXIT',
       };
     });

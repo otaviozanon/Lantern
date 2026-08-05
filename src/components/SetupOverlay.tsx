@@ -102,7 +102,7 @@ export const SetupOverlay: React.FC = () => {
         >
           {t('gameTitle')}
         </motion.h1>
-        <p className="font-pixel-sans text-sm text-lantern-parchment/30 italic">
+        <p className="font-pixel-sans text-lg text-lantern-parchment/30 italic">
         {t('assignDestiny')}
           </p>
         </motion.div>
@@ -114,7 +114,7 @@ export const SetupOverlay: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col items-center gap-4"
           >
-            <p className="font-pixel-sans text-sm text-lantern-parchment/50 text-center">
+            <p className="font-pixel-sans text-lg text-lantern-parchment/50 text-center">
               {t('difficultyQuestion')}
             </p>
             <div className="flex gap-4">
@@ -199,7 +199,7 @@ export const SetupOverlay: React.FC = () => {
             <span className="text-[10px] font-bold text-lantern-parchment/80 tracking-wider leading-tight">
               {t(slot.labelKey as any)}
             </span>
-            <span className="font-pixel-sans text-[7px] text-lantern-parchment/25 leading-tight text-center">
+            <span className="font-pixel-sans text-[13px] text-lantern-parchment/25 leading-tight text-center">
               {t(slot.descKey as any)}
             </span>
             {state.assignedSetup[slot.key] > 0 ? (

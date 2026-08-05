@@ -34,12 +34,12 @@ export const RulesModal: React.FC<RulesModalProps> = ({ onClose }) => {
         <div className="space-y-5 text-lantern-parchment/80 text-sm leading-relaxed">
           <section>
             <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesSetup')}</h3>
-            <p className="font-pixel-sans">{t('rulesSetupText')}</p>
+            <p className="font-pixel-sans text-lg">{t('rulesSetupText')}</p>
           </section>
 
           <section>
             <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesAbilities')}</h3>
-            <ul className="font-pixel-sans space-y-1.5 pl-4 list-disc">
+            <ul className="font-pixel-sans text-lg space-y-1.5 pl-4 list-disc">
               <li>{t('rulesCriticalHit')}</li>
               <li>{t('rulesCounterAttack')}</li>
               <li>{t('rulesMagicSpell')}</li>
@@ -49,12 +49,12 @@ export const RulesModal: React.FC<RulesModalProps> = ({ onClose }) => {
 
           <section>
             <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesExperience')}</h3>
-            <p className="font-pixel-sans">{t('rulesExpText')}</p>
+            <p className="font-pixel-sans text-lg">{t('rulesExpText')}</p>
           </section>
 
           <section>
             <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesZones')}</h3>
-            <ul className="font-pixel-sans space-y-1 pl-4 list-disc">
+            <ul className="font-pixel-sans text-lg space-y-1 pl-4 list-disc">
               <li>Zona 1: 4, 5 + 4 dados quaisquer</li>
               <li>Zona 2: 2, 3, 4 + 3 dados quaisquer</li>
               <li>Zona 3: 3, 4, 5 + 3 dados quaisquer</li>
@@ -75,17 +75,17 @@ export const RulesModal: React.FC<RulesModalProps> = ({ onClose }) => {
 
           <section>
             <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesCombat')}</h3>
-            <p className="font-pixel-sans">{t('rulesCombatText')}</p>
+            <p className="font-pixel-sans text-lg">{t('rulesCombatText')}</p>
           </section>
 
           <section>
             <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesZone5')}</h3>
-            <p className="font-pixel-sans">{t('rulesZone5Text')}</p>
+            <p className="font-pixel-sans text-lg">{t('rulesZone5Text')}</p>
           </section>
 
           <section>
             <h3 className="text-lantern-gold font-bold text-base mb-2">{t('rulesScoring')}</h3>
-            <p className="font-pixel-sans">{t('rulesScoringText')}</p>
+            <p className="font-pixel-sans text-lg">{t('rulesScoringText')}</p>
           </section>
 
           <div className="flex justify-center pt-4 pb-8">

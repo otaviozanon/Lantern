@@ -49,7 +49,7 @@ export const DiceTray: React.FC<DiceTrayProps> = ({ dice, onDiceClick, matchedIn
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex flex-wrap justify-center gap-3 p-4 min-h-[80px]"
+      className="flex flex-wrap justify-center gap-2 p-2 min-h-[60px]"
     >
       {dice.map((d, idx) => (
         <motion.div

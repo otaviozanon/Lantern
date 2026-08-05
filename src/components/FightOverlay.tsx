@@ -26,9 +26,9 @@ export const FightOverlay: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-      className="shrink-0 border-t border-lantern-bronze/30 px-2 sm:px-3 py-2.5 max-h-[50vh] overflow-y-auto retro-scroll bg-lantern-dark"
+      className="shrink-0 border-t border-lantern-bronze/30 px-2 sm:px-3 py-1.5 max-h-[50vh] overflow-y-auto retro-scroll bg-lantern-dark"
     >
-      <div className="flex flex-col items-center gap-3">
+      <div className="flex flex-col items-center gap-1.5">
 
         {/* Match progress */}
         <BitProgress value={progress.matched} max={progress.required} color="green" label={t('matchProgress')} showValue className="w-full max-w-xs" />
@@ -41,7 +41,7 @@ export const FightOverlay: React.FC = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="flex gap-2 overflow-x-auto scrollbar-hide pb-2 w-full justify-center"
+          className="flex gap-2 overflow-x-auto scrollbar-hide pt-2 pb-1 w-full justify-center"
         >
           {(['criticalHit', 'counterAttack', 'magicSpell', 'constitution'] as const).map(key => (
             <React.Fragment key={key}>
